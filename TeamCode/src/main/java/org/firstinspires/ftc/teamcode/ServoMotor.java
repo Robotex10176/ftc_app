@@ -33,4 +33,5 @@ public class ServoMotor extends OpMode {
         Servo1 = hardwareMap.servo.get("s1")
 
     }
+    //This is all the code. The Video just goes over other ways to control the motors.
 }
