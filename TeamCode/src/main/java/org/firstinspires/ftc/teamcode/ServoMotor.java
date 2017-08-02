@@ -12,7 +12,7 @@ public class ServoMotor extends OpMode {
     DcMotor Motor1; //left stick
     DcMotor Motor2; //right stick
 
-    Servo Servo1;
+    Servo Servo1; // "A" Button
 
     @Override
     public void loop() {
