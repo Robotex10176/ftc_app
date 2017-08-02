@@ -13,6 +13,6 @@ public class referencesAndTodos {
 //TODO get all members set up with source tree and android studio
 //TODO See if we should use this todo thing as an "internal website" add links and stuff and keep it from OpModes
 //TODO make a basic robot for the Gallimore demo
-//See
+//See above for how to make a to-do
 //Welcome Fritz
 //Welcome Perrin
