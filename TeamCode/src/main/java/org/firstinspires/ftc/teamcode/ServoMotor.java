@@ -28,8 +28,8 @@ public class ServoMotor extends OpMode {
 
     @Override
     public void init() {
-        Motor1 = hardwareMap.dcMotor.get("m1");
-        Motor2 = hardwareMap.dcMotor.get("m2");
+        Motor1 = hardwareMap.dcMotor.get("Left Motor");
+        Motor2 = hardwareMap.dcMotor.get("Right Motor");
         Servo1 = hardwareMap.servo.get("s1")
 
     }
