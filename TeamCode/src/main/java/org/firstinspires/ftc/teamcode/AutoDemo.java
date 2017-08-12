@@ -50,7 +50,7 @@ public class AutoDemo extends LinearOpMode {
     private DcMotor RightMotor;
     private Servo RedArm;
     private Servo BlueArm;
-    private com.qualcomm.robotcore.hardware.ColorSensor ColorSensor;
+    private ColorSensor ColorSensor;
 
     @Override
     public void runOpMode() {
