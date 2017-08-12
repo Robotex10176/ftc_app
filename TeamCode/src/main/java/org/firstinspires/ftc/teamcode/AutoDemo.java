@@ -62,7 +62,7 @@ public class AutoDemo extends LinearOpMode {
         RedArm = hardwareMap.servo.get("Red Arm");
         BlueArm = hardwareMap.servo.get("Blue Arm");
         //Set Up Color Sensor
-        ColorSensor = hardwareMap.ColorSensor.get("Color Sensor");
+        ColorSensor = hardwareMap.colorSensor.get("Color Sensor");
 
 
 
