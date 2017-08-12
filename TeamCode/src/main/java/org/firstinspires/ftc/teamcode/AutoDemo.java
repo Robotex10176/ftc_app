@@ -46,8 +46,10 @@ import org.firstinspires.ftc.robotcontroller.external.samples.SensorColor;
 @Autonomous(name="AutoDriveToLine", group="DemoBot")
 public class AutoDemo extends LinearOpMode {
 
-    private DcMotor LeftMotor;
-    private DcMotor RightMotor;
+    private DcMotor NorthMotor;
+    private DcMotor SouthMotor;
+    private DcMotor EastMotor;
+    private DcMotor WestMotor;
     private Servo RedArm;
     private Servo BlueArm;
     private ColorSensor ColorSensor;
@@ -55,9 +57,10 @@ public class AutoDemo extends LinearOpMode {
     @Override
     public void runOpMode() {
         //Set Up Drive Track
-        LeftMotor = hardwareMap.dcMotor.get ("Left Motor");
-        RightMotor = hardwareMap.dcMotor.get ("Right Motor");
-        LeftMotor.setDirection(DcMotor.Direction.REVERSE);
+        NorthMotor = hardwareMap.dcMotor.get("NorthDrive");
+        SouthMotor = hardwareMap.dcMotor.get("SouthDrive");
+        EastMotor = hardwareMap.dcMotor.get("EastDrive");
+        WestMotor = hardwareMap.dcMotor.get("WestDrive");
         //Set Up Servo arms
         RedArm = hardwareMap.servo.get("Red Arm");
         BlueArm = hardwareMap.servo.get("Blue Arm");
@@ -65,51 +68,19 @@ public class AutoDemo extends LinearOpMode {
         ColorSensor = hardwareMap.colorSensor.get("Color Sensor");
 
 
-
-        /* Initialize the drive system variables.
-         * The init() method of the hardware class does all the work here
-         */
-        robot.init(hardwareMap);
-
-        // If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
-        // robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        // robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        // get a reference to our Light Sensor object.
-        lightSensor = hardwareMap.lightSensor.get("sensor_light");                // Primary LEGO Light Sensor
-        //  lightSensor = hardwareMap.opticalDistanceSensor.get("sensor_ods");  // Alternative MR ODS sensor.
-
-        // turn on LED of light sensor.
-        lightSensor.enableLed(true);
-
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Ready to run");    //
-        telemetry.update();
-
         // Wait for the game to start (driver presses PLAY)
         // Abort this loop is started or stopped.
         while (!(isStarted() || isStopRequested())) {
 
-            // Display the light level while we are waiting to start
-            telemetry.addData("Light Level", lightSensor.getLightDetected());
-            telemetry.update();
-            idle();
+            // run until the line is seen OR the driver presses STOP;
+            while (opModeIsActive()) {
+            }
+
+            // Stop all motors
+            NorthMotor.setPower(0);
+            SouthMotor.setPower(0);
+            EastMotor.setPower(0);
+            WestMotor.setPower(0);
         }
-
-        // Start the robot moving forward, and then begin looking for a white line.
-        robot.leftMotor.setPower(APPROACH_SPEED);
-        robot.rightMotor.setPower(APPROACH_SPEED);
-
-        // run until the white line is seen OR the driver presses STOP;
-        while (opModeIsActive() && (lightSensor.getLightDetected() < WHITE_THRESHOLD)) {
-
-            // Display the light level while we are looking for the line
-            telemetry.addData("Light Level",  lightSensor.getLightDetected());
-            telemetry.update();
-        }
-
-        // Stop all motors
-        robot.leftMotor.setPower(0);
-        robot.rightMotor.setPower(0);
     }
 }
