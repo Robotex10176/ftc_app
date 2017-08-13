@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class AutoDemoGallimore extends LinearOpMode {
     //Identify Variables if any/needed
+    boolean code_running;
     //Identify Motors
     private DcMotor NorthMotor;
     private DcMotor SouthMotor;
@@ -28,6 +29,7 @@ public class AutoDemoGallimore extends LinearOpMode {
 
     @Override
     public void runOpMode()throws InterruptedException{
+        code_running = true;
         //Set Up Drive Track
         NorthMotor = hardwareMap.dcMotor.get("NorthDrive");
         SouthMotor = hardwareMap.dcMotor.get("SouthDrive");
@@ -45,19 +47,20 @@ public class AutoDemoGallimore extends LinearOpMode {
         //Start moving
 
          // This would make it stop at a white line i Think
-        NSUP();
-        STOP_MOTORS();
-        RAISE_SIGN();
-        EWDOWN();
-        STOP_MOTORS();
-        RAISE_SIGN();
-        NSDOWN();
-        STOP_MOTORS();
-        RAISE_SIGN();
-        EWUP();
-        STOP_MOTORS();
-        RAISE_SIGN();
-        
+       while (code_running = true) {
+           NSUP();
+           STOP_MOTORS();
+           RAISE_SIGN();
+           EWDOWN();
+           STOP_MOTORS();
+           RAISE_SIGN();
+           NSDOWN();
+           STOP_MOTORS();
+           RAISE_SIGN();
+           EWUP();
+           STOP_MOTORS();
+           RAISE_SIGN();
+       }
 
 
 
