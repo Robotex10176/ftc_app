@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 //Commented out motors to get servo to work as we do not have another cable
 @TeleOp(name="ServoMotor", group="servo")
+@Disabled
 public class ServoMotor extends OpMode {
    // DcMotor Motor1; //left stick
     //DcMotor Motor2; //right stick

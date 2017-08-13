@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  * Created by Eric D'Urso on 8/13/2017.
  */
-
+@TeleOp (name = "Gallimore TeleOp", group = "Gallimore")
 public class TeleOpTest_FourOmniWheelDrive extends OpMode {
     private DcMotor NorthMotor;
     private DcMotor SouthMotor;
