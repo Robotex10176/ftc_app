@@ -44,13 +44,20 @@ public class AutoDemoGallimore extends LinearOpMode {
 
         //Start moving
 
-        while (ColorSensor.alpha() < 20){     // This would make it stop at a white line i think
-            NorthMotor.setPower(.5);
-            SouthMotor.setPower(-.5);
-        }
-
+         // This would make it stop at a white line i Think
+        NSUP();
         STOP_MOTORS();
         RAISE_SIGN();
+        EWDOWN();
+        STOP_MOTORS();
+        RAISE_SIGN();
+        NSDOWN();
+        STOP_MOTORS();
+        RAISE_SIGN();
+        EWUP();
+        STOP_MOTORS();
+        RAISE_SIGN();
+        
 
 
 
@@ -67,6 +74,34 @@ public class AutoDemoGallimore extends LinearOpMode {
         iSeeWhite.setPosition(0.65);
         sleep(6000);
         iSeeWhite.setPosition(0.001);
+    }
+
+    public void NSUP (){
+        while (ColorSensor.alpha() < 20){     // This would make it stop at a white line i think
+            NorthMotor.setPower(.5);
+            SouthMotor.setPower(-.5);
+        }
+    }
+
+    public void NSDOWN (){
+        while (ColorSensor.alpha() < 20){     // This would make it stop at a white line i think
+            NorthMotor.setPower(-.5);
+            SouthMotor.setPower(.5);
+        }
+    }
+
+    public void EWUP (){
+        while (ColorSensor.alpha() < 20){     // This would make it stop at a white line i think
+            EastMotor.setPower(.5);
+            WestMotor.setPower(-.5);
+        }
+    }
+
+    public void EWDOWN (){
+        while (ColorSensor.alpha() < 20){     // This would make it stop at a white line i think
+            EastMotor.setPower(-.5);
+            WestMotor.setPower(.5);
+        }
     }
 
 }
