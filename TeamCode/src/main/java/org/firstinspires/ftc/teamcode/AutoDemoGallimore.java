@@ -29,7 +29,7 @@ public class AutoDemoGallimore extends LinearOpMode {
 
     @Override
     public void runOpMode()throws InterruptedException{
-        code_running = true;
+        code_running = false;
         //Set Up Drive Track
         NorthMotor = hardwareMap.dcMotor.get("NorthDrive");
         SouthMotor = hardwareMap.dcMotor.get("SouthDrive");
@@ -42,11 +42,12 @@ public class AutoDemoGallimore extends LinearOpMode {
         //Set Up Color Sensor
         ColorSensor = hardwareMap.colorSensor.get("Color Sensor");
 
+
+        waitForStart ();              //start moving
+        code_running = true;
        iSeeWhite.setPosition(0.001);
-
-        //Start moving
-
-         // This would make it stop at a white line i Think
+        sleep(3000);
+// This would make it stop at a white line i Think
        while (code_running = true) {
            NSUP();
            STOP_MOTORS();
@@ -61,7 +62,9 @@ public class AutoDemoGallimore extends LinearOpMode {
            STOP_MOTORS();
            RAISE_SIGN();
        }
-
+        STOP_MOTORS();
+        iSeeWhite.setPosition(0.001);
+        System.out.println("Code Has Stopped");
 
 
     }
