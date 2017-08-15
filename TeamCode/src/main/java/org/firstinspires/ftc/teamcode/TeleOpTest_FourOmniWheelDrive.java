@@ -25,7 +25,7 @@ public class TeleOpTest_FourOmniWheelDrive extends OpMode {
     public void loop() {
         NorthMotor.setPower(gamepad1.right_stick_y);
         SouthMotor.setPower(-gamepad1.right_stick_y);
-        EastMotor.setPower(gamepad1.left_stick_x);
-        WestMotor.setPower(-gamepad1.left_stick_x);
+        EastMotor.setPower(gamepad1.left_stick_y);
+        WestMotor.setPower(-gamepad1.left_stick_y);
     }
 }
