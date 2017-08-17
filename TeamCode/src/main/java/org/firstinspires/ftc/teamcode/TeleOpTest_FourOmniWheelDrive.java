@@ -27,7 +27,7 @@ public class TeleOpTest_FourOmniWheelDrive extends OpMode {
     @Override
     public void loop() {
         if (gamepad1.right_bumper){
-            iSeeWhite.setPosition(0.65);
+            iSeeWhite.setPosition(0.99);
         }
         else {
             iSeeWhite.setPosition(0.001);
