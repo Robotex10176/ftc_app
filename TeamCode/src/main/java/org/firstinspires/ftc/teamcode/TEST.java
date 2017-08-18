@@ -20,12 +20,11 @@ public class TEST extends OpMode {
     public void loop() {
 
         ColorSensor.enableLed(true);
-
-            telemetry.addData("red", ColorSensor.red());
-            telemetry.addData("green", ColorSensor.green());
-            telemetry.addData("blue", ColorSensor.blue());
-            telemetry.addData("rgb", ColorSensor.argb());
-            telemetry.addData("ALPHA?", ColorSensor.alpha());//alpha = brightness
+        telemetry.addData("red", ColorSensor.red());
+        telemetry.addData("green", ColorSensor.green());
+        telemetry.addData("blue", ColorSensor.blue());
+        telemetry.addData("rgb", ColorSensor.argb());
+        telemetry.addData("ALPHA?", ColorSensor.alpha());//alpha = brightness
 
 
     }
