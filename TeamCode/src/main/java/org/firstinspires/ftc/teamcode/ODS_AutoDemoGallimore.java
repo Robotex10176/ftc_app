@@ -34,7 +34,7 @@ public class ODS_AutoDemoGallimore extends LinearOpMode {//start in the bottom l
 
     public void UP_RIGHT(){
         ERROR_CHECK();
-        while(ODS.getRawLightDetected()> 1.0){
+        while(ODS.getRawLightDetected()< 1.0){
             NorthMotor.setPower(-0.25);
             SouthMotor.setPower(0.25);
             EastMotor.setPower(0.25);
@@ -49,7 +49,7 @@ public class ODS_AutoDemoGallimore extends LinearOpMode {//start in the bottom l
     }
     public void UP_LEFT(){
         ERROR_CHECK();
-        while(ODS.getRawLightDetected()> 1.0){
+        while(ODS.getRawLightDetected()< 1.0){
             NorthMotor.setPower(-0.25);
             SouthMotor.setPower(0.25);
             EastMotor.setPower(-0.25);
@@ -64,7 +64,7 @@ public class ODS_AutoDemoGallimore extends LinearOpMode {//start in the bottom l
     }
     public void DOWN_LEFT(){
         ERROR_CHECK();
-        while(ODS.getRawLightDetected()> 1.0){
+        while(ODS.getRawLightDetected()< 1.0){
             NorthMotor.setPower(0.25);
             SouthMotor.setPower(-0.25);
             EastMotor.setPower(-0.25);
@@ -79,7 +79,7 @@ public class ODS_AutoDemoGallimore extends LinearOpMode {//start in the bottom l
     }
     public void DOWN_RIGHT(){
         ERROR_CHECK();
-        while(ODS.getRawLightDetected()> 1.0){
+        while(ODS.getRawLightDetected()< 1.0){
             NorthMotor.setPower(0.25);
             SouthMotor.setPower(-0.25);
             EastMotor.setPower(0.25);
@@ -94,7 +94,7 @@ public class ODS_AutoDemoGallimore extends LinearOpMode {//start in the bottom l
 
     }
     public void ERROR_CHECK(){
-        if( 1 < ODS.getRawLightDetected() && ODS.getRawLightDetected() < 3.5 ){
+        if( 1 < ODS.getRawLightDetected() && ODS.getRawLightDetected() < 2 ){
             NorthMotor.setPower(0);
             SouthMotor.setPower(0);
             EastMotor.setPower(0);
