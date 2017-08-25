@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Created by Eric D'Urso on 8/25/2017.
  */
 @Autonomous (name = "cycling motors")
+@Disabled
 public class one_motor_turns extends LinearOpMode {
     private DcMotor NorthMotor;
     private DcMotor SouthMotor;
