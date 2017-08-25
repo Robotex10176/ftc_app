@@ -25,9 +25,9 @@ public class ODS_AutoDemoGallimore extends LinearOpMode {//start in the bottom l
         waitForStart();
         while (opModeIsActive()){
             UP_RIGHT();
-            //DOWN_RIGHT();
-            //DOWN_LEFT();
-            //UP_LEFT();
+            DOWN_RIGHT();
+            DOWN_LEFT();
+            UP_LEFT();
             idle();
         }
     }
@@ -35,65 +35,65 @@ public class ODS_AutoDemoGallimore extends LinearOpMode {//start in the bottom l
     public void UP_RIGHT(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            NorthMotor.setPower(-0.25);
-            SouthMotor.setPower(0.25);
-            EastMotor.setPower(0.25);
-            WestMotor.setPower(-0.25);
+            NorthMotor.setPower(-0.15);
+            SouthMotor.setPower(0.15);
+            EastMotor.setPower(0.15);
+            WestMotor.setPower(-0.15);
             ERROR_CHECK();
             idle();
         }
-        NorthMotor.setPower(0.25);
-        SouthMotor.setPower(-0.25);
-        EastMotor.setPower(0.25);
-        WestMotor.setPower(-0.25);
+        NorthMotor.setPower(0.15);
+        SouthMotor.setPower(-0.15);
+        EastMotor.setPower(0.15);
+        WestMotor.setPower(-0.15);
         sleep(500);
     }
     public void UP_LEFT(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            NorthMotor.setPower(-0.25);
-            SouthMotor.setPower(0.25);
-            EastMotor.setPower(-0.25);
-            WestMotor.setPower(0.25);
+            NorthMotor.setPower(-0.15);
+            SouthMotor.setPower(0.15);
+            EastMotor.setPower(-0.15);
+            WestMotor.setPower(0.15);
             ERROR_CHECK();
             idle();
         }
-        NorthMotor.setPower(0.25);
-        SouthMotor.setPower(-0.25);
-        EastMotor.setPower(-0.25);
-        WestMotor.setPower(0.25);
+        NorthMotor.setPower(0.15);
+        SouthMotor.setPower(-0.15);
+        EastMotor.setPower(-0.15);
+        WestMotor.setPower(0.15);
         sleep(500);
     }
     public void DOWN_LEFT(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            NorthMotor.setPower(0.25);
-            SouthMotor.setPower(-0.25);
-            EastMotor.setPower(-0.25);
-            WestMotor.setPower(0.25);
+            NorthMotor.setPower(0.15);
+            SouthMotor.setPower(-0.15);
+            EastMotor.setPower(-0.15);
+            WestMotor.setPower(0.15);
             ERROR_CHECK();
             idle();
         }
-        NorthMotor.setPower(-0.25);
-        SouthMotor.setPower(0.25);
-        EastMotor.setPower(-0.25);
-        WestMotor.setPower(0.25);
+        NorthMotor.setPower(-0.15);
+        SouthMotor.setPower(0.15);
+        EastMotor.setPower(-0.15);
+        WestMotor.setPower(0.15);
         sleep(500);
     }
     public void DOWN_RIGHT(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            NorthMotor.setPower(0.25);
-            SouthMotor.setPower(-0.25);
-            EastMotor.setPower(0.25);
-            WestMotor.setPower(-0.25);
+            NorthMotor.setPower(0.15);
+            SouthMotor.setPower(-0.15);
+            EastMotor.setPower(0.15);
+            WestMotor.setPower(-0.15);
             ERROR_CHECK();
             idle();
         }
-        NorthMotor.setPower(-0.25);
-        SouthMotor.setPower(0.25);
-        EastMotor.setPower(0.25);
-        WestMotor.setPower(-0.25);
+        NorthMotor.setPower(-0.15);
+        SouthMotor.setPower(0.15);
+        EastMotor.setPower(0.15);
+        WestMotor.setPower(-0.15);
         sleep(500);
 
     }
