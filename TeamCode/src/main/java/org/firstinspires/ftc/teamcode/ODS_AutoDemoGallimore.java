@@ -15,6 +15,7 @@ public class ODS_AutoDemoGallimore extends LinearOpMode {//start in the bottom l
     private DcMotor EastMotor;
     private DcMotor WestMotor;
     OpticalDistanceSensor ODS;
+    private double PWR = 0.15;
     @Override
     public void runOpMode() throws InterruptedException {
         ODS = hardwareMap.opticalDistanceSensor.get("ODS");
@@ -35,70 +36,70 @@ public class ODS_AutoDemoGallimore extends LinearOpMode {//start in the bottom l
     public void UP_RIGHT(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            NorthMotor.setPower(-0.15);
-            SouthMotor.setPower(0.15);
-            EastMotor.setPower(0.15);
-            WestMotor.setPower(-0.15);
+            NorthMotor.setPower(-PWR);
+            SouthMotor.setPower(PWR);
+            EastMotor.setPower(PWR);
+            WestMotor.setPower(-PWR);
             ERROR_CHECK();
             idle();
         }
-        NorthMotor.setPower(0.15);
-        SouthMotor.setPower(-0.15);
-        EastMotor.setPower(0.15);
-        WestMotor.setPower(-0.15);
+        NorthMotor.setPower(PWR);
+        SouthMotor.setPower(-PWR);
+        EastMotor.setPower(PWR);
+        WestMotor.setPower(-PWR);
         sleep(500);
     }
     public void UP_LEFT(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            NorthMotor.setPower(-0.15);
-            SouthMotor.setPower(0.15);
-            EastMotor.setPower(-0.15);
-            WestMotor.setPower(0.15);
+            NorthMotor.setPower(-PWR);
+            SouthMotor.setPower(PWR);
+            EastMotor.setPower(-PWR);
+            WestMotor.setPower(PWR);
             ERROR_CHECK();
             idle();
         }
-        NorthMotor.setPower(0.15);
-        SouthMotor.setPower(-0.15);
-        EastMotor.setPower(-0.15);
-        WestMotor.setPower(0.15);
+        NorthMotor.setPower(PWR);
+        SouthMotor.setPower(-PWR);
+        EastMotor.setPower(-PWR);
+        WestMotor.setPower(PWR);
         sleep(500);
     }
     public void DOWN_LEFT(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            NorthMotor.setPower(0.15);
-            SouthMotor.setPower(-0.15);
-            EastMotor.setPower(-0.15);
-            WestMotor.setPower(0.15);
+            NorthMotor.setPower(PWR);
+            SouthMotor.setPower(-PWR);
+            EastMotor.setPower(-PWR);
+            WestMotor.setPower(PWR);
             ERROR_CHECK();
             idle();
         }
-        NorthMotor.setPower(-0.15);
-        SouthMotor.setPower(0.15);
-        EastMotor.setPower(-0.15);
-        WestMotor.setPower(0.15);
+        NorthMotor.setPower(-PWR);
+        SouthMotor.setPower(PWR);
+        EastMotor.setPower(-PWR);
+        WestMotor.setPower(PWR);
         sleep(500);
     }
     public void DOWN_RIGHT(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            NorthMotor.setPower(0.15);
-            SouthMotor.setPower(-0.15);
-            EastMotor.setPower(0.15);
-            WestMotor.setPower(-0.15);
+            NorthMotor.setPower(PWR);
+            SouthMotor.setPower(-PWR);
+            EastMotor.setPower(PWR);
+            WestMotor.setPower(-PWR);
             ERROR_CHECK();
             idle();
         }
-        NorthMotor.setPower(-0.15);
-        SouthMotor.setPower(0.15);
-        EastMotor.setPower(0.15);
-        WestMotor.setPower(-0.15);
+        NorthMotor.setPower(-PWR);
+        SouthMotor.setPower(PWR);
+        EastMotor.setPower(PWR);
+        WestMotor.setPower(-PWR);
         sleep(500);
 
     }
     public void ERROR_CHECK(){
-        if( (1 < ODS.getRawLightDetected()) && (ODS.getRawLightDetected() < 2 )){
+        if( (1 < ODS.getRawLightDetected()) && (ODS.getRawLightDetected() < 3 )){
             NorthMotor.setPower(0);
             SouthMotor.setPower(0);
             EastMotor.setPower(0);
