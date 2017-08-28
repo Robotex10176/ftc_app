@@ -15,7 +15,7 @@ public class ODS_AutoDemoGallimore extends LinearOpMode {//start in the bottom l
     private DcMotor SpNn;
     private DcMotor NpSn;
     OpticalDistanceSensor ODS;
-    private double PWR = 0.10;
+    private double PWR = 0.11;
     @Override
     public void runOpMode() throws InterruptedException {
         ODS = hardwareMap.opticalDistanceSensor.get("ODS");
@@ -25,39 +25,37 @@ public class ODS_AutoDemoGallimore extends LinearOpMode {//start in the bottom l
         NpSn = hardwareMap.dcMotor.get("NpSn");
         waitForStart();
         while (opModeIsActive()){
-            UP_RIGHT();
-            DOWN_RIGHT();
-            DOWN_LEFT();
-            UP_LEFT();
+            NORTHEAST();
+            SOUTHEAST();
             idle();
         }
     }
 
-    public void UP_RIGHT(){
+    public void NORTHEAST(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            EpWn.setPower(-PWR);
-            WpEn.setPower(PWR);
-            SpNn.setPower(PWR);
-            NpSn.setPower(-PWR);
+            EpWn.setPower(PWR);
+            WpEn.setPower(-PWR);
+            SpNn.setPower(-PWR);
+            NpSn.setPower(PWR);
             ERROR_CHECK();
             idle();
         }
         telemetry.addLine("TOP RIGHT");
         sleep(3000);
-        EpWn.setPower(PWR);
-        WpEn.setPower(-PWR);
+        EpWn.setPower(-PWR);
+        WpEn.setPower(PWR);
         SpNn.setPower(PWR);
         NpSn.setPower(-PWR);
         sleep(500);
     }
-    public void UP_LEFT(){
+    public void SOUTHEAST(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            EpWn.setPower(-PWR);
-            WpEn.setPower(PWR);
-            SpNn.setPower(-PWR);
-            NpSn.setPower(PWR);
+            EpWn.setPower(PWR);
+            WpEn.setPower(-PWR);
+            SpNn.setPower(PWR);
+            NpSn.setPower(-PWR);
             ERROR_CHECK();
             idle();
         }

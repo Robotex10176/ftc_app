@@ -10,27 +10,27 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 @TeleOp (name = "Gallimore TeleOp", group = "Gallimore")
 public class TeleOpTest_FourOmniWheelDrive extends OpMode {
-    private DcMotor NorthMotor;
-    private DcMotor SouthMotor;
-    private DcMotor EastMotor;
-    private DcMotor WestMotor;
+    private DcMotor EpWn;
+    private DcMotor WpEn;
+    private DcMotor SpNn;
+    private DcMotor NpSn;
 
     @Override
     public void init() {
-        NorthMotor = hardwareMap.dcMotor.get("NorthDrive");
-        SouthMotor = hardwareMap.dcMotor.get("SouthDrive");
-        EastMotor = hardwareMap.dcMotor.get("EastDrive");
-        WestMotor = hardwareMap.dcMotor.get("WestDrive");
+        EpWn = hardwareMap.dcMotor.get("EpWn");
+        WpEn = hardwareMap.dcMotor.get("WpEn");
+        SpNn = hardwareMap.dcMotor.get("SpNn");
+        NpSn = hardwareMap.dcMotor.get("NpSn");
 
     }
 
     @Override
     public void loop() {
 
-        NorthMotor.setPower(gamepad1.right_stick_y);
-        SouthMotor.setPower(-gamepad1.right_stick_y);
-        EastMotor.setPower(gamepad1.left_stick_y);
-        WestMotor.setPower(-gamepad1.left_stick_y);
+        EpWn.setPower(gamepad1.right_stick_y);
+        WpEn.setPower(-gamepad1.right_stick_y);
+        SpNn.setPower(gamepad1.left_stick_y);
+        NpSn.setPower(-gamepad1.left_stick_y);
 
     }
 }
