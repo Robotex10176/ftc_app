@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by Eric D'Urso on 8/13/2017.
  */
-@TeleOp (name = "Gallimore TeleOp", group = "Gallimore")
-public class TeleOpTest_FourOmniWheelDrive extends OpMode {
+@TeleOp (name = "GALLIMORE_TELEOP", group = "GALLIMORE")
+public class GALLIMORE_TELEOP_V1 extends OpMode {
     private DcMotor EpWn;
     private DcMotor WpEn;
     private DcMotor SpNn;

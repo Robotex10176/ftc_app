@@ -3,14 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
-
-/**
- * Created by Eric D'Urso on 8/28/2017.
- */
-@Autonomous (name = "GALLIMORESAUTONONOMOUNOMUS")
-public class AUTOLINESEEIN extends LinearOpMode {
+@Autonomous (name = "GALLIMORE_AUTO_V3", group = "GALLIMORE")
+public class GALLIMORE_AUTO_V3 extends LinearOpMode {
     private DcMotor EpWn;
     private DcMotor WpEn;
     private DcMotor SpNn;
@@ -33,32 +28,49 @@ public class AUTOLINESEEIN extends LinearOpMode {
         NpSn.setDirection(DcMotor.Direction.REVERSE);
         waitForStart();
         while (opModeIsActive()){
-            VERT_PWR = VERT_DIRECTION*WANTED_PWR;
-            HOR_PWR = HOR_DIRECTION*WANTED_PWR;
-            while (ODS.getRawLightDetected()<1.25){
-                EpWn.setPower(HOR_PWR);
-                WpEn.setPower(HOR_PWR);
-                SpNn.setPower(VERT_PWR);
-                NpSn.setPower(VERT_PWR);
-            }
-            EpWn.setPower(NO_POW);
-            WpEn.setPower(NO_POW);
-            SpNn.setPower(NO_POW);
-            NpSn.setPower(NO_POW);
+            MOVE();
+            HOR_DIRECTION = -HOR_DIRECTION;//Represents controller change
+            MOVE();
             VERT_DIRECTION = -VERT_DIRECTION;
+            MOVE();
+            VERT_DIRECTION = -VERT_DIRECTION;
+            MOVE();
             HOR_DIRECTION = -HOR_DIRECTION;
-            VERT_PWR = VERT_DIRECTION*WANTED_PWR;
-            HOR_PWR = HOR_DIRECTION*WANTED_PWR;
-            EpWn.setPower(HOR_PWR);
-            WpEn.setPower(HOR_PWR);
-            SpNn.setPower(VERT_PWR);
-            NpSn.setPower(VERT_PWR);
-            sleep(500);
-            EpWn.setPower(NO_POW);
-            WpEn.setPower(NO_POW);
-            SpNn.setPower(NO_POW);
-            NpSn.setPower(NO_POW);
-
         }
+    }
+    public void MOVE(){
+        PWR_UPDATE();
+        MOVE_TILL_LINE();
+        STOP();
+        REVERSE();
+    }
+    public void BACK_UP(){
+        EpWn.setPower(HOR_PWR);
+        WpEn.setPower(HOR_PWR);
+        SpNn.setPower(VERT_PWR);
+        NpSn.setPower(VERT_PWR);
+    }
+    public void STOP(){
+        EpWn.setPower(NO_POW);
+        WpEn.setPower(NO_POW);
+        SpNn.setPower(NO_POW);
+        NpSn.setPower(NO_POW);
+    }
+    public void MOVE_TILL_LINE(){
+        while (ODS.getRawLightDetected()<1.25){
+            BACK_UP();
+        }
+    }
+    public void PWR_UPDATE(){
+        VERT_PWR = VERT_DIRECTION*WANTED_PWR;
+        HOR_PWR = HOR_DIRECTION*WANTED_PWR;
+    }
+    public void REVERSE(){
+        VERT_DIRECTION = -VERT_DIRECTION;//SET TO REVERSE
+        HOR_DIRECTION = -HOR_DIRECTION;
+        PWR_UPDATE();
+        BACK_UP();//BACKS UP
+        sleep(500);
+        STOP();
     }
 }

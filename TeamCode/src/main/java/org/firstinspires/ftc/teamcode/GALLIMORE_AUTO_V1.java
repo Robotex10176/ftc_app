@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 /**
  * Created by Eric D'Urso on 8/28/2017.
  */
-@Autonomous (name = "ISEELINES")
-public class bouncingBetweenLines extends LinearOpMode {
+@Autonomous (name = "GALLIMORE_AUTO_V1", group = "GALLIMORE")
+public class GALLIMORE_AUTO_V1 extends LinearOpMode {
     private DcMotor EpWn;
     private DcMotor WpEn;
     OpticalDistanceSensor ODS;

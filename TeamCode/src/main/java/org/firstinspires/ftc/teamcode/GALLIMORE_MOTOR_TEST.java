@@ -8,19 +8,18 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by Eric D'Urso on 8/25/2017.
  */
-@Autonomous (name = "cycling motors")
-@Disabled
-public class one_motor_turns extends LinearOpMode {
+@Autonomous (name = "GALLIMORE_MOTOR_TEST", group = "GALLIMORE")
+public class GALLIMORE_MOTOR_TEST extends LinearOpMode {
     private DcMotor EpWn;
     private DcMotor WpEn;
     private DcMotor SpNn;
     private DcMotor NpSn;
     @Override
     public void runOpMode() throws InterruptedException {
-        EpWn = hardwareMap.dcMotor.get("NorthDrive");
-        WpEn = hardwareMap.dcMotor.get("SouthDrive");
-        SpNn = hardwareMap.dcMotor.get("EastDrive");
-        NpSn = hardwareMap.dcMotor.get("WestDrive");
+        EpWn = hardwareMap.dcMotor.get("EpWn");
+        WpEn = hardwareMap.dcMotor.get("WpEn");
+        SpNn = hardwareMap.dcMotor.get("SpNn");
+        NpSn = hardwareMap.dcMotor.get("NpSn");
         waitForStart();
         while (opModeIsActive()){
             telemetry.addLine("N");

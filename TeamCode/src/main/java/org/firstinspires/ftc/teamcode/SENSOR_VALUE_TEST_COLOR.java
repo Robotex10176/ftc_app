@@ -8,9 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  * Created by Eric D'Urso on 8/15/2017.
  * Eric Says Hi
  */
-@TeleOp (name = "ColorSensorTest")
-@Disabled
-public class ColorSensorReturnTest extends OpMode {
+@TeleOp (name = "COLOR_SENSOR_VALUE_TEST", group = "SENSOR_VALUE_TESTS")
+public class SENSOR_VALUE_TEST_COLOR extends OpMode {
     private com.qualcomm.robotcore.hardware.ColorSensor ColorSensor;
 
     @Override
