@@ -10,19 +10,19 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
  */
 @Autonomous (name = "Gallimore Auto")  //NOTE the white tape must be facing the back
 public class ODS_AutoDemoGallimore extends LinearOpMode {//start in the bottom left corner
-    private DcMotor NorthMotor;
-    private DcMotor SouthMotor;
-    private DcMotor EastMotor;
-    private DcMotor WestMotor;
+    private DcMotor EpWn;
+    private DcMotor WpEn;
+    private DcMotor SpNn;
+    private DcMotor NpSn;
     OpticalDistanceSensor ODS;
-    private double PWR = 0.15;
+    private double PWR = 0.10;
     @Override
     public void runOpMode() throws InterruptedException {
         ODS = hardwareMap.opticalDistanceSensor.get("ODS");
-        NorthMotor = hardwareMap.dcMotor.get("NorthDrive");
-        SouthMotor = hardwareMap.dcMotor.get("SouthDrive");
-        EastMotor = hardwareMap.dcMotor.get("EastDrive");
-        WestMotor = hardwareMap.dcMotor.get("WestDrive");
+        EpWn = hardwareMap.dcMotor.get("EpWn");
+        WpEn = hardwareMap.dcMotor.get("WpEn");
+        SpNn = hardwareMap.dcMotor.get("SpNn");
+        NpSn = hardwareMap.dcMotor.get("NpSn");
         waitForStart();
         while (opModeIsActive()){
             UP_RIGHT();
@@ -36,74 +36,82 @@ public class ODS_AutoDemoGallimore extends LinearOpMode {//start in the bottom l
     public void UP_RIGHT(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            NorthMotor.setPower(-PWR);
-            SouthMotor.setPower(PWR);
-            EastMotor.setPower(PWR);
-            WestMotor.setPower(-PWR);
+            EpWn.setPower(-PWR);
+            WpEn.setPower(PWR);
+            SpNn.setPower(PWR);
+            NpSn.setPower(-PWR);
             ERROR_CHECK();
             idle();
         }
-        NorthMotor.setPower(PWR);
-        SouthMotor.setPower(-PWR);
-        EastMotor.setPower(PWR);
-        WestMotor.setPower(-PWR);
+        telemetry.addLine("TOP RIGHT");
+        sleep(3000);
+        EpWn.setPower(PWR);
+        WpEn.setPower(-PWR);
+        SpNn.setPower(PWR);
+        NpSn.setPower(-PWR);
         sleep(500);
     }
     public void UP_LEFT(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            NorthMotor.setPower(-PWR);
-            SouthMotor.setPower(PWR);
-            EastMotor.setPower(-PWR);
-            WestMotor.setPower(PWR);
+            EpWn.setPower(-PWR);
+            WpEn.setPower(PWR);
+            SpNn.setPower(-PWR);
+            NpSn.setPower(PWR);
             ERROR_CHECK();
             idle();
         }
-        NorthMotor.setPower(PWR);
-        SouthMotor.setPower(-PWR);
-        EastMotor.setPower(-PWR);
-        WestMotor.setPower(PWR);
+        telemetry.addLine("TOP LEFT");
+        sleep(3000);
+        EpWn.setPower(PWR);
+        WpEn.setPower(-PWR);
+        SpNn.setPower(-PWR);
+        NpSn.setPower(PWR);
         sleep(500);
     }
     public void DOWN_LEFT(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            NorthMotor.setPower(PWR);
-            SouthMotor.setPower(-PWR);
-            EastMotor.setPower(-PWR);
-            WestMotor.setPower(PWR);
+            EpWn.setPower(PWR);
+            WpEn.setPower(-PWR);
+            SpNn.setPower(-PWR);
+            NpSn.setPower(PWR);
             ERROR_CHECK();
             idle();
         }
-        NorthMotor.setPower(-PWR);
-        SouthMotor.setPower(PWR);
-        EastMotor.setPower(-PWR);
-        WestMotor.setPower(PWR);
+        telemetry.addLine("BOTTOM LEFT");
+        sleep(3000);
+        EpWn.setPower(-PWR);
+        WpEn.setPower(PWR);
+        SpNn.setPower(-PWR);
+        NpSn.setPower(PWR);
         sleep(500);
     }
     public void DOWN_RIGHT(){
         ERROR_CHECK();
         while(ODS.getRawLightDetected()< 1.0){
-            NorthMotor.setPower(PWR);
-            SouthMotor.setPower(-PWR);
-            EastMotor.setPower(PWR);
-            WestMotor.setPower(-PWR);
+            EpWn.setPower(PWR);
+            WpEn.setPower(-PWR);
+            SpNn.setPower(PWR);
+            NpSn.setPower(-PWR);
             ERROR_CHECK();
             idle();
         }
-        NorthMotor.setPower(-PWR);
-        SouthMotor.setPower(PWR);
-        EastMotor.setPower(PWR);
-        WestMotor.setPower(-PWR);
+        telemetry.addLine("BOTTOM RIGHT");
+        sleep(3000);
+        EpWn.setPower(-PWR);
+        WpEn.setPower(PWR);
+        SpNn.setPower(PWR);
+        NpSn.setPower(-PWR);
         sleep(500);
 
     }
     public void ERROR_CHECK(){
-        if( (1 < ODS.getRawLightDetected()) && (ODS.getRawLightDetected() < 3 )){
-            NorthMotor.setPower(0);
-            SouthMotor.setPower(0);
-            EastMotor.setPower(0);
-            WestMotor.setPower(0);
+        if( (1.5 < ODS.getRawLightDetected()) && (ODS.getRawLightDetected() < 3 )){
+            EpWn.setPower(0);
+            WpEn.setPower(0);
+            SpNn.setPower(0);
+            NpSn.setPower(0);
             telemetry.addLine("ODS VALUE ERROR STOP PROGRAM");
         }
     }
