@@ -29,7 +29,7 @@ public class GALLIMORE_AUTO_V3 extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()){
             MOVE();
-            HOR_DIRECTION = -HOR_DIRECTION;//Represents controller change
+            HOR_DIRECTION = -HOR_DIRECTION;
             MOVE();
             VERT_DIRECTION = -VERT_DIRECTION;
             MOVE();
