@@ -30,12 +30,16 @@ public class GALLIMORE_AUTO_V3 extends LinearOpMode {
         while (opModeIsActive()){
             MOVE();
             HOR_DIRECTION = -HOR_DIRECTION;
+            telemetry.addLine("1");
             MOVE();
             VERT_DIRECTION = -VERT_DIRECTION;
+            telemetry.addLine("2");
             MOVE();
-            VERT_DIRECTION = -VERT_DIRECTION;
+            HOR_DIRECTION = -HOR_DIRECTION;//used to be vert
+            telemetry.addLine("3");
             MOVE();
-            HOR_DIRECTION = -HOR_DIRECTION;
+            VERT_DIRECTION = -VERT_DIRECTION;//used to be hor
+            telemetry.addLine("4");
         }
     }
     public void MOVE(){
