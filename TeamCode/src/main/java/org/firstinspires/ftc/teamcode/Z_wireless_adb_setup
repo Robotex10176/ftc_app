@@ -1,0 +1,39 @@
+HOW TO SET UP WIRELESS ADB FOR FTC PHONES
+
+GETTING PHONES READY
+    Connect your Robot Controller phone to the network that the computer you wish
+    to connect with is on. While trying to connect, open advanced and change the
+    IP address setting from DHCP to Static. Create an IP address like the ones below,
+    but don't change any of the Gateway, DHS or any other settings. Make note of the
+    IP addresses below.
+
+PHONE IP
+    A Phone Robot Controller IP Address: 192.168.1.99   CURRENT IP
+    B Phone Robot Controller IP Address: 192.168.1.100  CURRENT IP
+
+TCPIP PATHS
+    Path 1: 5555
+    Path 2: 5037
+    NOTE
+        5555 can be replaced by 5037
+
+
+CONNECTION:
+    Plug in phone
+    In terminal, type>
+        adb tcpip 5555
+    Then type>
+        adb connect <PHONE IP ADDRESS>:5555
+    Unplug phone, adb is connected wirelessly.
+
+
+DISCONNECTION
+    In terminal, type>
+        adb disconnect <PHONE IP ADDRESS>
+    Phone no longer connected wirelessly.
+
+
+TO CHECK FOR ADB DEVICES THAT ARE CONNECTED
+    In terminal, type>
+        adb devices
+    A list of all the connected devices IP's will show up.
