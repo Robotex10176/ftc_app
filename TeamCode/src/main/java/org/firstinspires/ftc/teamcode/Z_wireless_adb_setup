@@ -22,6 +22,7 @@ CONNECTION:
     Plug in phone
     In terminal, type>
         adb tcpip 5555
+    Note that tcpip commands only work if the device is attached
     Then type>
         adb connect <PHONE IP ADDRESS>:5555
     Unplug phone, adb is connected wirelessly.
