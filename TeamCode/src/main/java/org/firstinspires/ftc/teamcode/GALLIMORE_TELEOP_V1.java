@@ -45,6 +45,13 @@ public class GALLIMORE_TELEOP_V1 extends OpMode {
             SpNn.setPower(scaleController(gamepad1.right_trigger));
             NpSn.setPower(scaleController(gamepad1.right_trigger));
         }
+        if ((java.lang.Math.abs(gamepad1.left_stick_x) < 0.05)&&(java.lang.Math.abs(gamepad1.left_stick_x) < 0.05)) {
+            //this block rotates the robot right
+            EpWn.setPower(scaleController(-gamepad1.left_trigger));
+            WpEn.setPower(scaleController(-gamepad1.left_trigger));
+            SpNn.setPower(scaleController(-gamepad1.left_trigger));
+            NpSn.setPower(scaleController(-gamepad1.left_trigger));
+        }
 
 
     }
