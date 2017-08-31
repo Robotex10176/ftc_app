@@ -32,13 +32,13 @@ public class GALLIMORE_TELEOP_V1 extends OpMode {
     public void loop() {
         //primary driving block
         if ((gamepad1.right_trigger < 0.05 )&&(gamepad1.left_trigger < 0.05 )) {
-            EpWn.setPower(scaleController(-gamepad1.right_stick_x));
-            WpEn.setPower(scaleController(gamepad1.right_stick_x));
+            EpWn.setPower(scaleController(-gamepad1.left_stick_x));
+            WpEn.setPower(scaleController(gamepad1.left_stick_x));
             SpNn.setPower(scaleController(gamepad1.left_stick_y));
             NpSn.setPower(scaleController(-gamepad1.left_stick_y));
         }
         //done add conditional below
-        if ((java.lang.Math.abs(gamepad1.right_stick_x) < 0.05)&&(java.lang.Math.abs(gamepad1.left_stick_x) < 0.05)) {
+        if ((java.lang.Math.abs(gamepad1.left_stick_x) < 0.05)&&(java.lang.Math.abs(gamepad1.left_stick_x) < 0.05)) {
             //this block rotates the robot right
             EpWn.setPower(scaleController(gamepad1.right_trigger));
             WpEn.setPower(scaleController(gamepad1.right_trigger));
