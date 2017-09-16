@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  * Eric Says Hi
  */
 @TeleOp (name = "COLOR_SENSOR_VALUE_TEST", group = "SENSOR_VALUE_TESTS")
+@Disabled
 public class SENSOR_VALUE_TEST_COLOR extends OpMode {
     private com.qualcomm.robotcore.hardware.ColorSensor ColorSensor;
 

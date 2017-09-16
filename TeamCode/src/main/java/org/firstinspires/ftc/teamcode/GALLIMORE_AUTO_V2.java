@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -10,6 +11,7 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
  * Created by Eric D'Urso on 8/28/2017.
  */
 @Autonomous (name = "GALLIMORE_AUTO_V2", group = "GALLIMORE")
+@Disabled
 public class GALLIMORE_AUTO_V2 extends LinearOpMode {
     private DcMotor EpWn;
     private DcMotor WpEn;

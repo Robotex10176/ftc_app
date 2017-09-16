@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Created by Eric D'Urso on 8/25/2017.
  */
 @Autonomous (name = "GALLIMORE_MOTOR_TEST", group = "GALLIMORE")
+@Disabled
 public class GALLIMORE_MOTOR_TEST extends LinearOpMode {
     private DcMotor EpWn;
     private DcMotor WpEn;

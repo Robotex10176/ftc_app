@@ -46,6 +46,7 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 @TeleOp(name = "OPTICAL_DISTANCE_SENSOR_VALUE_TEST", group = "SENSOR_VALUE_TESTS")
+@Disabled
 public class SENSOR_VALUE_TEST_ODS extends LinearOpMode {
 
   OpticalDistanceSensor odsSensor;  // Hardware Device Object

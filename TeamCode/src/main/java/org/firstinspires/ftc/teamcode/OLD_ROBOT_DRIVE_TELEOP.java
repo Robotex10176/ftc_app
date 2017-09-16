@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Created by Eric D'Urso on 8/29/2017.
  */
 @TeleOp(name = "OLD_ROBOT_TELEOP", group = "OLE_ROBOT")
+@Disabled
 public class OLD_ROBOT_DRIVE_TELEOP extends OpMode {
     private DcMotor LeftMotor;
     private DcMotor RightMotor;
