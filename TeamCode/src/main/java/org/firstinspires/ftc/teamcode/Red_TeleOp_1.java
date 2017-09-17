@@ -79,6 +79,9 @@ public class Red_TeleOp_1 extends LinearOpMode {
         KnockOffJewl();
         DriveToSafeZone();
         PlaceGlyph();
+        telemetry.addData("VuMark", "%s visible", vuMark);
+        telemetry.update();
+
     }
     String format(OpenGLMatrix transformationMatrix) {
         return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
