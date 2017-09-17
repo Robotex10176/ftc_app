@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  */
 @TeleOp(name = "OLD_ROBOT_TELEOP", group = "OLE_ROBOT")
 @Disabled
-public class OLD_ROBOT_DRIVE_TELEOP extends OpMode {
+public class X_OLD_ROBOT_DRIVE_TELEOP extends OpMode {
     private DcMotor LeftMotor;
     private DcMotor RightMotor;
    // private float scaleController(float in){

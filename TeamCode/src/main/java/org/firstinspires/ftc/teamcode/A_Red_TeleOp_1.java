@@ -20,8 +20,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 /**
  * Created by Eric D'Urso on 9/16/2017.
  */
-@Autonomous (name = "Red_TeleOp_1")
-public class Red_TeleOp_1 extends LinearOpMode {
+@Autonomous (name = "A_Red_TeleOp_1")
+public class A_Red_TeleOp_1 extends LinearOpMode {
 
     //test variable
     boolean ranVuforia = false;

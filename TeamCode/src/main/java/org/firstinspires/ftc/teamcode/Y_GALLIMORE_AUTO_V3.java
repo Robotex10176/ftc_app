@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
-@Autonomous (name = "GALLIMORE_AUTO_V3", group = "GALLIMORE")
+@Autonomous (name = "Y_GALLIMORE_AUTO_V3", group = "GALLIMORE")
 @Disabled
-public class GALLIMORE_AUTO_V3 extends LinearOpMode {
+public class Y_GALLIMORE_AUTO_V3 extends LinearOpMode {
     private DcMotor EpWn;
     private DcMotor WpEn;
     private DcMotor SpNn;

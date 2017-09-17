@@ -10,9 +10,9 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 /**
  * Created by Eric D'Urso on 8/28/2017.
  */
-@Autonomous (name = "GALLIMORE_AUTO_V2", group = "GALLIMORE")
+@Autonomous (name = "Y_GALLIMORE_AUTO_V2", group = "GALLIMORE")
 @Disabled
-public class GALLIMORE_AUTO_V2 extends LinearOpMode {
+public class Y_GALLIMORE_AUTO_V2 extends LinearOpMode {
     private DcMotor EpWn;
     private DcMotor WpEn;
     private DcMotor SpNn;

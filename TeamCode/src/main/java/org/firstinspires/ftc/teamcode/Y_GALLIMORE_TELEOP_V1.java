@@ -11,7 +11,7 @@ import java.lang.Math;
  */
 @TeleOp (name = "GALLIMORE_TELEOP", group = "GALLIMORE")
 @Disabled
-public class GALLIMORE_TELEOP_V1 extends OpMode {
+public class Y_GALLIMORE_TELEOP_V1 extends OpMode {
     private DcMotor EpWn;
     private DcMotor WpEn;
     private DcMotor SpNn;

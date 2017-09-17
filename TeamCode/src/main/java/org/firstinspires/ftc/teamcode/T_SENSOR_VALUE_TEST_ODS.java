@@ -47,7 +47,7 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
  */
 @TeleOp(name = "OPTICAL_DISTANCE_SENSOR_VALUE_TEST", group = "SENSOR_VALUE_TESTS")
 @Disabled
-public class SENSOR_VALUE_TEST_ODS extends LinearOpMode {
+public class T_SENSOR_VALUE_TEST_ODS extends LinearOpMode {
 
   OpticalDistanceSensor odsSensor;  // Hardware Device Object
 

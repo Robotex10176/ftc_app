@@ -10,9 +10,9 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by fritz on 8/1/17.
  */
 //Commented out motors to get servo to work as we do not have another cable
-@TeleOp(name="PRACTICE_TELEOP_SERVO", group="PRACTICE")
+@TeleOp(name="W_PRACTICE_TELEOP_SERVO", group="PRACTICE")
 @Disabled
-public class PRACTICE_TELEOP_SERVO extends OpMode {
+public class W_PRACTICE_TELEOP_SERVO extends OpMode {
    // DcMotor Motor1; //left stick
     //DcMotor Motor2; //right stick
 
