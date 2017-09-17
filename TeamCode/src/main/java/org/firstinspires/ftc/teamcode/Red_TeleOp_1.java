@@ -59,37 +59,24 @@ public class Red_TeleOp_1 extends LinearOpMode {
 
         relicTrackables.activate();
 
-        while (opModeIsActive()) {
-            //all of this code is in COnceptVuMarkIdentification.java
-            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
-                telemetry.addData("VuMark", "%s visible", vuMark);
-                //They also use the navigation portion
-                OpenGLMatrix pose = ((VuforiaTrackableDefaultListener)relicTemplate.getListener()).getPose();
-                telemetry.addData("Pose", format(pose));
-                if (pose != null) {
-                    VectorF trans = pose.getTranslation();
-                    Orientation rot = Orientation.getOrientation(pose, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-                    double tX = trans.get(0);
-                    double tY = trans.get(1);
-                    double tZ = trans.get(2);
-                    double rX = rot.firstAngle;
-                    double rY = rot.secondAngle;
-                    double rZ = rot.thirdAngle;
-                }
-            }
-            else {
-                telemetry.addData("VuMark", "not visible");
-            }
 
+        //all of this code is in COnceptVuMarkIdentification.java
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+        while (vuMark == RelicRecoveryVuMark.UNKNOWN) {//While it cant see vuMark
+            vuMark = RelicRecoveryVuMark.from(relicTemplate);
+            telemetry.addData("VuMark", "not visible");
             telemetry.update();
+            idle();
         }
+        telemetry.addData("VuMark", "%s visible", vuMark);
+        telemetry.update();
+
         //run normal opmode
         ranVuforia = true;
         telemetry.addData("Vuforia Status:", ranVuforia);
+        telemetry.update();
 
         KnockOffJewl();
-        ScanVuMark();
         DriveToSafeZone();
         PlaceGlyph();
     }
@@ -98,18 +85,17 @@ public class Red_TeleOp_1 extends LinearOpMode {
     }
     public void KnockOffJewl(){
         telemetry.addData("Knocking Off Jewl...", ranVuforia);
-        sleep(2000);
-    }
-    public void ScanVuMark(){
-        telemetry.addData("Scanning VuMark...", ranVuforia);
+        telemetry.update();
         sleep(2000);
     }
     public void DriveToSafeZone(){
         telemetry.addData("Driving To Safe Zone...", ranVuforia);
+        telemetry.update();
         sleep(2000);
     }
     public void PlaceGlyph(){
         telemetry.addData("Placing Glyph", ranVuforia);
+        telemetry.update();
         sleep(2000);
     }
 }
