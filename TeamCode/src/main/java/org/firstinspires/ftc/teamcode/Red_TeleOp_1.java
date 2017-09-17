@@ -106,26 +106,29 @@ public class Red_TeleOp_1 extends LinearOpMode {
         ranVuforia = true;
         telemetry.addData("Vuforia Status:", ranVuforia);
 
-
-        //KnockOffJewl();
-        //ScanVuMark();
-        //DriveToSafeZone();
-        //PlaceGlyph();
+        KnockOffJewl();
+        ScanVuMark();
+        DriveToSafeZone();
+        PlaceGlyph();
     }
     String format(OpenGLMatrix transformationMatrix) {
         return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
     }
     public void KnockOffJewl(){
-
+        telemetry.addData("Knocking Off Jewl...", ranVuforia);
+        sleep(2000);
     }
     public void ScanVuMark(){
-
+        telemetry.addData("Scanning VuMark...", ranVuforia);
+        sleep(2000);
     }
     public void DriveToSafeZone(){
-
+        telemetry.addData("Driving To Safe Zone...", ranVuforia);
+        sleep(2000);
     }
     public void PlaceGlyph(){
-
+        telemetry.addData("Placing Glyph", ranVuforia);
+        sleep(2000);
     }
 }
 
