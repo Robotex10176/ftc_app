@@ -23,6 +23,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 @Autonomous (name = "Red_TeleOp_1")
 public class Red_TeleOp_1 extends LinearOpMode {
 
+    //test variable
+    boolean ranVuforia = false;
+
     public static final String TAG = "Vuforia VuMark Sample";
 
     OpenGLMatrix lastLocation = null;
@@ -50,6 +53,8 @@ public class Red_TeleOp_1 extends LinearOpMode {
 
         waitForStart();
 
+        ranVuforia = false;
+        telemetry.addData("Vuforia Status:", ranVuforia);
 
         relicTrackables.activate();
 
@@ -98,11 +103,14 @@ public class Red_TeleOp_1 extends LinearOpMode {
             telemetry.update();
         }
 
+        ranVuforia = true;
+        telemetry.addData("Vuforia Status:", ranVuforia);
 
-        KnockOffJewl();
-        ScanVuMark();
-        DriveToSafeZone();
-        PlaceGlyph();
+
+        //KnockOffJewl();
+        //ScanVuMark();
+        //DriveToSafeZone();
+        //PlaceGlyph();
     }
     String format(OpenGLMatrix transformationMatrix) {
         return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
