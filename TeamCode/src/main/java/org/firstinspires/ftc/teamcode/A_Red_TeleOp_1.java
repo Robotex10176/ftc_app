@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -23,19 +24,22 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 @Autonomous (name = "A_Red_TeleOp_1")
 public class A_Red_TeleOp_1 extends LinearOpMode {
 
-    //test variable
-    boolean ranVuforia = false;
+    //PART DECLARATION
+    private ColorSensor ColorSensor;
+    //.
 
     public static final String TAG = "Vuforia VuMark Sample";
-
     OpenGLMatrix lastLocation = null;
-
     VuforiaLocalizer vuforia;
 
 
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        //PART INIT
+        ColorSensor = hardwareMap.colorSensor.get("ColorSensor");
+        //.
 
         //Vuforia Init:
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -66,28 +70,50 @@ public class A_Red_TeleOp_1 extends LinearOpMode {
         telemetry.addData("VuMark", "%s visible", vuMark);
         telemetry.update();
 
-        //run normal opmode
-        ranVuforia = true;
-        telemetry.addData("Vuforia Status:", ranVuforia);
-        telemetry.update();
-        //.
-
         KnockOffJewl();
-        DriveToSafeZone();
-        PlaceGlyph();
+        DriveToSafeZone();//general area
+
+        if (vuMark == RelicRecoveryVuMark.LEFT){
+            // move to left
+            PlaceGlyph();
+        }
+        if (vuMark == RelicRecoveryVuMark.CENTER){
+            //move to center
+            PlaceGlyph();
+        }
+        if (vuMark == RelicRecoveryVuMark.RIGHT){
+            //move to right
+            PlaceGlyph();
+        }
+        else{
+            //move to center or what ever is easiest
+            PlaceGlyph();
+        }
 
     }
     String format(OpenGLMatrix transformationMatrix) {
         return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
     }
     public void KnockOffJewl(){
-
+        //drive off base
+        if (ColorSensor.red()> ColorSensor.blue()){// in this demo, we are red
+            //drive forwrd then back, then on base
+        }
+        if (ColorSensor.red()< ColorSensor.blue()){
+           //drive back then forward then back on base
+        }
+        else {// in this situation, we are unsure of the color of the ball, so we just drive onto the base
+            // drive back onto base
+        }
     }
     public void DriveToSafeZone(){
-
+        // general area, not to specific LEFT RIGHT OR MIDDLE
     }
     public void PlaceGlyph(){
-        
+        /**this place glyph has to be a piece of code in which the robot is
+         * perfectly prepositioned in front of the right collumn (vuMark variable
+         * cant be identified in an independent method)
+         */
     }
 }
 
