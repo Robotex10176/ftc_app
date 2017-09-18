@@ -53,13 +53,8 @@ public class A_Red_TeleOp_1 extends LinearOpMode {
 
         waitForStart();
 
-        ranVuforia = false;
-        telemetry.addData("Vuforia Status:", ranVuforia);
-        sleep(2000);
-
+        //VUFORIA SCAN
         relicTrackables.activate();
-
-
         //all of this code is in COnceptVuMarkIdentification.java
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
         while (vuMark == RelicRecoveryVuMark.UNKNOWN) {//While it cant see vuMark
@@ -75,31 +70,24 @@ public class A_Red_TeleOp_1 extends LinearOpMode {
         ranVuforia = true;
         telemetry.addData("Vuforia Status:", ranVuforia);
         telemetry.update();
+        //.
 
         KnockOffJewl();
         DriveToSafeZone();
         PlaceGlyph();
-        telemetry.addData("VuMark", "%s visible", vuMark);
-        telemetry.update();
 
     }
     String format(OpenGLMatrix transformationMatrix) {
         return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
     }
     public void KnockOffJewl(){
-        telemetry.addData("Knocking Off Jewl...", ranVuforia);
-        telemetry.update();
-        sleep(2000);
+
     }
     public void DriveToSafeZone(){
-        telemetry.addData("Driving To Safe Zone...", ranVuforia);
-        telemetry.update();
-        sleep(2000);
+
     }
     public void PlaceGlyph(){
-        telemetry.addData("Placing Glyph", ranVuforia);
-        telemetry.update();
-        sleep(2000);
+        
     }
 }
 
