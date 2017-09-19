@@ -20,9 +20,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 /**
  * Created by Eric D'Urso on 9/16/2017.
+ * HOWDY FOLKS, IM BOB LA MAN
  */
-@Autonomous (name = "A_Red_TeleOp_1")
-public class A_Red_TeleOp_1 extends LinearOpMode {
+@Autonomous (name = "A_Red_Auto_1", group = "Red Autonomous")
+public class A_Red_Auto_1 extends LinearOpMode {
 
     //PART DECLARATION
     private ColorSensor ColorSensor;
