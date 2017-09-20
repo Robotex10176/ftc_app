@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -16,6 +17,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.U_vuTime;
+
+import static org.firstinspires.ftc.teamcode.U_vuTime.ranit;
 
 
 /**
@@ -32,6 +36,8 @@ public class A_Red_Auto_1 extends LinearOpMode {
     public static final String TAG = "Vuforia VuMark Sample";
     OpenGLMatrix lastLocation = null;
     VuforiaLocalizer vuforia;
+    ElapsedTime gyroTime = new ElapsedTime();
+    boolean A = true;
 
 
 
@@ -62,12 +68,16 @@ public class A_Red_Auto_1 extends LinearOpMode {
         relicTrackables.activate();
         //all of this code is in COnceptVuMarkIdentification.java
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-        while (vuMark == RelicRecoveryVuMark.UNKNOWN) {//While it cant see vuMark
+        while (vuMark == RelicRecoveryVuMark.UNKNOWN ) {//While it cant see vuMark
             vuMark = RelicRecoveryVuMark.from(relicTemplate);
             telemetry.addData("VuMark", "not visible");
             telemetry.update();
+            if (ranit = true){
+                break;
+            }
             idle();
         }
+        //break should put us here
         telemetry.addData("VuMark", "%s visible", vuMark);
         telemetry.update();
 
