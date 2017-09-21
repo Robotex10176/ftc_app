@@ -65,7 +65,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * is explained in {@link ConceptVuforiaNavigation}.
  */
 
-@Autonomous(name="Concept: VuMark Id", group ="Concept")
+@Autonomous(name="F2 Concept: VuMark Id", group ="Concept")
 public class Vuforia_Test extends LinearOpMode {
 
     public static final String TAG = "Vuforia VuMark Sample";

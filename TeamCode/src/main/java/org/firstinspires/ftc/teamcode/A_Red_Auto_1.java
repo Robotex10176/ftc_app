@@ -72,9 +72,9 @@ public class A_Red_Auto_1 extends LinearOpMode {
             vuMark = RelicRecoveryVuMark.from(relicTemplate);
             telemetry.addData("VuMark", "not visible");
             telemetry.update();
-            if (ranit = true){
-                break;
-            }
+            //if (ranit = true){
+                //break;
+            //}
             idle();
         }
         //break should put us here
