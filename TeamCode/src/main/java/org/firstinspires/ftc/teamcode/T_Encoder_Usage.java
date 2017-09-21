@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -7,11 +8,11 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 /**
  * Created by Eric D'Urso on 9/20/2017.
  */
-
+@Autonomous (name = "Encoder Usage Test", group = "Tests")
 public class T_Encoder_Usage extends LinearOpMode {
     private DcMotor motorLeft;
     private DcMotor motorRight;
-    int power = 0.15;
+    double power = 0.15;
     @Override
     public void runOpMode() throws InterruptedException {
         motorRight = hardwareMap.dcMotor.get("motorRight");
@@ -28,9 +29,17 @@ public class T_Encoder_Usage extends LinearOpMode {
         motorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         DriveForward();
+        while (motorLeft.isBusy() && motorRight.isBusy()){
+            //exactly, do nothing
+        }
+        StopMotors ();
     }
     public void DriveForward (){
         motorLeft.setPower(power);
         motorRight.setPower(-power);//________________________________CHANGE NEGATIVE IF NEEDED__________________________!
+    }
+    public void StopMotors (){
+        motorRight.setPower(0);
+        motorLeft.setPower(0);
     }
 }
