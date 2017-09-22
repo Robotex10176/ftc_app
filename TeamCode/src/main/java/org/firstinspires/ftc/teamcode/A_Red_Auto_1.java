@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -30,13 +32,16 @@ public class A_Red_Auto_1 extends LinearOpMode {
 
     //PART DECLARATION
     private ColorSensor ColorSensor;
+    IntegratingGyroscope gyro;
+    ModernRoboticsI2cGyro modernRoboticsI2cGyro;
     //.
 
     public static final String TAG = "Vuforia VuMark Sample";
     OpenGLMatrix lastLocation = null;
     VuforiaLocalizer vuforia;
-    ElapsedTime gyroTime = new ElapsedTime();
+    ElapsedTime timer = new ElapsedTime();
     boolean A = true;
+
 
 
 
@@ -45,6 +50,14 @@ public class A_Red_Auto_1 extends LinearOpMode {
 
         //PART INIT
         ColorSensor = hardwareMap.colorSensor.get("ColorSensor");
+        modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
+        gyro = (IntegratingGyroscope)modernRoboticsI2cGyro;
+        //.
+
+        //GYRO VARIABLE CONFIG
+        boolean lastResetState = false;
+        boolean curResetState  = false;
+        float zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         //.
 
         //Vuforia Init:
@@ -58,6 +71,19 @@ public class A_Red_Auto_1 extends LinearOpMode {
         relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
+        //.
+
+        //CALIBRATE GYRO
+        telemetry.log().add("Gyro Calibrating. Do Not Move!");
+        modernRoboticsI2cGyro.calibrate();
+        timer.reset();
+        while (!isStopRequested() && modernRoboticsI2cGyro.isCalibrating())  {
+            telemetry.addData("calibrating", "%s", Math.round(timer.seconds())%2==0 ? "|.." : "..|");
+            telemetry.update();
+            sleep(50);
+        }
+        telemetry.log().clear(); telemetry.log().add("Gyro Calibrated. Press Start.");
+        telemetry.clear(); telemetry.update();
         //.
 
 
@@ -118,6 +144,9 @@ public class A_Red_Auto_1 extends LinearOpMode {
     }
     public void DriveToSafeZone(){
         // general area, not to specific LEFT RIGHT OR MIDDLE
+        DriveForward(0.15);
+        Turn(-90, 0.15, -0.15);//DesiredAngle, Right PWR, Left PWR
+        DriveForward(0.15);
     }
     public void PlaceGlyph(){
         /**this place glyph has to be a piece of code in which the robot is
@@ -125,5 +154,45 @@ public class A_Red_Auto_1 extends LinearOpMode {
          * cant be identified in an independent method)
          */
     }
+    public void Turn(double Angle, double RightPower, double LeftPower){
+        //code to turn untill an angle ex 0, 90, -90
+        float zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        if (zAngle != Angle){
+//CODE THAT ACTUALLY MAKES IT TURN
+        }
+    }
+    public void DriveForward(double CommonPower){
+        float zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        float DesiredAngle = zAngle;
+        while (){//___________________ESHWARS PARAMETER______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+            zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+            //MOST IMPORTANT code to drive forward for encoder distance.
+            //set speed to common power, for eshwars parameter for distance
+            if(DesiredAngle > zAngle){
+                Turn(DesiredAngle, -CommonPower, CommonPower);//common power can be changed
+            }
+            if(DesiredAngle < zAngle){
+                Turn(DesiredAngle, CommonPower, -CommonPower);//other way
+            }
+        }
+        //set speed to commonpower
+    }
+    //GYRO STUFF
+    String formatRaw(int rawValue) {
+        return String.format("%d", rawValue);
+    }
+    String formatRate(float rate) {
+        return String.format("%.3f", rate);
+    }
+    String formatFloat(float rate) {
+        return String.format("%.3f", rate);
+    }
+    public void GyroAngleUpdate(){
+        float zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        telemetry.addData("angle", "%s deg", formatFloat(zAngle));
+        telemetry.update();
+    }
+
+    //.
 }
 
