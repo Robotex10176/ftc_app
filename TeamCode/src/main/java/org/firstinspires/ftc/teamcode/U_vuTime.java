@@ -11,7 +11,7 @@ public class U_vuTime {
     public static void main (String args []) throws InterruptedException{
         for (int c = 600; c >= 0; c--){
             thread.sleep(1000);
-            System.out.println(c);
+            //System.out.println(c);
         }
         ranit = true;
     }

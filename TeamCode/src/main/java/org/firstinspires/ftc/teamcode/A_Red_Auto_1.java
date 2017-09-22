@@ -24,7 +24,6 @@ import static org.firstinspires.ftc.teamcode.U_vuTime.ranit;
 
 /**
  * Created by Eric D'Urso on 9/16/2017.
- * HOWDY FOLKS, IM BOB LA MAN
  */
 @Autonomous (name = "A_Red_Auto_1", group = "Red Autonomous")
 public class A_Red_Auto_1 extends LinearOpMode {
