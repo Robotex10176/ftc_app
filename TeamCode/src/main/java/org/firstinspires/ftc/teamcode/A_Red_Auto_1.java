@@ -4,6 +4,7 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -31,6 +32,9 @@ public class A_Red_Auto_1 extends LinearOpMode {
     private ColorSensor ColorSensor;
     IntegratingGyroscope gyro;
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
+    private DcMotor leftDrive;
+    private DcMotor rightDrive;
+    private DcMotor getUp;
     //.
 
     public static final String TAG = "Vuforia VuMark Sample";
@@ -49,12 +53,23 @@ public class A_Red_Auto_1 extends LinearOpMode {
         ColorSensor = hardwareMap.colorSensor.get("ColorSensor");
         modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
         gyro = (IntegratingGyroscope)modernRoboticsI2cGyro;
+        leftDrive = hardwareMap.dcMotor.get("leftDrive");
+        rightDrive = hardwareMap.dcMotor.get("rightDrive");
+        getUp = hardwareMap.dcMotor.get("getUp");
         //.
 
         //GYRO VARIABLE CONFIG
         boolean lastResetState = false;
         boolean curResetState  = false;
         float zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        //.
+
+        //Encoder Variables
+        final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // TETRIX MOTORS = 1440, andymark = 1120
+        final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
+        final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+        final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+                (WHEEL_DIAMETER_INCHES * 3.1415);
         //.
 
         //Vuforia Init:
@@ -81,6 +96,19 @@ public class A_Red_Auto_1 extends LinearOpMode {
         }
         telemetry.log().clear(); telemetry.log().add("Gyro Calibrated. Press Start.");
         telemetry.clear(); telemetry.update();
+        //.
+
+        //Get Encoders Ready
+        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        // Send telemetry message to indicate successful Encoder reset
+        telemetry.addData("Path0",  "Starting at %7d :%7d",
+                leftDrive.getCurrentPosition(),
+                rightDrive.getCurrentPosition());
+        telemetry.update();
         //.
 
 
@@ -125,7 +153,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
         return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
     }
     public void KnockOffJewl(){
-        //drive off base
+        //drive off base OR put down arm
         if (ColorSensor.red()> ColorSensor.blue()){// in this demo, we are red
             //drive forwrd then back, then on base
         }
@@ -138,9 +166,9 @@ public class A_Red_Auto_1 extends LinearOpMode {
     }
     public void DriveToSafeZone(){
         // general area, not to specific LEFT RIGHT OR MIDDLE
-        DriveForward(0.15, 0.15);
+        DriveForward(0.15, 0.15, 32, 60);//Right Start Power, Left Start Power, DesiredDistance(in), Timeout (secs)
         Turn(-90, 0.15, -0.15);//DesiredAngle, Right PWR, Left PWR
-        DriveForward(0.15, 0.15);//Right Start Power, Left Start Power
+        DriveForward(0.15, 0.15, 6, 60);//Right Start Power, Left Start Power, DesiredDistance(in), Timeout (secs)
     }
     public void PlaceGlyph(){
         /**this place glyph has to be a piece of code in which the robot is
@@ -155,26 +183,62 @@ public class A_Red_Auto_1 extends LinearOpMode {
 //CODE THAT ACTUALLY MAKES IT TURN
         }
     }
-    public void DriveForward(double RightPower, double LeftPower){
-        float zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+    public void DriveForward(double RightPower, double LeftPower,
+                             double DesiredDistance, double TimeoutS){
+        float zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC,
+                AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         float DesiredAngle = zAngle;
-        while (){//___________________ESHWARS PARAMETER__SOMETHING LIKE WHILE MOTORS ARE BUSY____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-            zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-            //MOST IMPORTANT code to drive forward for encoder distance.
-            //set speed to common power, for eshwars parameter for distance
-            if(DesiredAngle > zAngle){
-                //Turn(DesiredAngle, -CommonPower, CommonPower);//common power can be changed
-                //TURN LEFT
-                RightPower = RightPower + 0.01;
+        int newLeftTarget;
+        int newRightTarget;
+
+        final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // TETRIX MOTORS = 1440, andymark = 1120
+        final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
+        final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+        final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+                (WHEEL_DIAMETER_INCHES * 3.1415);
+
+        if (opModeIsActive()){
+            newLeftTarget = leftDrive.getCurrentPosition() + (int)(DesiredDistance * COUNTS_PER_INCH);
+            newRightTarget = rightDrive.getCurrentPosition() + (int)(DesiredDistance * COUNTS_PER_INCH);
+            leftDrive.setTargetPosition(newLeftTarget);
+            rightDrive.setTargetPosition(newRightTarget);
+
+            leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            timer.reset();
+            leftDrive.setPower(Math.abs(LeftPower));
+            rightDrive.setPower(Math.abs(RightPower));
+
+            while (opModeIsActive() &&
+                    (timer.seconds() < TimeoutS) &&
+                    (leftDrive.isBusy() && rightDrive.isBusy())){//___________________ESHWARS PARAMETER__SOMETHING LIKE WHILE MOTORS ARE BUSY____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+                zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC,
+                        AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+                //MOST IMPORTANT code to drive forward for encoder distance.
+                //set speed to common power, for eshwars parameter for distance
+                if(DesiredAngle > zAngle){
+                    //Turn(DesiredAngle, -CommonPower, CommonPower);//common power can be changed
+                    //TURN LEFT
+                    RightPower = RightPower + 0.01;
+                }
+                if(DesiredAngle < zAngle){
+                    //Turn(DesiredAngle, CommonPower, -CommonPower);//other way
+                    //above might include encoder distance
+                    //TURN RIGHT
+                    LeftPower = LeftPower + 0.01;
+                }
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        leftDrive.getCurrentPosition(),
+                        rightDrive.getCurrentPosition());
+                telemetry.update();
             }
-            if(DesiredAngle < zAngle){
-                //Turn(DesiredAngle, CommonPower, -CommonPower);//other way
-                //above might include encoder distance
-                //TURN RIGHT
-                LeftPower = LeftPower + 0.01;
-            }
+
         }
-        //set speed to commonpower
+
     }
     //GYRO STUFF
     String formatRaw(int rawValue) {
