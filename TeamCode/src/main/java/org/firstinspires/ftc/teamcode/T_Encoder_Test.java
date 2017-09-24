@@ -64,9 +64,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Encoder_Test")
+@Autonomous(name="T_Encoder_Test")
 @Disabled
-public class Encoder_Test extends LinearOpMode {
+public class T_Encoder_Test extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
