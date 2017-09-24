@@ -19,9 +19,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-import org.firstinspires.ftc.teamcode.U_vuTime;
-
-import static org.firstinspires.ftc.teamcode.U_vuTime.ranit;
 
 
 /**
@@ -94,16 +91,12 @@ public class A_Red_Auto_1 extends LinearOpMode {
         //all of this code is in COnceptVuMarkIdentification.java
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
         timer.reset();
-        while ( !isStopRequested()||vuMark == RelicRecoveryVuMark.UNKNOWN ) {//While it cant see vuMark
+        while ( time < 10 || vuMark == RelicRecoveryVuMark.UNKNOWN ) {//While it cant see vuMark
             vuMark = RelicRecoveryVuMark.from(relicTemplate);
             telemetry.addData("VuMark", "not visible");
             telemetry.update();
-            //if (ranit = true){
-                //break;
-            //}
             idle();
         }
-        //break should put us here
         telemetry.addData("VuMark", "%s visible", vuMark);
         telemetry.update();
 
