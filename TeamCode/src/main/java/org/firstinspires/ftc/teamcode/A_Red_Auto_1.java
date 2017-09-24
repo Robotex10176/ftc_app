@@ -97,7 +97,6 @@ public class A_Red_Auto_1 extends LinearOpMode {
             telemetry.update();
             idle();
         }
-        //break should put us here
         telemetry.addData("VuMark", "%s visible", vuMark);
         telemetry.update();
 
