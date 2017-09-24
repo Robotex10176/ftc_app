@@ -138,9 +138,9 @@ public class A_Red_Auto_1 extends LinearOpMode {
     }
     public void DriveToSafeZone(){
         // general area, not to specific LEFT RIGHT OR MIDDLE
-        DriveForward(0.15);
+        DriveForward(0.15, 0.15);
         Turn(-90, 0.15, -0.15);//DesiredAngle, Right PWR, Left PWR
-        DriveForward(0.15);
+        DriveForward(0.15, 0.15);//Right Start Power, Left Start Power
     }
     public void PlaceGlyph(){
         /**this place glyph has to be a piece of code in which the robot is
@@ -155,18 +155,23 @@ public class A_Red_Auto_1 extends LinearOpMode {
 //CODE THAT ACTUALLY MAKES IT TURN
         }
     }
-    public void DriveForward(double CommonPower){
+    public void DriveForward(double RightPower, double LeftPower){
         float zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         float DesiredAngle = zAngle;
-        while (){//___________________ESHWARS PARAMETER______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+        while (){//___________________ESHWARS PARAMETER__SOMETHING LIKE WHILE MOTORS ARE BUSY____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
             zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
             //MOST IMPORTANT code to drive forward for encoder distance.
             //set speed to common power, for eshwars parameter for distance
             if(DesiredAngle > zAngle){
-                Turn(DesiredAngle, -CommonPower, CommonPower);//common power can be changed
+                //Turn(DesiredAngle, -CommonPower, CommonPower);//common power can be changed
+                //TURN LEFT
+                RightPower = RightPower + 0.01;
             }
             if(DesiredAngle < zAngle){
-                Turn(DesiredAngle, CommonPower, -CommonPower);//other way
+                //Turn(DesiredAngle, CommonPower, -CommonPower);//other way
+                //above might include encoder distance
+                //TURN RIGHT
+                LeftPower = LeftPower + 0.01;
             }
         }
         //set speed to commonpower
