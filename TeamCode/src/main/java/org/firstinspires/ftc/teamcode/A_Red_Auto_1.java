@@ -6,9 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -34,7 +36,9 @@ public class A_Red_Auto_1 extends LinearOpMode {
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
     private DcMotor leftDrive;
     private DcMotor rightDrive;
-    private DcMotor getUp;
+    private DcMotor Lift;
+    private Servo RightClaw;
+    private Servo LeftClaw;
     //.
 
     public static final String TAG = "Vuforia VuMark Sample";
@@ -55,7 +59,9 @@ public class A_Red_Auto_1 extends LinearOpMode {
         gyro = (IntegratingGyroscope)modernRoboticsI2cGyro;
         leftDrive = hardwareMap.dcMotor.get("leftDrive");
         rightDrive = hardwareMap.dcMotor.get("rightDrive");
-        getUp = hardwareMap.dcMotor.get("getUp");
+        Lift = hardwareMap.dcMotor.get("Lift");
+        RightClaw = hardwareMap.servo.get("RightClaw");
+        LeftClaw = hardwareMap.servo.get("LeftClaw");
         //.
 
         //GYRO VARIABLE CONFIG
@@ -111,6 +117,20 @@ public class A_Red_Auto_1 extends LinearOpMode {
         telemetry.update();
         //.
 
+        //Set Servos to Start Position
+        telemetry.addLine("Closing Claw In 3");
+        telemetry.update();
+        sleep(1000);
+        telemetry.addLine("Closing Claw In 2");
+        telemetry.update();
+        sleep(1000);
+        telemetry.addLine("Closing Claw In 1");
+        telemetry.update();
+        sleep(1000);
+        CloseClaw();
+        telemetry.addLine("Claw Closed");
+        telemetry.update();
+        //.
 
         waitForStart();
 
@@ -171,6 +191,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
         DriveForward(0.15, 0.15, 6, 60);//Right Start Power, Left Start Power, DesiredDistance(in), Timeout (secs)
     }
     public void PlaceGlyph(){
+        OpenClaw();
         /**this place glyph has to be a piece of code in which the robot is
          * perfectly prepositioned in front of the right collumn (vuMark variable
          * cant be identified in an independent method)
@@ -257,5 +278,14 @@ public class A_Red_Auto_1 extends LinearOpMode {
     }
 
     //.
+
+    public void CloseClaw (){
+        RightClaw.setPosition(-0.25);
+        LeftClaw.setPosition(0.25);
+    }
+    public void OpenClaw () {
+        RightClaw.setPosition(0);
+        LeftClaw.setPosition(1);
+    }
 }
 
