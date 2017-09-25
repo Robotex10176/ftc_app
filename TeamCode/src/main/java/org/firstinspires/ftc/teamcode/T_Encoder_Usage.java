@@ -22,6 +22,7 @@ public class T_Encoder_Usage extends LinearOpMode {
         waitForStart();
         int TETRIX_TICKS_PER_REVOLUTION = 1440;
         int ANDYMARK_TICKS_PER_REVOLUTION = 1120;//1120:CIRCUMPHRENCE of wheel is ratio of ticks to distance traveled
+        DriveForwardDistance(power, 12);
     }
     public void DriveForwardDistance(double power, int distance){
         motorRight.setTargetPosition(distance);
