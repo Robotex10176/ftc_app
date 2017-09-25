@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode;
-import android.hardware.Camera
+import android.hardware.Camera;
 
 /**
  * Created by fritz on 9/21/17.
