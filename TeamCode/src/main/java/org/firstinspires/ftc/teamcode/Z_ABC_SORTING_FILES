@@ -5,6 +5,7 @@ PLEASE GIVE ALL YOUR CODE A USEFUL NAME
 Also, put the following caps letter and underscore for each class u create
 
 A_ is for current files for this year
+H_ is for common hardware files
 T_ is for TEST Classes, co copied programs from FTC opmodes,
     calibration programs, or sensor input tests             OR TEST ROBOTS (STYROBOT)
 U_ is for non opmode classes ex vuTime which is a count down timer
