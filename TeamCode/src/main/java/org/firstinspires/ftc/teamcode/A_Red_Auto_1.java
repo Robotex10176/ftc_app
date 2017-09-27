@@ -67,7 +67,12 @@ public class A_Red_Auto_1 extends LinearOpMode {
             telemetry.update();
             idle();
         }
-        telemetry.addData("VuMark", "%s visible", vuMark);
+        if (vuMark != RelicRecoveryVuMark.UNKNOWN){
+            telemetry.addData("VuMark", "%s visible", vuMark);
+        }
+        else {
+            telemetry.addData("VuMark", "not visible");
+        }
         telemetry.update();
 
         KnockOffJewl();
