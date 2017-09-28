@@ -43,6 +43,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
         //ROBOT INIT
         robot.init(hardwareMap);
         Rest();
+        OpenClaw();
         telemetry.addLine("Closing Claw in 3");
         telemetry.update();
         sleep(1000);
@@ -112,7 +113,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
     }
     public void KnockOffJewl(){
         Sensing();
-        if (robot.ColorSensor.red()> robot.ColorSensor.blue()){// in this demo, we are red
+        if (robot.ColorSensor.blue() > robot.ColorSensor.blue()){// in this demo, we are red
             SeeOurColor();//we are red in this program
         }
         if (robot.ColorSensor.red()< robot.ColorSensor.blue()){
