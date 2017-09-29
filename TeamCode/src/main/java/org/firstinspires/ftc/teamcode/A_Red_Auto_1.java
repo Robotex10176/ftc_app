@@ -88,18 +88,24 @@ public class A_Red_Auto_1 extends LinearOpMode {
         telemetry.update();
 
         KnockOffJewl();
-        DriveToSafeZone();//general area
+        //DriveToSafeZone();//general area
 
         if (vuMark == RelicRecoveryVuMark.LEFT){
-            // move to left
+            DriveForward(0.15, 0.15, 33, 60);
+            Turn(-90, 0.15, -0.15);
+            DriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
         }
         if (vuMark == RelicRecoveryVuMark.CENTER){
-            //move to center
+            DriveForward(0.15, 0.15, 39.5, 60);
+            Turn(-90, 0.15, -0.15);
+            DriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
         }
         if (vuMark == RelicRecoveryVuMark.RIGHT){
-            //move to right
+            DriveForward(0.15, 0.15, 48, 60);
+            Turn(-90, 0.15, -0.15);
+            DriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
         }
         else{
@@ -113,7 +119,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
     }
     public void KnockOffJewl(){
         Sensing();
-        if (robot.ColorSensor.blue() > robot.ColorSensor.blue()){// in this demo, we are red
+        if (robot.ColorSensor.blue() < robot.ColorSensor.blue()){// in this demo, we are red
             SeeOurColor();//we are red in this program
         }
         if (robot.ColorSensor.red()< robot.ColorSensor.blue()){
@@ -126,9 +132,8 @@ public class A_Red_Auto_1 extends LinearOpMode {
     }
     public void DriveToSafeZone(){
         // general area, not to specific LEFT RIGHT OR MIDDLE
-        DriveForward(0.15, 0.15, 32, 60);//Right Start Power, Left Start Power, DesiredDistance(in), Timeout (secs)
+        DriveForward(0.15, 0.15, 39, 60);//Right Start Power, Left Start Power, DesiredDistance(in), Timeout (secs)
         Turn(-90, 0.15, -0.15);//DesiredAngle, Right PWR, Left PWR
-        DriveForward(0.15, 0.15, 6, 60);//Right Start Power, Left Start Power, DesiredDistance(in), Timeout (secs)
     }
     public void PlaceGlyph(){
         OpenClaw();
@@ -155,7 +160,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
 
         final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // TETRIX MOTORS = 1440, andymark = 1120
         final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
-        final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+        final double     WHEEL_DIAMETER_INCHES   = 3.8125 ;     // For figuring circumference
         final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                 (WHEEL_DIAMETER_INCHES * 3.1415);
 
