@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Created by Eric D'Urso on 9/24/2017.
  */
 @TeleOp (name = "Trike Drive")
-public class T_Chassis_Test_TWOWD extends OpMode {
+public class T_Trike_Bot_Drive extends OpMode {
     private DcMotor A;
     private DcMotor B;
 

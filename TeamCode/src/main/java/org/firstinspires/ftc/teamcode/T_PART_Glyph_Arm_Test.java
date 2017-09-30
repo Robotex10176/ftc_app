@@ -20,8 +20,8 @@ public class T_PART_Glyph_Arm_Test extends LinearOpMode {
         Lift = hardwareMap.dcMotor.get("Lift");
         RightClaw = hardwareMap.servo.get("RightClaw");
         LeftClaw = hardwareMap.servo.get("LeftClaw");
-        RightClaw.setPosition(0);
-        LeftClaw.setPosition(1);
+        FlatClaw();
+        sleep(1000);
         waitForStart();
         while (opModeIsActive()){
             if (gamepad1.dpad_up){
@@ -36,18 +36,24 @@ public class T_PART_Glyph_Arm_Test extends LinearOpMode {
             if (Close){
                 CloseClaw ();
             }
-            OpenClaw();
             if (!gamepad1.left_bumper){
                 Close = false;
+            }
+            if (!Close){
+                OpenClaw();
             }
         }
     }
     public void CloseClaw (){
-        RightClaw.setPosition(-0.25);
-        LeftClaw.setPosition(0.25);
+        RightClaw.setPosition(0.75);
+        LeftClaw.setPosition(0.50);
     }
     public void OpenClaw (){
-        RightClaw.setPosition(0);
-        LeftClaw.setPosition(1);
+        RightClaw.setPosition(1);
+        LeftClaw.setPosition(0.25);
+    }
+    public void FlatClaw(){
+        RightClaw.setPosition(0.3);
+        LeftClaw.setPosition(0);
     }
 }

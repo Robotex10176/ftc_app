@@ -73,6 +73,8 @@ public class H_RobotHardware
     public DcMotor Lift;
     public Servo RightClaw;
     public Servo LeftClaw;
+    public Servo flick;
+    public Servo moveFlick;
     //.
 
     public static final ElapsedTime timer = new ElapsedTime();
@@ -102,6 +104,12 @@ public class H_RobotHardware
         Lift = hwMap.dcMotor.get("Lift");
         RightClaw = hwMap.servo.get("RightClaw");
         LeftClaw = hwMap.servo.get("LeftClaw");
+        flick = hwMap.servo.get("topJewel");
+        moveFlick = hwMap.servo.get("botomJewel");
+        RightClaw.setPosition(0.3);
+        LeftClaw.setPosition(0);
+        moveFlick.setPosition(0.5);
+        flick.setPosition(0);
         //.
 
         //GYRO VARIABLE CONFIG
@@ -117,6 +125,7 @@ public class H_RobotHardware
         final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                 (WHEEL_DIAMETER_INCHES * 3.1415);
         //.
+
 
         //CALIBRATE GYRO
 

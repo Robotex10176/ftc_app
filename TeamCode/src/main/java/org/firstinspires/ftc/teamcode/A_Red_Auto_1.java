@@ -42,6 +42,18 @@ public class A_Red_Auto_1 extends LinearOpMode {
 
         //ROBOT INIT
         robot.init(hardwareMap);
+        Rest();
+        OpenClaw();
+        telemetry.addLine("Closing Claw in 3");
+        telemetry.update();
+        sleep(1000);
+        telemetry.addLine("Closing Claw in 2");
+        telemetry.update();
+        sleep(1000);
+        telemetry.addLine("Closing Claw in 1");
+        telemetry.update();
+        sleep(1000);
+        CloseClaw();
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);//leave parameters blank to not display on phone
         parameters.vuforiaLicenseKey = "AV6yugj/////AAAAGTOHqL6RDUmVgo0jZreKdLgqXGK+wd8vPtaDUOeepBzJahj4mF1oh/urYHvdw40evwj26RACNoqaxJWb1nS9RCaPjg25pDCZJJgFNSmtPHBU+f5AN1Y7ZJbJjNOAg8XvkX99ixa/gD/9HO9Es11cXjv0GkJof4M3ynaDqrh8S18dT5XT8QReygM64YyWkrsqjWI5H7WqZkuBDCSfmq0MVQiQrF9LChxd3/dTjChBJvcD8Rud19FEvu5IXq/Xem4KpPtuWDQAH0gWKJve8AzlcQLomY2nKtjbpcrZLpVjwtoo+C8NCCL5ng14uRCI8eriEg3OFD6v4ZNSZmbZIcUqAuX4YtFQG3t1RL0MT+3fWsBf";
@@ -61,28 +73,39 @@ public class A_Red_Auto_1 extends LinearOpMode {
         //all of this code is in COnceptVuMarkIdentification.java
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
         robot.timer.reset();
-        while ( time < 10 || vuMark == RelicRecoveryVuMark.UNKNOWN ) {//While it cant see vuMark
+        while ( robot.timer.seconds() < 10 || vuMark == RelicRecoveryVuMark.UNKNOWN ) {//While it cant see vuMark or time is less that 10
             vuMark = RelicRecoveryVuMark.from(relicTemplate);
             telemetry.addData("VuMark", "not visible");
             telemetry.update();
             idle();
         }
-        telemetry.addData("VuMark", "%s visible", vuMark);
+        if (vuMark != RelicRecoveryVuMark.UNKNOWN){
+            telemetry.addData("VuMark", "%s visible", vuMark);
+        }
+        else {
+            telemetry.addData("VuMark", "not visible");
+        }
         telemetry.update();
 
         KnockOffJewl();
-        DriveToSafeZone();//general area
+        //DriveToSafeZone();//general area
 
         if (vuMark == RelicRecoveryVuMark.LEFT){
-            // move to left
+            DriveForward(0.15, 0.15, 33, 60);
+            Turn(-90, -0.15, 0.15);
+            DriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
         }
         if (vuMark == RelicRecoveryVuMark.CENTER){
-            //move to center
+            DriveForward(0.15, 0.15, 39.5, 60);
+            Turn(-90, -0.15, 0.15);
+            DriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
         }
         if (vuMark == RelicRecoveryVuMark.RIGHT){
-            //move to right
+            DriveForward(0.15, 0.15, 48, 60);
+            Turn(-90, -0.15, 0.15);
+            DriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
         }
         else{
@@ -95,22 +118,22 @@ public class A_Red_Auto_1 extends LinearOpMode {
         return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
     }
     public void KnockOffJewl(){
-        //drive off base OR put down arm
-        if (robot.ColorSensor.red()> robot.ColorSensor.blue()){// in this demo, we are red
-            //drive forwrd then back, then on base
+        Sensing();
+        if (robot.ColorSensor.blue() < robot.ColorSensor.blue()){// in this demo, we are red
+            SeeOurColor();//we are red in this program
         }
         if (robot.ColorSensor.red()< robot.ColorSensor.blue()){
-           //drive back then forward then back on base
+           DontSeeOurColor();//we aint blue
         }
         else {// in this situation, we are unsure of the color of the ball, so we just drive onto the base
-            // drive back onto base
+            Sensing();
         }
+        Rest();
     }
     public void DriveToSafeZone(){
         // general area, not to specific LEFT RIGHT OR MIDDLE
-        DriveForward(0.15, 0.15, 32, 60);//Right Start Power, Left Start Power, DesiredDistance(in), Timeout (secs)
+        DriveForward(0.15, 0.15, 39, 60);//Right Start Power, Left Start Power, DesiredDistance(in), Timeout (secs)
         Turn(-90, 0.15, -0.15);//DesiredAngle, Right PWR, Left PWR
-        DriveForward(0.15, 0.15, 6, 60);//Right Start Power, Left Start Power, DesiredDistance(in), Timeout (secs)
     }
     public void PlaceGlyph(){
         OpenClaw();
@@ -123,7 +146,8 @@ public class A_Red_Auto_1 extends LinearOpMode {
         //code to turn untill an angle ex 0, 90, -90
         float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         if (zAngle != Angle){
-//CODE THAT ACTUALLY MAKES IT TURN
+            robot.leftDrive.setPower(LeftPower);
+            robot.rightDrive.setPower(RightPower);
         }
     }
     public void DriveForward(double RightPower, double LeftPower,
@@ -136,7 +160,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
 
         final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // TETRIX MOTORS = 1440, andymark = 1120
         final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
-        final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+        final double     WHEEL_DIAMETER_INCHES   = 3.8125 ;     // For figuring circumference
         final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                 (WHEEL_DIAMETER_INCHES * 3.1415);
 
@@ -159,8 +183,6 @@ public class A_Red_Auto_1 extends LinearOpMode {
                     (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())){//___________________ESHWARS PARAMETER__SOMETHING LIKE WHILE MOTORS ARE BUSY____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
                 zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC,
                         AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-                //MOST IMPORTANT code to drive forward for encoder distance.
-                //set speed to common power, for eshwars parameter for distance
                 if(DesiredAngle > zAngle){
                     //Turn(DesiredAngle, -CommonPower, CommonPower);//common power can be changed
                     //TURN LEFT
@@ -202,12 +224,40 @@ public class A_Red_Auto_1 extends LinearOpMode {
     //.
 
     public void CloseClaw (){
-        robot.RightClaw.setPosition(-0.25);
+        robot.RightClaw.setPosition(0.75);
+        robot.LeftClaw.setPosition(0.50);
+    }
+    public void OpenClaw (){
+        robot.RightClaw.setPosition(1);
         robot.LeftClaw.setPosition(0.25);
     }
-    public void OpenClaw () {
-        robot.RightClaw.setPosition(0);
-        robot.LeftClaw.setPosition(1);
+    public void FlatClaw(){
+        robot.RightClaw.setPosition(0.3);
+        robot.LeftClaw.setPosition(0);
+    }
+    public void Rest (){
+        robot.moveFlick.setPosition(0.5);
+        sleep(1000);
+        robot.flick.setPosition(0);
+        sleep(1000);
+    }
+    public void Sensing () {
+        robot.flick.setPosition(1);
+        sleep(1000);
+        robot.moveFlick.setPosition(0.5);
+        sleep(1000);
+    }
+    public void DontSeeOurColor (){
+        robot.moveFlick.setPosition(0.7);
+        sleep(1000);
+        robot.moveFlick.setPosition(0.5);
+        sleep(1000);
+    }
+    public void SeeOurColor (){
+        robot.moveFlick.setPosition(0);
+        sleep(1000);
+        robot.moveFlick.setPosition(0.5);
+        sleep(1000);
     }
 }
 
