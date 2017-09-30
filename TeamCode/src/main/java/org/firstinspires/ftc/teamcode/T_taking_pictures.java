@@ -7,6 +7,5 @@ import android.hardware.Camera;
 
 public class T_taking_pictures {
 //this is where I will do research on the photos for the jewel identifier thing
-// You Need a semicolon there fella???!!!?!?!?!?!?!?!?!!?!?!?!?!?!?!?!?!?!!?!?!?!?!?!?
-
+    
 }
