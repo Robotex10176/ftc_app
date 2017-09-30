@@ -73,7 +73,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
         //all of this code is in COnceptVuMarkIdentification.java
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
         robot.timer.reset();
-        while ( time < 10 || vuMark == RelicRecoveryVuMark.UNKNOWN ) {//While it cant see vuMark
+        while ( robot.timer.seconds() < 10 || vuMark == RelicRecoveryVuMark.UNKNOWN ) {//While it cant see vuMark or time is less that 10
             vuMark = RelicRecoveryVuMark.from(relicTemplate);
             telemetry.addData("VuMark", "not visible");
             telemetry.update();
@@ -92,19 +92,19 @@ public class A_Red_Auto_1 extends LinearOpMode {
 
         if (vuMark == RelicRecoveryVuMark.LEFT){
             DriveForward(0.15, 0.15, 33, 60);
-            Turn(-90, 0.15, -0.15);
+            Turn(-90, -0.15, 0.15);
             DriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
         }
         if (vuMark == RelicRecoveryVuMark.CENTER){
             DriveForward(0.15, 0.15, 39.5, 60);
-            Turn(-90, 0.15, -0.15);
+            Turn(-90, -0.15, 0.15);
             DriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
         }
         if (vuMark == RelicRecoveryVuMark.RIGHT){
             DriveForward(0.15, 0.15, 48, 60);
-            Turn(-90, 0.15, -0.15);
+            Turn(-90, -0.15, 0.15);
             DriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
         }
@@ -146,8 +146,8 @@ public class A_Red_Auto_1 extends LinearOpMode {
         //code to turn untill an angle ex 0, 90, -90
         float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         if (zAngle != Angle){
-//CODE THAT ACTUALLY MAKES IT TURN
-            //motor.setpwr to Left or Right Power
+            robot.leftDrive.setPower(LeftPower);
+            robot.rightDrive.setPower(RightPower);
         }
     }
     public void DriveForward(double RightPower, double LeftPower,
@@ -183,8 +183,6 @@ public class A_Red_Auto_1 extends LinearOpMode {
                     (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())){//___________________ESHWARS PARAMETER__SOMETHING LIKE WHILE MOTORS ARE BUSY____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
                 zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC,
                         AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-                //MOST IMPORTANT code to drive forward for encoder distance.
-                //set speed to common power, for eshwars parameter for distance
                 if(DesiredAngle > zAngle){
                     //Turn(DesiredAngle, -CommonPower, CommonPower);//common power can be changed
                     //TURN LEFT
