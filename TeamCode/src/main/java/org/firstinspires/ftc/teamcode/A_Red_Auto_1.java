@@ -87,7 +87,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
         }
         telemetry.update();
 
-        KnockOffJewl();
+        KnockOffJewl(true);//would be false if we were blue
         //DriveToSafeZone();//general area
 
         if (vuMark == RelicRecoveryVuMark.LEFT){
@@ -117,18 +117,20 @@ public class A_Red_Auto_1 extends LinearOpMode {
     String format(OpenGLMatrix transformationMatrix) {
         return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
     }
-    public void KnockOffJewl(){
+    public void KnockOffJewl(boolean red){
         Sensing();
-        if (robot.ColorSensor.blue() < robot.ColorSensor.blue()){// in this demo, we are red
-            SeeOurColor();//we are red in this program
+        if (red && robot.ColorSensor.red()>robot.ColorSensor.blue()){
+            SeeOurColor();
         }
-        if (robot.ColorSensor.red()< robot.ColorSensor.blue()){
-           DontSeeOurColor();//we aint blue
+        if (red && robot.ColorSensor.red()<robot.ColorSensor.blue()){
+            DontSeeOurColor();
         }
-        else {// in this situation, we are unsure of the color of the ball, so we just drive onto the base
-            Sensing();
+        if (!red && robot.ColorSensor.red()>robot.ColorSensor.blue()){
+            DontSeeOurColor();
         }
-        Rest();
+        if (!red && robot.ColorSensor.red()<robot.ColorSensor.blue()){
+            SeeOurColor();
+        }
     }
     public void DriveToSafeZone(){
         // general area, not to specific LEFT RIGHT OR MIDDLE
