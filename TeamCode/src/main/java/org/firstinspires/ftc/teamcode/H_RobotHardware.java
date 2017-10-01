@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -100,6 +101,7 @@ public class H_RobotHardware
         modernRoboticsI2cGyro = hwMap.get(ModernRoboticsI2cGyro.class, "gyro");
         gyro = (IntegratingGyroscope)modernRoboticsI2cGyro;
         leftDrive = hwMap.dcMotor.get("leftDrive");
+        leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightDrive = hwMap.dcMotor.get("rightDrive");
         Lift = hwMap.dcMotor.get("Lift");
         RightClaw = hwMap.servo.get("RightClaw");
