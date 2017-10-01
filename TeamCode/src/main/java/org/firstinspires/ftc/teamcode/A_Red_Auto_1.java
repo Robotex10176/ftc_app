@@ -73,7 +73,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
         //all of this code is in COnceptVuMarkIdentification.java
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
         robot.timer.reset();
-        while ( robot.timer.seconds() < 10 || vuMark == RelicRecoveryVuMark.UNKNOWN ) {//While it cant see vuMark or time is less that 10
+        while ( robot.timer.seconds() < 10 && vuMark == RelicRecoveryVuMark.UNKNOWN ) {//While it cant see vuMark or time is less that 10
             vuMark = RelicRecoveryVuMark.from(relicTemplate);
             telemetry.addData("VuMark", "not visible");
             telemetry.update();
@@ -109,7 +109,9 @@ public class A_Red_Auto_1 extends LinearOpMode {
             PlaceGlyph();
         }
         else{
-            //move to center or what ever is easiest
+            DriveForward(0.15, 0.15, 48, 60);
+            Turn(-90, -0.15, 0.15);
+            DriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
         }
 
@@ -183,12 +185,12 @@ public class A_Red_Auto_1 extends LinearOpMode {
                     (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())){//___________________ESHWARS PARAMETER__SOMETHING LIKE WHILE MOTORS ARE BUSY____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
                 zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC,
                         AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-                if(DesiredAngle > zAngle){
+                if(DesiredAngle < zAngle){
                     //Turn(DesiredAngle, -CommonPower, CommonPower);//common power can be changed
                     //TURN LEFT
                     RightPower = RightPower + 0.01;
                 }
-                if(DesiredAngle < zAngle){
+                if(DesiredAngle > zAngle){
                     //Turn(DesiredAngle, CommonPower, -CommonPower);//other way
                     //above might include encoder distance
                     //TURN RIGHT
