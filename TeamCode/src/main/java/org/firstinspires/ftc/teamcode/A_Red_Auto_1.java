@@ -90,26 +90,24 @@ public class A_Red_Auto_1 extends LinearOpMode {
         KnockOffJewl(true);//would be false if we were blue
         //DriveToSafeZone();//general area
 
-        if (vuMark == RelicRecoveryVuMark.LEFT){
-            DriveForward(0.15, 0.15, 33, 60);
-            Turn(-90, -0.15, 0.15);
-            DriveForward(0.15, 0.15, 26.5, 60);
+        if (vuMark == RelicRecoveryVuMark.RIGHT){
+            DumbDriveForward(0.15, 0.15, 33, 60);
+             Turn(-90, -0.15, 0.15);
+            DumbDriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
-        }
-        if (vuMark == RelicRecoveryVuMark.CENTER){
+        } else if (vuMark == RelicRecoveryVuMark.CENTER){
             DriveForward(0.15, 0.15, 39.5, 60);
             Turn(-90, -0.15, 0.15);
             DriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
-        }
-        if (vuMark == RelicRecoveryVuMark.RIGHT){
+        } else if (vuMark == RelicRecoveryVuMark.LEFT){//use else if construct to "dasiychain" ifs together
             DriveForward(0.15, 0.15, 48, 60);
             Turn(-90, -0.15, 0.15);
             DriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
         }
         else{
-            DriveForward(0.15, 0.15, 48, 60);
+            DriveForward(0.15, 0.15, 39.5, 60);
             Turn(-90, -0.15, 0.15);
             DriveForward(0.15, 0.15, 26.5, 60);
             PlaceGlyph();
@@ -121,16 +119,16 @@ public class A_Red_Auto_1 extends LinearOpMode {
     }
     public void KnockOffJewl(boolean red){
         Sensing();
-        if (red && robot.ColorSensor.red()>robot.ColorSensor.blue()){
+        if ((red) && (robot.ColorSensor.red()>robot.ColorSensor.blue())){
             SeeOurColor();
         }
-        if (red && robot.ColorSensor.red()<robot.ColorSensor.blue()){
+        if ((red) && (robot.ColorSensor.red()<robot.ColorSensor.blue())){
             DontSeeOurColor();
         }
-        if (!red && robot.ColorSensor.red()>robot.ColorSensor.blue()){
+        if ((!red) && (robot.ColorSensor.red()>robot.ColorSensor.blue())){
             DontSeeOurColor();
         }
-        if (!red && robot.ColorSensor.red()<robot.ColorSensor.blue()){
+        if ((!red) && (robot.ColorSensor.red()<robot.ColorSensor.blue())){
             SeeOurColor();
         }
     }
@@ -198,6 +196,45 @@ public class A_Red_Auto_1 extends LinearOpMode {
                     //TURN RIGHT
                     LeftPower = LeftPower + 0.01;
                 }
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.leftDrive.getCurrentPosition(),
+                        robot.rightDrive.getCurrentPosition());
+                telemetry.update();
+            }
+
+        }
+
+    }
+    public void DumbDriveForward(double RightPower, double LeftPower,
+                               double DesiredDistance, double TimeoutS){
+        int newLeftTarget;
+        int newRightTarget;
+
+        final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // TETRIX MOTORS = 1440, andymark = 1120
+        final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
+        final double     WHEEL_DIAMETER_INCHES   = 3.8125 ;     // For figuring circumference
+        final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+                (WHEEL_DIAMETER_INCHES * 3.1415);
+
+        if (opModeIsActive()){
+            newLeftTarget = robot.leftDrive.getCurrentPosition() + (int)(DesiredDistance * COUNTS_PER_INCH);
+            newRightTarget = robot.rightDrive.getCurrentPosition() + (int)(DesiredDistance * COUNTS_PER_INCH);
+            robot.leftDrive.setTargetPosition(newLeftTarget);
+            robot.rightDrive.setTargetPosition(newRightTarget);
+
+            robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            robot.timer.reset();
+            robot.leftDrive.setPower(Math.abs(LeftPower));
+            robot.rightDrive.setPower(Math.abs(RightPower));
+
+            while (opModeIsActive() &&
+                    (robot.timer.seconds() < TimeoutS) &&
+                    (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())){//___________________ESHWARS PARAMETER__SOMETHING LIKE WHILE MOTORS ARE BUSY____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
                 telemetry.addData("Path2",  "Running at %7d :%7d",
