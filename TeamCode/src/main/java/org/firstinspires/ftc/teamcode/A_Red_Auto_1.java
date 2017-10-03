@@ -139,6 +139,10 @@ public class A_Red_Auto_1 extends LinearOpMode {
     }
     public void PlaceGlyph(){
         OpenClaw();
+        DriveForward(-0.15, -0.15, -7, 60);
+        FlatClaw();
+        DriveForward(0.15, 0.15, 3, 10);
+
         /**this place glyph has to be a piece of code in which the robot is
          * perfectly prepositioned in front of the right collumn (vuMark variable
          * cant be identified in an independent method)
