@@ -44,6 +44,15 @@ public class A_Red_Auto_1 extends LinearOpMode {
         robot.init(hardwareMap);
         Rest();
         OpenClaw();
+        telemetry.addLine("Closing Claw in 5");
+        telemetry.update();
+        sleep(1000);
+        telemetry.addLine("Closing Claw in 4");
+        telemetry.update();
+        sleep(1000);
+        telemetry.addLine("Playing Warning Sound");
+        telemetry.update();
+        //Warning Sound
         telemetry.addLine("Closing Claw in 3");
         telemetry.update();
         sleep(1000);
