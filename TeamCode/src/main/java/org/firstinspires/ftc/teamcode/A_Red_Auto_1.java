@@ -97,29 +97,32 @@ public class A_Red_Auto_1 extends LinearOpMode {
         telemetry.update();
 
         KnockOffJewl(true);//would be false if we were blue
-        //DriveToSafeZone();//general area
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
-            DumbDriveForward(0.15, 0.15, 33, 60);
-             Turn(-90, -0.15, 0.15);
-            DumbDriveForward(0.15, 0.15, 26.5, 60);
+            //Drive Forward 33 in
+            Turn(-90, -0.15, 0.15);
+            //Drive Forward
             PlaceGlyph();
+            //Back Up but stay in zone
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
-            DriveForward(0.15, 0.15, 39.5, 60);
+            //Drive Forward 39.5 in
             Turn(-90, -0.15, 0.15);
-            DriveForward(0.15, 0.15, 26.5, 60);
+            //Drive Forward
             PlaceGlyph();
+            //Back Up but stay in zone
         } else if (vuMark == RelicRecoveryVuMark.LEFT){//use else if construct to "dasiychain" ifs together
-            DriveForward(0.15, 0.15, 48, 60);
+            //Drive Forward 48 in
             Turn(-90, -0.15, 0.15);
-            DriveForward(0.15, 0.15, 26.5, 60);
+            //Drive Forward
             PlaceGlyph();
+            //Back Up but stay in zone
         }
         else{
-            DriveForward(0.15, 0.15, 39.5, 60);
+            //Drive Forward to one of the columns
             Turn(-90, -0.15, 0.15);
-            DriveForward(0.15, 0.15, 26.5, 60);
+            //Drive Forward
             PlaceGlyph();
+            //Back Up but stay in zone
         }
 
     }
