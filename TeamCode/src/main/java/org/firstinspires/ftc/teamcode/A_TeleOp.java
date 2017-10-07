@@ -14,39 +14,23 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 @TeleOp(name = "Main TeleOp")
 public class A_TeleOp extends OpMode {
     H_RobotHardware robot = new H_RobotHardware();
-    boolean A = true;
+    private float scaleController(float in){
+        //return ( java.lang.Math.signum(in)*in*in);
+        return (in*in*in);
+    }
     @Override
     public void init() {
         robot.init(hardwareMap);
-
-        float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC,
-                AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        float DesiredAngle = zAngle;
     }
     @Override
     public void loop() {
-        float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC,
-                AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        double DesiredAngle = 0.0;
-        if(gamepad1.right_stick_y>0.05){
-            robot.leftDrive.setPower(gamepad1.right_stick_y);
-            robot.rightDrive.setPower(gamepad1.right_stick_y);
-            if (DesiredAngle > zAngle){
-                robot.rightDrive.setPower(gamepad1.right_stick_y + 0.01);
-            }
-            if (DesiredAngle < zAngle){
-                robot.leftDrive.setPower(gamepad1.right_stick_y + 0.01);
-            }
-        }
-        if (gamepad1.right_stick_y < 0.05){
-            robot.leftDrive.setPower(0);
-            robot.rightDrive.setPower(0);
-        }
+        robot.rightDrive.setPower(scaleController(gamepad1.right_stick_y));
+        robot.leftDrive.setPower(scaleController(gamepad1.left_stick_y));
         if(gamepad1.dpad_up){
-            robot.Lift.setPower(0.1);
+            robot.Lift.setPower(0.3);
         }
         if(gamepad1.dpad_down){
-            robot.Lift.setPower(-0.1);
+            robot.Lift.setPower(-0.3);
         }
         if (((!gamepad1.dpad_up) &&(!gamepad1.dpad_down)) ){
             robot.Lift.setPower(0);
@@ -55,6 +39,18 @@ public class A_TeleOp extends OpMode {
             CloseClaw();
         } else{
             OpenClaw();
+        }
+        if (gamepad1.right_bumper){
+            Sensing();
+        } else{
+            Rest();
+        }
+        if (gamepad1.a){
+            SeeOurColor();
+        } else if (gamepad1.b){
+            DontSeeOurColor();
+        }else{
+            decide();
         }
     }
     public void CloseClaw (){
@@ -68,5 +64,22 @@ public class A_TeleOp extends OpMode {
     public void FlatClaw(){
         robot.RightClaw.setPosition(0.3);
         robot.LeftClaw.setPosition(0);
+    }
+    public void Rest (){
+        robot.moveFlick.setPosition(0.5);
+        robot.flick.setPosition(0);
+    }
+    public void Sensing () {
+        robot.flick.setPosition(1);
+        robot.moveFlick.setPosition(0.5);
+    }
+    public void DontSeeOurColor (){
+        robot.moveFlick.setPosition(0.7);
+    }
+    public void SeeOurColor (){
+        robot.moveFlick.setPosition(0);
+    }
+    public void decide (){
+        robot.moveFlick.setPosition(0.5);
     }
 }
