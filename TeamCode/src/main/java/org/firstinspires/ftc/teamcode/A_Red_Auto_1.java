@@ -52,7 +52,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
         sleep(1000);
         telemetry.addLine("Playing Warning Sound");
         telemetry.update();
-        //Warning Sound
+        //Warning Sound Goes Here
         telemetry.addLine("Closing Claw in 3");
         telemetry.update();
         sleep(1000);
