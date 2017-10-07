@@ -103,26 +103,22 @@ public class A_Red_Auto_1 extends LinearOpMode {
             Turn(-90, -0.15, 0.15);
             //Drive Forward
             PlaceGlyph();
-            //Back Up but stay in zone
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
             //Drive Forward 39.5 in
             Turn(-90, -0.15, 0.15);
             //Drive Forward
             PlaceGlyph();
-            //Back Up but stay in zone
         } else if (vuMark == RelicRecoveryVuMark.LEFT){//use else if construct to "dasiychain" ifs together
             //Drive Forward 48 in
             Turn(-90, -0.15, 0.15);
             //Drive Forward
             PlaceGlyph();
-            //Back Up but stay in zone
         }
         else{
             //Drive Forward to one of the columns
             Turn(-90, -0.15, 0.15);
             //Drive Forward
             PlaceGlyph();
-            //Back Up but stay in zone
         }
 
     }
