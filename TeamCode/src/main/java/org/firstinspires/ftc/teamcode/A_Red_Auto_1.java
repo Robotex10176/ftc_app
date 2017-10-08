@@ -100,23 +100,23 @@ public class A_Red_Auto_1 extends LinearOpMode {
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
             Drive (33, 0.1, 0.1);//Drive Forward 33 in
-            Turn(-90, -0.15, 0.15);
+            Turn(-90, -0.1, 0.1);
             Drive (26.5, 0.1, 0.1);
             PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
             Drive (39.5, 0.1, 0.1);//Drive Forward 39.5 in
-            Turn(-90, -0.15, 0.15);
+            Turn(-90, -0.1, 0.1);
             Drive (26.5, 0.1, 0.1);
             PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.LEFT){//use else if construct to "dasiychain" ifs together
             Drive (48, 0.1, 0.1);//Drive Forward 48 in
-            Turn(-90, -0.15, 0.15);
+            Turn(-90, -0.1, 0.1);
             Drive (26.5, 0.1, 0.1);
             PlaceGlyph();
         }
         else{
             Drive (39.5, 0.1, 0.1);//Drive Forward to one of the columns
-            Turn(-90, -0.15, 0.15);
+            Turn(-90, -0.1, 0.1);
             Drive (26.5, 0.1, 0.1);
             PlaceGlyph();
         }
@@ -191,20 +191,6 @@ public class A_Red_Auto_1 extends LinearOpMode {
                 }
                 robot.leftDrive.setPower(Math.abs(LeftPower));
                 robot.rightDrive.setPower(Math.abs(RightPower));
-                //if ((zAngle > DesiredAngle)&& (LeftPower < 0.15)){
-                //    LeftPower = LeftPower + 0.005;
-                //} else if ((zAngle > DesiredAngle)&& (LeftPower > 0.15)){
-                //    RightPower = RightPower - 0.005;
-                //}
-                //robot.leftDrive.setPower(Math.abs(LeftPower));
-                //robot.rightDrive.setPower(Math.abs(RightPower));
-                //if ((zAngle < DesiredAngle)&& (LeftPower < 0.15)){
-                //    RightPower = RightPower + 0.005;
-                //} else if ((zAngle < DesiredAngle)&& (LeftPower > 0.15)){
-                //    LeftPower = LeftPower - 0.005;
-                //}
-                //robot.leftDrive.setPower(Math.abs(LeftPower));
-                //robot.rightDrive.setPower(Math.abs(RightPower));
                 idle();
             }
             float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
