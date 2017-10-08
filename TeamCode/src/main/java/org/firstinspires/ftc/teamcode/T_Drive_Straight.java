@@ -23,7 +23,7 @@ public class T_Drive_Straight extends LinearOpMode {
         //driveKeepCheckingEncoders(10, 0.1, 0.1);//1
         //driveWithEncoderCheckAfterXAmountOfTime(10, 0.1, 0.1, 250);//250 = 1/4 of a second, 2
         //gyroDrive(10, 0.1, 0.1);//3
-        //dumbDrive(10, 0.1, 0.1);//do last if at all
+        dumbDrive(10, 0.1, 0.1);//do last if at all
     }
 
     public void driveKeepCheckingEncoders(double DesiredDistance, double RightPower, double LeftPower) {
@@ -162,14 +162,8 @@ public class T_Drive_Straight extends LinearOpMode {
         }
     }
     public void dumbDrive (double DesiredDistance, double RightPower, double LeftPower){
-        double dg10incrs = 0.01;
-        double dg22incrs = 0.05;
-        double dg45incrs = 0.1;
-        float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        float DesiredAngle = zAngle;
         int newLeftTarget;
         int newRightTarget;
-        float displacement;
         final double COUNTS_PER_MOTOR_REV = 1120;    // TETRIX MOTORS = 1440, andymark = 1120
         final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
         final double WHEEL_DIAMETER_INCHES = 3.8125;     // For figuring circumference
