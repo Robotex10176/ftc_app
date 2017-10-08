@@ -14,16 +14,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 @Autonomous (name = "Drive Straight")
 public class T_Drive_Straight extends LinearOpMode {
     H_RobotHardware robot = new H_RobotHardware();
+    boolean A = true;
 
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
         waitForStart();
         //TEST ALL OF THE FOLLOWING METHODS FOR DRIVING STRAIGHT
-        //driveKeepCheckingEncoders(10, 0.1, 0.1);//1
-        //driveWithEncoderCheckAfterXAmountOfTime(10, 0.1, 0.1, 250);//250 = 1/4 of a second, 2
-        //gyroDrive(10, 0.1, 0.1);//3
-        dumbDrive(10, 0.1, 0.1);//do last if at all
+        //driveKeepCheckingEncoders(40.0, 0.1, 0.1);//1
+        //driveWithEncoderCheckAfterXAmountOfTime(10.0, 0.1, 0.1, 250);//250 = 1/4 of a second, 2
+        gyroDrive(33.0, 0.1, 0.1);//3
+        //dumbDrive(10.0, 0.1, 0.1);//do last if at all
     }
 
     public void driveKeepCheckingEncoders(double DesiredDistance, double RightPower, double LeftPower) {
@@ -41,7 +42,7 @@ public class T_Drive_Straight extends LinearOpMode {
         int rightPositionTraveled;
         int leftPositionTraveled;
         float displacement;
-        final double COUNTS_PER_MOTOR_REV = 1120;    // TETRIX MOTORS = 1440, andymark = 1120
+        final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
         final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
         final double WHEEL_DIAMETER_INCHES = 3.8125;     // For figuring circumference
         final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -71,6 +72,9 @@ public class T_Drive_Straight extends LinearOpMode {
                 } else if ((rightPositionTraveled < leftPositionTraveled)&& (RightPower > 0.15)){
                     LeftPower = LeftPower - 0.005;
                 }
+                telemetry.addData("Right Pwr:", robot.rightDrive.getPower());
+                telemetry.addData("Left Pwr:", robot.leftDrive.getPower());
+                telemetry.update();
                 idle();
             }
         }
@@ -90,7 +94,7 @@ public class T_Drive_Straight extends LinearOpMode {
         int rightPositionTraveled;
         int leftPositionTraveled;
         float displacement;
-        final double COUNTS_PER_MOTOR_REV = 1120;    // TETRIX MOTORS = 1440, andymark = 1120
+        final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
         final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
         final double WHEEL_DIAMETER_INCHES = 3.8125;     // For figuring circumference
         final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -133,7 +137,7 @@ public class T_Drive_Straight extends LinearOpMode {
         int newLeftTarget;
         int newRightTarget;
         float displacement;
-        final double COUNTS_PER_MOTOR_REV = 1120;    // TETRIX MOTORS = 1440, andymark = 1120
+        final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
         final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
         final double WHEEL_DIAMETER_INCHES = 3.8125;     // For figuring circumference
         final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -148,23 +152,42 @@ public class T_Drive_Straight extends LinearOpMode {
             robot.rightDrive.setPower(Math.abs(RightPower));
             while (opModeIsActive() && (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
                 float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-                if ((zAngle > DesiredAngle)&& (LeftPower < 0.15)){
-                    LeftPower = LeftPower + 0.005;
-                } else if ((zAngle > DesiredAngle)&& (LeftPower > 0.15)){
-                    RightPower = RightPower - 0.005;
+                if (zAngle > DesiredAngle){
+                    LeftPower = LeftPower + ((zAngle - DesiredAngle)/90) * 0.05;
+                    RightPower = RightPower - ((zAngle - DesiredAngle)/90) * 0.05;
+                } else {
+                    LeftPower = LeftPower - (-1*(zAngle - DesiredAngle)/90) * 0.05;
+                    RightPower = RightPower + (-1*(zAngle - DesiredAngle)/90) * 0.05;
                 }
-                if ((zAngle < DesiredAngle)&& (LeftPower < 0.15)){
-                    RightPower = RightPower + 0.005;
-                } else if ((zAngle < DesiredAngle)&& (LeftPower > 0.15)){
-                    LeftPower = LeftPower - 0.005;
-                }
+                robot.leftDrive.setPower(Math.abs(LeftPower));
+                robot.rightDrive.setPower(Math.abs(RightPower));
+                //if ((zAngle > DesiredAngle)&& (LeftPower < 0.15)){
+                //    LeftPower = LeftPower + 0.005;
+                //} else if ((zAngle > DesiredAngle)&& (LeftPower > 0.15)){
+                //    RightPower = RightPower - 0.005;
+                //}
+                //robot.leftDrive.setPower(Math.abs(LeftPower));
+                //robot.rightDrive.setPower(Math.abs(RightPower));
+                //if ((zAngle < DesiredAngle)&& (LeftPower < 0.15)){
+                //    RightPower = RightPower + 0.005;
+                //} else if ((zAngle < DesiredAngle)&& (LeftPower > 0.15)){
+                //    LeftPower = LeftPower - 0.005;
+                //}
+                //robot.leftDrive.setPower(Math.abs(LeftPower));
+                //robot.rightDrive.setPower(Math.abs(RightPower));
+                idle();
+            }
+            float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+            if (zAngle != DesiredAngle){
+                robot.leftDrive.setPower(-0.05);
+                robot.leftDrive.setPower(0.05);
             }
         }
     }
     public void dumbDrive (double DesiredDistance, double RightPower, double LeftPower){
         int newLeftTarget;
         int newRightTarget;
-        final double COUNTS_PER_MOTOR_REV = 1120;    // TETRIX MOTORS = 1440, andymark = 1120
+        final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
         final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
         final double WHEEL_DIAMETER_INCHES = 3.8125;     // For figuring circumference
         final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -179,6 +202,7 @@ public class T_Drive_Straight extends LinearOpMode {
             robot.rightDrive.setPower(Math.abs(RightPower));
             while (opModeIsActive() && (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
 // DO NOTHING BECUZ THIS IS DUMB
+
             }
         }
     }

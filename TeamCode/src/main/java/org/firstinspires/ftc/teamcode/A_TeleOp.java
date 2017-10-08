@@ -24,8 +24,8 @@ public class A_TeleOp extends OpMode {
     }
     @Override
     public void loop() {
-        robot.rightDrive.setPower(scaleController(gamepad1.right_stick_y));
-        robot.leftDrive.setPower(scaleController(gamepad1.left_stick_y));
+        robot.rightDrive.setPower(scaleController(-gamepad1.right_stick_y));
+        robot.leftDrive.setPower(scaleController(-gamepad1.left_stick_y));
         if(gamepad1.dpad_up){
             robot.Lift.setPower(0.3);
         }

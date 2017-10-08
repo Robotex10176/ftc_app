@@ -101,9 +101,18 @@ public class H_RobotHardware
         modernRoboticsI2cGyro = hwMap.get(ModernRoboticsI2cGyro.class, "gyro");
         gyro = (IntegratingGyroscope)modernRoboticsI2cGyro;
         leftDrive = hwMap.dcMotor.get("leftDrive");
+        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftDrive.setPower(0);
+        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightDrive = hwMap.dcMotor.get("rightDrive");
+        rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive.setPower(0);
+        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Lift = hwMap.dcMotor.get("Lift");
+        Lift.setDirection(DcMotorSimple.Direction.FORWARD);
+        Lift.setPower(0);
         RightClaw = hwMap.servo.get("RightClaw");
         LeftClaw = hwMap.servo.get("LeftClaw");
         flick = hwMap.servo.get("topJewel");
@@ -140,10 +149,6 @@ public class H_RobotHardware
         //.
 
         //Get Encoders Ready
-        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
     }
