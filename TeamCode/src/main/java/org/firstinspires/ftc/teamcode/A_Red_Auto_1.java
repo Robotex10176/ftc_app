@@ -99,25 +99,25 @@ public class A_Red_Auto_1 extends LinearOpMode {
         KnockOffJewl(true);//would be false if we were blue
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
-            //Drive Forward 33 in
+            Drive (33, 0.1, 0.1);//Drive Forward 33 in
             Turn(-90, -0.15, 0.15);
-            //Drive Forward
+            Drive (26.5, 0.1, 0.1);
             PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
-            //Drive Forward 39.5 in
+            Drive (39.5, 0.1, 0.1);//Drive Forward 39.5 in
             Turn(-90, -0.15, 0.15);
-            //Drive Forward
+            Drive (26.5, 0.1, 0.1);
             PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.LEFT){//use else if construct to "dasiychain" ifs together
-            //Drive Forward 48 in
+            Drive (48, 0.1, 0.1);//Drive Forward 48 in
             Turn(-90, -0.15, 0.15);
-            //Drive Forward
+            Drive (26.5, 0.1, 0.1);
             PlaceGlyph();
         }
         else{
-            //Drive Forward to one of the columns
+            Drive (39.5, 0.1, 0.1);//Drive Forward to one of the columns
             Turn(-90, -0.15, 0.15);
-            //Drive Forward
+            Drive (26.5, 0.1, 0.1);
             PlaceGlyph();
         }
 
@@ -140,16 +140,11 @@ public class A_Red_Auto_1 extends LinearOpMode {
             SeeOurColor();
         }
     }
-    public void DriveToSafeZone(){
-        // general area, not to specific LEFT RIGHT OR MIDDLE
-        DriveForward(0.15, 0.15, 39, 60);//Right Start Power, Left Start Power, DesiredDistance(in), Timeout (secs)
-        Turn(-90, 0.15, -0.15);//DesiredAngle, Right PWR, Left PWR
-    }
     public void PlaceGlyph(){
         OpenClaw();
-        DriveForward(-0.15, -0.15, -7, 60);
+        Drive(-5, 0.1, 0.1);
         FlatClaw();
-        DriveForward(0.15, 0.15, 3, 10);
+        Drive(2, 0.1, 0.1);
 
         /**this place glyph has to be a piece of code in which the robot is
          * perfectly prepositioned in front of the right collumn (vuMark variable
@@ -164,99 +159,60 @@ public class A_Red_Auto_1 extends LinearOpMode {
             robot.rightDrive.setPower(RightPower);
         }
     }
-    public void DriveForward(double RightPower, double LeftPower,
-                             double DesiredDistance, double TimeoutS){
-        float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC,
-                AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        float DesiredAngle = zAngle;
+    public void Drive(double DesiredDistance, double RightPower, double LeftPower){
+        double dg10incrs = 0.01;
+        double dg22incrs = 0.05;
+        double dg45incrs = 0.1;
+        float DesiredAngle = 0;
         int newLeftTarget;
         int newRightTarget;
-
-        final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // TETRIX MOTORS = 1440, andymark = 1120
-        final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
-        final double     WHEEL_DIAMETER_INCHES   = 3.8125 ;     // For figuring circumference
-        final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                (WHEEL_DIAMETER_INCHES * 3.1415);
-
-        if (opModeIsActive()){
-            newLeftTarget = robot.leftDrive.getCurrentPosition() + (int)(DesiredDistance * COUNTS_PER_INCH);
-            newRightTarget = robot.rightDrive.getCurrentPosition() + (int)(DesiredDistance * COUNTS_PER_INCH);
+        float displacement;
+        final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
+        final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+        final double WHEEL_DIAMETER_INCHES = 3.8125;     // For figuring circumference
+        final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
+        if (opModeIsActive()) {
+            newLeftTarget = robot.leftDrive.getCurrentPosition() + (int) (DesiredDistance * COUNTS_PER_INCH);
+            newRightTarget = robot.rightDrive.getCurrentPosition() + (int) (DesiredDistance * COUNTS_PER_INCH);
             robot.leftDrive.setTargetPosition(newLeftTarget);
             robot.rightDrive.setTargetPosition(newRightTarget);
-
             robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
-            robot.timer.reset();
             robot.leftDrive.setPower(Math.abs(LeftPower));
             robot.rightDrive.setPower(Math.abs(RightPower));
-
-            while (opModeIsActive() &&
-                    (robot.timer.seconds() < TimeoutS) &&
-                    (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())){//___________________ESHWARS PARAMETER__SOMETHING LIKE WHILE MOTORS ARE BUSY____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-                zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC,
-                        AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-                if(DesiredAngle < zAngle){
-                    //Turn(DesiredAngle, -CommonPower, CommonPower);//common power can be changed
-                    //TURN LEFT
-                    RightPower = RightPower + 0.01;
+            while (opModeIsActive() && (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
+                float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+                if (zAngle > DesiredAngle){
+                    LeftPower = LeftPower + ((zAngle - DesiredAngle)/90) * 0.05;
+                    RightPower = RightPower - ((zAngle - DesiredAngle)/90) * 0.05;
+                } else {
+                    LeftPower = LeftPower - (-1*(zAngle - DesiredAngle)/90) * 0.05;
+                    RightPower = RightPower + (-1*(zAngle - DesiredAngle)/90) * 0.05;
                 }
-                if(DesiredAngle > zAngle){
-                    //Turn(DesiredAngle, CommonPower, -CommonPower);//other way
-                    //above might include encoder distance
-                    //TURN RIGHT
-                    LeftPower = LeftPower + 0.01;
-                }
-                // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
-                        robot.leftDrive.getCurrentPosition(),
-                        robot.rightDrive.getCurrentPosition());
-                telemetry.update();
+                robot.leftDrive.setPower(Math.abs(LeftPower));
+                robot.rightDrive.setPower(Math.abs(RightPower));
+                //if ((zAngle > DesiredAngle)&& (LeftPower < 0.15)){
+                //    LeftPower = LeftPower + 0.005;
+                //} else if ((zAngle > DesiredAngle)&& (LeftPower > 0.15)){
+                //    RightPower = RightPower - 0.005;
+                //}
+                //robot.leftDrive.setPower(Math.abs(LeftPower));
+                //robot.rightDrive.setPower(Math.abs(RightPower));
+                //if ((zAngle < DesiredAngle)&& (LeftPower < 0.15)){
+                //    RightPower = RightPower + 0.005;
+                //} else if ((zAngle < DesiredAngle)&& (LeftPower > 0.15)){
+                //    LeftPower = LeftPower - 0.005;
+                //}
+                //robot.leftDrive.setPower(Math.abs(LeftPower));
+                //robot.rightDrive.setPower(Math.abs(RightPower));
+                idle();
             }
-
-        }
-
-    }
-    public void DumbDriveForward(double RightPower, double LeftPower,
-                               double DesiredDistance, double TimeoutS){
-        int newLeftTarget;
-        int newRightTarget;
-
-        final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // TETRIX MOTORS = 1440, andymark = 1120
-        final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
-        final double     WHEEL_DIAMETER_INCHES   = 3.8125 ;     // For figuring circumference
-        final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                (WHEEL_DIAMETER_INCHES * 3.1415);
-
-        if (opModeIsActive()){
-            newLeftTarget = robot.leftDrive.getCurrentPosition() + (int)(DesiredDistance * COUNTS_PER_INCH);
-            newRightTarget = robot.rightDrive.getCurrentPosition() + (int)(DesiredDistance * COUNTS_PER_INCH);
-            robot.leftDrive.setTargetPosition(newLeftTarget);
-            robot.rightDrive.setTargetPosition(newRightTarget);
-
-            robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
-            robot.timer.reset();
-            robot.leftDrive.setPower(Math.abs(LeftPower));
-            robot.rightDrive.setPower(Math.abs(RightPower));
-
-            while (opModeIsActive() &&
-                    (robot.timer.seconds() < TimeoutS) &&
-                    (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())){//___________________ESHWARS PARAMETER__SOMETHING LIKE WHILE MOTORS ARE BUSY____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-                // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
-                        robot.leftDrive.getCurrentPosition(),
-                        robot.rightDrive.getCurrentPosition());
-                telemetry.update();
+            float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+            if (zAngle != DesiredAngle){
+                robot.leftDrive.setPower(-0.05);
+                robot.leftDrive.setPower(0.05);
             }
-
         }
-
     }
     //GYRO STUFF
     String formatRaw(int rawValue) {
