@@ -93,9 +93,9 @@ public class A_Red_Auto_1 extends LinearOpMode {
         KnockOffJewl(true);//would be false if we were blue
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
-            Drive (33, 0.1, 0.1);//Drive Forward 33 in
+            dumbDrive (33, 0.1, 0.1);//Drive Forward 33 in
             Turn(-90, -0.1, 0.1);
-            Drive (26.5, 0.1, 0.1);
+            dumbDrive (26.5, 0.1, 0.1);
             PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
             Drive (39.5, 0.1, 0.1);//Drive Forward 39.5 in
@@ -247,6 +247,28 @@ public class A_Red_Auto_1 extends LinearOpMode {
         sleep(1000);
         robot.moveFlick.setPosition(0.5);
         sleep(1000);
+    }
+    public void dumbDrive (double DesiredDistance, double RightPower, double LeftPower){
+        int newLeftTarget;
+        int newRightTarget;
+        final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
+        final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+        final double WHEEL_DIAMETER_INCHES = 3.8125;     // For figuring circumference
+        final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
+        if (opModeIsActive()) {
+            newLeftTarget = robot.leftDrive.getCurrentPosition() + (int) (DesiredDistance * COUNTS_PER_INCH);
+            newRightTarget = robot.rightDrive.getCurrentPosition() + (int) (DesiredDistance * COUNTS_PER_INCH);
+            robot.leftDrive.setTargetPosition(newLeftTarget);
+            robot.rightDrive.setTargetPosition(newRightTarget);
+            robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.leftDrive.setPower(Math.abs(LeftPower));
+            robot.rightDrive.setPower(Math.abs(RightPower));
+            while (opModeIsActive() && (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
+// DO NOTHING BECUZ THIS IS DUMB
+
+            }
+        }
     }
 }
 

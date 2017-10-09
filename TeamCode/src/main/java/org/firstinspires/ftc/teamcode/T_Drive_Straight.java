@@ -23,8 +23,9 @@ public class T_Drive_Straight extends LinearOpMode {
         //TEST ALL OF THE FOLLOWING METHODS FOR DRIVING STRAIGHT
         //driveKeepCheckingEncoders(40.0, 0.1, 0.1);//1
         //driveWithEncoderCheckAfterXAmountOfTime(10.0, 0.1, 0.1, 250);//250 = 1/4 of a second, 2
-        gyroDrive(33.0, 0.1, 0.1);//3
-        //dumbDrive(10.0, 0.1, 0.1);//do last if at all
+        //gyroDrive(33.0, 0.1, 0.1);//3
+        //dumbDrive(39.0, 0.1, 0.1);//do last if at all
+        Turn(-90, -0.1, 0.1);
     }
 
     public void driveKeepCheckingEncoders(double DesiredDistance, double RightPower, double LeftPower) {
@@ -182,6 +183,19 @@ public class T_Drive_Straight extends LinearOpMode {
                 robot.leftDrive.setPower(-0.05);
                 robot.leftDrive.setPower(0.05);
             }
+        }
+    }
+    public void Turn(double Angle, double RightPower, double LeftPower){
+        //code to turn untill an angle ex 0, 90, -90
+        float zAngle;
+        zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        while (zAngle != Angle){
+            robot.leftDrive.setPower(LeftPower);
+            robot.rightDrive.setPower(RightPower);
+            telemetry.addData("Angle:", zAngle);
+            telemetry.update();
+            zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+
         }
     }
     public void dumbDrive (double DesiredDistance, double RightPower, double LeftPower){
