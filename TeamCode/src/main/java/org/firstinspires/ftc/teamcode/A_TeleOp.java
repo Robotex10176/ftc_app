@@ -18,9 +18,10 @@ public class A_TeleOp extends OpMode {
         //return ( java.lang.Math.signum(in)*in*in);
         return (in*in*in);
     }
+    boolean A = true;
     @Override
     public void init() {
-        robot.init(hardwareMap, false);
+        robot.init(hardwareMap);
     }
     @Override
     public void loop() {
@@ -48,17 +49,104 @@ public class A_TeleOp extends OpMode {
         } else{
             OpenClaw();
         }
-        if (gamepad1.right_bumper){
-            Sensing();
-        } else{
-            Rest();
-        }
         if (gamepad1.a){
-            SeeOurColor();
-        } else if (gamepad1.b){
-            DontSeeOurColor();
-        }else{
-            decide();
+            Turn(0, 0.1);
+        }
+        if (gamepad1.b){
+            Turn(-90, 0.1);
+        }
+        if (gamepad1.x){
+            Turn(90, 0.1);
+        }
+        if (gamepad1.y){
+            Turn(180, 0.1);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //oops
+
+
+
+    public void Turn(double Angle, double Power){
+        //code to turn untill an angle ex 0, 90, -90
+        float zAngle;
+        zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        if (Angle < 0){
+            while (zAngle != Angle){
+                robot.leftDrive.setPower(Power);
+                robot.rightDrive.setPower(-Power);
+                telemetry.addData("Angle:", zAngle);
+                telemetry.update();
+                zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+
+            }
+        } else if (Angle > 0){
+            while (zAngle != Angle){
+                robot.leftDrive.setPower(-Power);
+                robot.rightDrive.setPower(Power);
+                telemetry.addData("Angle:", zAngle);
+                telemetry.update();
+                zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+
+            }
         }
     }
     public void CloseClaw (){
@@ -72,22 +160,5 @@ public class A_TeleOp extends OpMode {
     public void FlatClaw(){
         robot.RightClaw.setPosition(0.3);
         robot.LeftClaw.setPosition(0);
-    }
-    public void Rest (){
-        robot.moveFlick.setPosition(0.5);
-        robot.flick.setPosition(0);
-    }
-    public void Sensing () {
-        robot.flick.setPosition(1);
-        robot.moveFlick.setPosition(0.5);
-    }
-    public void DontSeeOurColor (){
-        robot.moveFlick.setPosition(0.7);
-    }
-    public void SeeOurColor (){
-        robot.moveFlick.setPosition(0);
-    }
-    public void decide (){
-        robot.moveFlick.setPosition(0.5);
     }
 }

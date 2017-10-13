@@ -83,7 +83,7 @@ public class H_RobotHardware
     public H_RobotHardware(){
 
     }
-    public void init(HardwareMap ahwMap, boolean Auto) {
+    public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
         ColorSensor = hwMap.colorSensor.get("ColorSensor");
         modernRoboticsI2cGyro = hwMap.get(ModernRoboticsI2cGyro.class, "gyro");
@@ -117,12 +117,10 @@ public class H_RobotHardware
         final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
         final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                 (WHEEL_DIAMETER_INCHES * 3.1415);
-        if (Auto) {
-            modernRoboticsI2cGyro.calibrate();
-            timer.reset();
-            while (modernRoboticsI2cGyro.isCalibrating()) {
+        modernRoboticsI2cGyro.calibrate();
+        timer.reset();
+        while (modernRoboticsI2cGyro.isCalibrating()) {
 
-            }
         }
     }
  }
