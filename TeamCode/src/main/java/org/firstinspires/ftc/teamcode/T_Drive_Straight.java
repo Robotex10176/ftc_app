@@ -25,7 +25,7 @@ public class T_Drive_Straight extends LinearOpMode {
         //driveWithEncoderCheckAfterXAmountOfTime(10.0, 0.1, 0.1, 250);//250 = 1/4 of a second, 2
         //gyroDrive(33.0, 0.1, 0.1);//3
         //dumbDrive(39.0, 0.1, 0.1);//do last if at all
-        Turn(-90, -0.1, 0.1);
+        Turn(90, 0.1);
     }
 
     public void driveKeepCheckingEncoders(double DesiredDistance, double RightPower, double LeftPower) {
@@ -185,17 +185,28 @@ public class T_Drive_Straight extends LinearOpMode {
             }
         }
     }
-    public void Turn(double Angle, double RightPower, double LeftPower){
+    public void Turn(double Angle, double Power){
         //code to turn untill an angle ex 0, 90, -90
         float zAngle;
         zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        while (zAngle != Angle){
-            robot.leftDrive.setPower(LeftPower);
-            robot.rightDrive.setPower(RightPower);
-            telemetry.addData("Angle:", zAngle);
-            telemetry.update();
-            zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        if (Angle < 0){
+            while (zAngle != Angle){
+                robot.leftDrive.setPower(Power);
+                robot.rightDrive.setPower(-Power);
+                telemetry.addData("Angle:", zAngle);
+                telemetry.update();
+                zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
 
+            }
+        } else if (Angle > 0){
+            while (zAngle != Angle){
+                robot.leftDrive.setPower(-Power);
+                robot.rightDrive.setPower(Power);
+                telemetry.addData("Angle:", zAngle);
+                telemetry.update();
+                zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+
+            }
         }
     }
     public void dumbDrive (double DesiredDistance, double RightPower, double LeftPower){

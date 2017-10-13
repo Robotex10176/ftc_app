@@ -115,8 +115,6 @@ public class H_RobotHardware
         Lift.setPower(0);
         RightClaw = hwMap.servo.get("RightClaw");
         LeftClaw = hwMap.servo.get("LeftClaw");
-        flick = hwMap.servo.get("topJewel");
-        moveFlick = hwMap.servo.get("botomJewel");
         RightClaw.setPosition(0.3);
         LeftClaw.setPosition(0);
         moveFlick.setPosition(0.5);

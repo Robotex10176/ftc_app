@@ -90,28 +90,28 @@ public class A_Red_Auto_1 extends LinearOpMode {
         }
         telemetry.update();
 
-        KnockOffJewl(true);//would be false if we were blue
+        //KnockOffJewl(true);//would be false if we were blue
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
-            dumbDrive (33, 0.1, 0.1);//Drive Forward 33 in
+            dumbDrive (28.25, 0.1, 0.1);//Drive Forward 28.25 in
             Turn(-90, -0.1, 0.1);
-            dumbDrive (26.5, 0.1, 0.1);
+            dumbDrive (25.5, 0.1, 0.1);
             PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
-            Drive (39.5, 0.1, 0.1);//Drive Forward 39.5 in
+            Drive (43.25, 0.1, 0.1);//Drive Forward 39.5 in
             Turn(-90, -0.1, 0.1);
-            Drive (26.5, 0.1, 0.1);
+            Drive (25.5, 0.1, 0.1);
             PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.LEFT){//use else if construct to "dasiychain" ifs together
-            Drive (48, 0.1, 0.1);//Drive Forward 48 in
+            Drive (35.75, 0.1, 0.1);//Drive Forward 48 in
             Turn(-90, -0.1, 0.1);
-            Drive (26.5, 0.1, 0.1);
+            Drive (25.5, 0.1, 0.1);
             PlaceGlyph();
         }
         else{
             Drive (39.5, 0.1, 0.1);//Drive Forward to one of the columns
             Turn(-90, -0.1, 0.1);
-            Drive (26.5, 0.1, 0.1);
+            Drive (25.5, 0.1, 0.1);
             PlaceGlyph();
         }
 
