@@ -28,17 +28,17 @@ public class T_PARTS_Jewl_Test extends LinearOpMode {
         moveFlick.setPosition(0.5);
         waitForStart();
         moveArm(95, 0.1);
+        sleep(1000);
         if ((ColorSensor.red()>ColorSensor.blue())){
             SeeOurColor();
-        }
-        if ((ColorSensor.red()<ColorSensor.blue())){
+        } else if ((ColorSensor.red()<ColorSensor.blue())){
             DontSeeOurColor();
-        }
-        if ((ColorSensor.red()>ColorSensor.blue())){
+        } else if ((ColorSensor.red()>ColorSensor.blue())){
             DontSeeOurColor();
-        }
-        if ((ColorSensor.red()<ColorSensor.blue())){
+        } else if ((ColorSensor.red()<ColorSensor.blue())){
             SeeOurColor();
+        } else {
+
         }
         moveArm(-120, -0.1);
     }
