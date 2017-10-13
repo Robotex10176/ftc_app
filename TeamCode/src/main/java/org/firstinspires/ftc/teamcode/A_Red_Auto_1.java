@@ -41,8 +41,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         //ROBOT INIT
-        robot.init(hardwareMap);
-        Rest();
+        robot.init(hardwareMap, true); //True means this is an autonomous
         OpenClaw();
         telemetry.addLine("Playing Warning Sound");
         telemetry.update();
@@ -90,7 +89,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
         }
         telemetry.update();
 
-        //KnockOffJewl(true);//would be false if we were blue
+        KnockOffJewl(true);//would be false if we were blue
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
             dumbDrive (28.25, 0.1, 0.1);//Drive Forward 28.25 in
@@ -119,19 +118,39 @@ public class A_Red_Auto_1 extends LinearOpMode {
     String format(OpenGLMatrix transformationMatrix) {
         return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
     }
-    public void KnockOffJewl(boolean red){
-        Sensing();
-        if ((red) && (robot.ColorSensor.red()>robot.ColorSensor.blue())){
-            SeeOurColor();
-        }
-        if ((red) && (robot.ColorSensor.red()<robot.ColorSensor.blue())){
-            DontSeeOurColor();
-        }
-        if ((!red) && (robot.ColorSensor.red()>robot.ColorSensor.blue())){
-            DontSeeOurColor();
-        }
-        if ((!red) && (robot.ColorSensor.red()<robot.ColorSensor.blue())){
-            SeeOurColor();
+    public void KnockOffJewl(boolean red) {
+        if (red) {
+            moveArm(95, 0.1);
+            sleep(1000);
+            if ((robot.ColorSensor.red() > robot.ColorSensor.blue())) {
+                SeeOurColor();
+            } else if ((robot.ColorSensor.red() < robot.ColorSensor.blue())) {
+                DontSeeOurColor();
+            } else if ((robot.ColorSensor.red() > robot.ColorSensor.blue())) {
+                DontSeeOurColor();
+            } else if ((robot.ColorSensor.red() < robot.ColorSensor.blue())) {
+                SeeOurColor();
+            } else {
+
+            }
+            moveArm(-120, -0.1);
+        } else if (!red) {
+            moveArm(95, 0.1);
+            sleep(1000);
+            if ((robot.ColorSensor.red() < robot.ColorSensor.blue())) {
+                SeeOurColor();
+            } else if ((robot.ColorSensor.red() > robot.ColorSensor.blue())) {
+                DontSeeOurColor();
+            } else if ((robot.ColorSensor.red() < robot.ColorSensor.blue())) {
+                DontSeeOurColor();
+            } else if ((robot.ColorSensor.red() > robot.ColorSensor.blue())) {
+                SeeOurColor();
+            } else {
+
+            }
+            moveArm(-120, -0.1);
+        } else {
+
         }
     }
     public void PlaceGlyph(){
@@ -224,26 +243,28 @@ public class A_Red_Auto_1 extends LinearOpMode {
         robot.RightClaw.setPosition(0.3);
         robot.LeftClaw.setPosition(0);
     }
-    public void Rest (){
-        robot.moveFlick.setPosition(0.5);
-        sleep(1000);
-        robot.flick.setPosition(0);
-        sleep(1000);
+    public void moveArm (double Degrees, double Power){
+        int newLeftTarget;
+        final double COUNTS_PER_MOTOR_REV = 1120;    // TETRIX MOTORS = 1440, andymark = 1120
+        final double DEGREES = (Degrees*(COUNTS_PER_MOTOR_REV/360));//3.111111111111111111111111111 ticks per degree
+        if (opModeIsActive()) {
+            newLeftTarget = robot.arm.getCurrentPosition() + (int) (DEGREES);
+            robot.arm.setTargetPosition(newLeftTarget);
+            robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.arm.setPower(Math.abs(Power));
+            while (opModeIsActive() && (robot.arm.isBusy())) {
+
+            }
+        }
     }
-    public void Sensing () {
-        robot.flick.setPosition(1);
+    public void SeeOurColor (){
+        robot.moveFlick.setPosition(0);
         sleep(1000);
         robot.moveFlick.setPosition(0.5);
         sleep(1000);
     }
     public void DontSeeOurColor (){
-        robot.moveFlick.setPosition(0.7);
-        sleep(1000);
-        robot.moveFlick.setPosition(0.5);
-        sleep(1000);
-    }
-    public void SeeOurColor (){
-        robot.moveFlick.setPosition(0);
+        robot.moveFlick.setPosition(1);
         sleep(1000);
         robot.moveFlick.setPosition(0.5);
         sleep(1000);

@@ -65,38 +65,26 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 public class H_RobotHardware
 {
-    //PART DECLARATION
     public com.qualcomm.robotcore.hardware.ColorSensor ColorSensor;
     IntegratingGyroscope gyro;
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
     public DcMotor leftDrive;
     public DcMotor rightDrive;
     public DcMotor Lift;
+    public DcMotor arm;
     public Servo RightClaw;
     public Servo LeftClaw;
     public Servo flick;
     public Servo moveFlick;
-    //.
-
     public static final ElapsedTime timer = new ElapsedTime();
     public static final boolean A = true;
-
-    /* local OpMode members. */
     HardwareMap hwMap           = null;
     private ElapsedTime period  = new ElapsedTime();
-
-    /* Constructor */
     public H_RobotHardware(){
 
     }
-
-    /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap ahwMap) {
-        // Save reference to Hardware map
+    public void init(HardwareMap ahwMap, boolean Auto) {
         hwMap = ahwMap;
-
-        // Define and Initialize Motors
-        //PART INIT
         ColorSensor = hwMap.colorSensor.get("ColorSensor");
         modernRoboticsI2cGyro = hwMap.get(ModernRoboticsI2cGyro.class, "gyro");
         gyro = (IntegratingGyroscope)modernRoboticsI2cGyro;
@@ -113,42 +101,29 @@ public class H_RobotHardware
         Lift = hwMap.dcMotor.get("Lift");
         Lift.setDirection(DcMotorSimple.Direction.FORWARD);
         Lift.setPower(0);
+        arm = hwMap.dcMotor.get("Arm");
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setDirection(DcMotorSimple.Direction.FORWARD);
+        arm.setPower(0);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        moveFlick = hwMap.servo.get("Jewel");
+        moveFlick.setPosition(0.5);
         RightClaw = hwMap.servo.get("RightClaw");
         LeftClaw = hwMap.servo.get("LeftClaw");
         RightClaw.setPosition(0.3);
         LeftClaw.setPosition(0);
-        moveFlick.setPosition(0.5);
-        flick.setPosition(0);
-        //.
-
-        //GYRO VARIABLE CONFIG
-        boolean lastResetState = false;
-        boolean curResetState  = false;
-        float zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        //.
-
-        //Encoder Variables
         final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // TETRIX MOTORS = 1440, andymark = 1120
         final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
         final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
         final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                 (WHEEL_DIAMETER_INCHES * 3.1415);
-        //.
+        if (Auto) {
+            modernRoboticsI2cGyro.calibrate();
+            timer.reset();
+            while (modernRoboticsI2cGyro.isCalibrating()) {
 
-
-        //CALIBRATE GYRO
-
-        modernRoboticsI2cGyro.calibrate();
-        timer.reset();
-        while ( modernRoboticsI2cGyro.isCalibrating())  {
-
+            }
         }
-
-        //.
-
-        //Get Encoders Ready
-
-
     }
  }
 
