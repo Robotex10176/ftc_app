@@ -40,7 +40,6 @@ public class A_Red_Auto_1 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        //ROBOT INIT
         robot.init(hardwareMap); //True means this is an autonomous
         OpenClaw();
         telemetry.addLine("Playing Warning Sound");
