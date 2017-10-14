@@ -49,18 +49,6 @@ public class A_TeleOp extends OpMode {
         } else{
             OpenClaw();
         }
-        if (gamepad1.a){
-            Turn(0, 0.1);
-        }
-        if (gamepad1.b){
-            Turn(-90, 0.1);
-        }
-        if (gamepad1.x){
-            Turn(90, 0.1);
-        }
-        if (gamepad1.y){
-            Turn(180, 0.1);
-        }
     }
 
 

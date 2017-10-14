@@ -18,7 +18,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * Created by Eric D'Urso on 10/14/2017.
  */
 @Autonomous (name = "ALL CODE", group = "AAAAAAAAAAA")
-@TeleOp (name = "ALL CODE", group = "AAAAAAAAAAA")
 public class AAA_MAIN_CODE extends LinearOpMode {
     H_RobotHardware robot = new H_RobotHardware();
     public static final String TAG = "Vuforia VuMark Sample";
@@ -91,13 +90,16 @@ public class AAA_MAIN_CODE extends LinearOpMode {
             if (Auto == 0) {
                 telemetry.addData("AUTO =", Auto);
                 telemetry.update();
+                sleep(2000);
                 ranAuto = true;
+
 
                 //means skip auto, we dooin telly
 
             } else if (Auto == 1) {
                 telemetry.addData("AUTO =", Auto);
                 telemetry.update();
+                sleep(2000);
 
 
                 ranAuto = true;
@@ -105,18 +107,21 @@ public class AAA_MAIN_CODE extends LinearOpMode {
             } else if (Auto == 2) {
                 telemetry.addData("AUTO =", Auto);
                 telemetry.update();
+                sleep(2000);
 
 
                 ranAuto = true;
             } else if (Auto == 3) {
                 telemetry.addData("AUTO =", Auto);
                 telemetry.update();
+                sleep(2000);
 
 
                 ranAuto = true;
             } else if (Auto == 4) {
                 telemetry.addData("AUTO =", Auto);
                 telemetry.update();
+                sleep(2000);
 
 
                 ranAuto = true;

@@ -35,6 +35,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
     public static final String TAG = "Vuforia VuMark Sample";
     OpenGLMatrix lastLocation = null;
     VuforiaLocalizer vuforia;
+
     //.
 
     @Override
@@ -56,9 +57,9 @@ public class A_Red_Auto_1 extends LinearOpMode {
         sleep(1000);
         CloseClaw();
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);//leave parameters blank to not display on phone
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();//leave parameters blank to not display on phone, fill with cameraMonitorViewId to view on phone
         parameters.vuforiaLicenseKey = "AV6yugj/////AAAAGTOHqL6RDUmVgo0jZreKdLgqXGK+wd8vPtaDUOeepBzJahj4mF1oh/urYHvdw40evwj26RACNoqaxJWb1nS9RCaPjg25pDCZJJgFNSmtPHBU+f5AN1Y7ZJbJjNOAg8XvkX99ixa/gD/9HO9Es11cXjv0GkJof4M3ynaDqrh8S18dT5XT8QReygM64YyWkrsqjWI5H7WqZkuBDCSfmq0MVQiQrF9LChxd3/dTjChBJvcD8Rud19FEvu5IXq/Xem4KpPtuWDQAH0gWKJve8AzlcQLomY2nKtjbpcrZLpVjwtoo+C8NCCL5ng14uRCI8eriEg3OFD6v4ZNSZmbZIcUqAuX4YtFQG3t1RL0MT+3fWsBf";
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;//change to front to switch camera used
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;//change to back to switch camera used
         this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
         VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
@@ -68,7 +69,14 @@ public class A_Red_Auto_1 extends LinearOpMode {
         //.
 
         waitForStart();
+        robot.moveFlick.setPosition(0);
+        sleep(1000);
+        robot.moveFlick.setPosition(0.5);
+        sleep(1000);
+        robot.Lift.setPower(0.3);
+        sleep(1000);
 
+        robot.Lift.setPower(0);
         //VUFORIA SCAN
         relicTrackables.activate();
         //all of this code is in COnceptVuMarkIdentification.java
@@ -91,25 +99,25 @@ public class A_Red_Auto_1 extends LinearOpMode {
         KnockOffJewl(true);//would be false if we were blue
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
-            Drive (28.25, 0.1, 0.1);//Drive Forward 28.25 in
-            Turn(-90, -0.1, 0.1);
-            Drive (25.5, 0.1, 0.1);
+            dumbDrive (28.25, 0.1, 0.1);//Drive Forward 28.25 in
+            SmartTurn(-90, 0.2);
+            dumbDrive (25.5, 0.1, 0.1);
             PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
-            Drive (43.25, 0.1, 0.1);//Drive Forward 39.5 in
-            Turn(-90, -0.1, 0.1);
-            Drive (25.5, 0.1, 0.1);
+            dumbDrive (43.25, 0.1, 0.1);//Drive Forward 39.5 in
+            SmartTurn(-90, 0.1);
+            dumbDrive (25.5, 0.1, 0.1);
             PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.LEFT){//use else if construct to "dasiychain" ifs together
-            Drive (35.75, 0.1, 0.1);//Drive Forward 48 in
-            Turn(-90, -0.1, 0.1);
-            Drive (25.5, 0.1, 0.1);
+            dumbDrive (35.75, 0.1, 0.1);//Drive Forward 48 in
+            SmartTurn(-90, 0.1);
+            dumbDrive (25.5, 0.1, 0.1);
             PlaceGlyph();
         }
         else{
-            Drive (39.5, 0.1, 0.1);//Drive Forward to one of the columns
-            Turn(-90, -0.1, 0.1);
-            Drive (25.5, 0.1, 0.1);
+            dumbDrive (39.5, 0.1, 0.1);//Drive Forward to one of the columns
+            SmartTurn(-90, 0.2);
+            dumbDrive (25.5, 0.1, 0.1);
             PlaceGlyph();
         }
 
@@ -166,9 +174,34 @@ public class A_Red_Auto_1 extends LinearOpMode {
     public void Turn(double Angle, double RightPower, double LeftPower){
         //code to turn untill an angle ex 0, 90, -90
         float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        if (zAngle != Angle){
+        while (zAngle != Angle){
+            zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
             robot.leftDrive.setPower(LeftPower);
             robot.rightDrive.setPower(RightPower);
+        }
+    }
+    public void SmartTurn(double Angle, double Power){
+        //code to turn untill an angle ex 0, 90, -90
+        float zAngle;
+        zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        if (Angle < 0){
+            while (zAngle != Angle){
+                robot.leftDrive.setPower(Power);
+                robot.rightDrive.setPower(-Power);
+                telemetry.addData("Angle:", zAngle);
+                telemetry.update();
+                zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+
+            }//get dis 2 work
+        } else if (Angle > 0){
+            while (zAngle != Angle){
+                robot.leftDrive.setPower(-Power);
+                robot.rightDrive.setPower(Power);
+                telemetry.addData("Angle:", zAngle);
+                telemetry.update();
+                zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+
+            }
         }
     }
     public void Drive(double DesiredDistance, double RightPower, double LeftPower){
@@ -268,6 +301,27 @@ public class A_Red_Auto_1 extends LinearOpMode {
         robot.moveFlick.setPosition(0.5);
         sleep(1000);
     }
+    public void dumbDrive (double DesiredDistance, double RightPower, double LeftPower){
+        int newLeftTarget;
+        int newRightTarget;
+        final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
+        final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+        final double WHEEL_DIAMETER_INCHES = 3.8125;     // For figuring circumference
+        final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
+        if (opModeIsActive()) {
+            newLeftTarget = robot.leftDrive.getCurrentPosition() + (int) (DesiredDistance * COUNTS_PER_INCH);
+            newRightTarget = robot.rightDrive.getCurrentPosition() + (int) (DesiredDistance * COUNTS_PER_INCH);
+            robot.leftDrive.setTargetPosition(newLeftTarget);
+            robot.rightDrive.setTargetPosition(newRightTarget);
+            robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.leftDrive.setPower(Math.abs(LeftPower));
+            robot.rightDrive.setPower(Math.abs(RightPower));
+            while (opModeIsActive() && (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
+// DO NOTHING BECUZ THIS IS DUMB
 
+            }
+        }
+    }
 }
 

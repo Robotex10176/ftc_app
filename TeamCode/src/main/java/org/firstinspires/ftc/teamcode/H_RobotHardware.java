@@ -110,8 +110,8 @@ public class H_RobotHardware
         moveFlick.setPosition(0.5);
         RightClaw = hwMap.servo.get("RightClaw");
         LeftClaw = hwMap.servo.get("LeftClaw");
-        RightClaw.setPosition(0.3);
-        LeftClaw.setPosition(0);
+        RightClaw.setPosition(1);
+        LeftClaw.setPosition(0.25);
         final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // TETRIX MOTORS = 1440, andymark = 1120
         final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
         final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
