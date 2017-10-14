@@ -1,45 +1,34 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-
 /**
- * Created by Eric D'Urso on 9/16/2017.
+ * Created by Eric D'Urso on 10/14/2017.
  */
-@Autonomous (name = "A_Red_Auto_1", group = "Red Autonomous")
-public class A_Red_Auto_1 extends LinearOpMode {
 
-    //ROBOT CONFIGURE
+public class AAA_MAIN_CODE extends LinearOpMode {
     H_RobotHardware robot = new H_RobotHardware();
     public static final String TAG = "Vuforia VuMark Sample";
     OpenGLMatrix lastLocation = null;
     VuforiaLocalizer vuforia;
-    //.
-
+    int MAIN;
+    boolean knowsWhatCode = false;
+    private float scaleController(float in){
+        //return ( java.lang.Math.signum(in)*in*in);
+        return (in*in*in);
+    }
     @Override
     public void runOpMode() throws InterruptedException {
-
         robot.init(hardwareMap); //True means this is an autonomous
         OpenClaw();
         telemetry.addLine("Playing Warning Sound");
@@ -65,58 +54,126 @@ public class A_Red_Auto_1 extends LinearOpMode {
         relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
-        //.
-
         waitForStart();
 
-        //VUFORIA SCAN
-        relicTrackables.activate();
-        //all of this code is in COnceptVuMarkIdentification.java
-        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-        robot.timer.reset();
-        while ( robot.timer.seconds() < 10 && vuMark == RelicRecoveryVuMark.UNKNOWN ) {//While it cant see vuMark or time is less that 10
-            vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            telemetry.addData("VuMark", "not visible");
-            telemetry.update();
-            idle();
-        }
-        if (vuMark != RelicRecoveryVuMark.UNKNOWN){
-            telemetry.addData("VuMark", "%s visible", vuMark);
-        }
-        else {
-            telemetry.addData("VuMark", "not visible");
-        }
-        telemetry.update();
 
-        KnockOffJewl(true);//would be false if we were blue
 
-        if (vuMark == RelicRecoveryVuMark.RIGHT){
-            Drive (28.25, 0.1, 0.1);//Drive Forward 28.25 in
-            Turn(-90, -0.1, 0.1);
-            Drive (25.5, 0.1, 0.1);
-            PlaceGlyph();
-        } else if (vuMark == RelicRecoveryVuMark.CENTER){
-            Drive (43.25, 0.1, 0.1);//Drive Forward 39.5 in
-            Turn(-90, -0.1, 0.1);
-            Drive (25.5, 0.1, 0.1);
-            PlaceGlyph();
-        } else if (vuMark == RelicRecoveryVuMark.LEFT){//use else if construct to "dasiychain" ifs together
-            Drive (35.75, 0.1, 0.1);//Drive Forward 48 in
-            Turn(-90, -0.1, 0.1);
-            Drive (25.5, 0.1, 0.1);
-            PlaceGlyph();
+
+
+
+
+
+
+
+
+        while (!knowsWhatCode){
+            if(gamepad2.x){
+                //BLUE AUTO 2 GORS HERE
+            } else if (gamepad2.y){
+                // RED AUTO 2 GOES HERE
+            } else if (gamepad2.a){
+                // BLUE AUTO 1 GOES HERE
+            } else if (gamepad2.b){
+                //RED AUTO 1 GOES HERE
+            } else if (gamepad2.right_bumper){
+                while (opModeIsActive()){
+                    if ((gamepad1.left_trigger < 0.05) || (gamepad1.right_trigger < 0.05)){
+                        robot.rightDrive.setPower(scaleController(-gamepad1.right_stick_y));
+                        robot.leftDrive.setPower(scaleController(-gamepad1.left_stick_y));
+                    }
+                    if ((gamepad1.left_trigger > 0.05) || (gamepad1.right_trigger > 0.05)){
+                        robot.rightDrive.setPower(scaleController((gamepad1.right_trigger)/2));
+                        robot.leftDrive.setPower(scaleController((gamepad1.left_trigger)/2));
+                    }
+                    if(gamepad1.dpad_up){
+                        robot.Lift.setPower(0.3);
+                    }
+                    if(gamepad1.dpad_down){
+                        robot.Lift.setPower(-0.3);
+                    }
+                    if (((!gamepad1.dpad_up) &&(!gamepad1.dpad_down)) ){
+                        robot.Lift.setPower(0);
+                    }
+                    if (gamepad1.left_bumper){
+                        CloseClaw();
+                    } else{
+                        OpenClaw();
+                    }
+                    if (gamepad1.a){
+                        Turn(0, 0.1);
+                    }
+                    if (gamepad1.b){
+                        Turn(-90, 0.1);
+                    }
+                    if (gamepad1.x){
+                        Turn(90, 0.1);
+                    }
+                    if (gamepad1.y){
+                        Turn(180, 0.1);
+                    }
+                }
+            } else {
+                //Do NOthing
+            }
         }
-        else{
-            Drive (39.5, 0.1, 0.1);//Drive Forward to one of the columns
-            Turn(-90, -0.1, 0.1);
-            Drive (25.5, 0.1, 0.1);
-            PlaceGlyph();
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
     String format(OpenGLMatrix transformationMatrix) {
         return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//METHODS BELOW
+
+
+
+
+
     public void KnockOffJewl(boolean red) {
         if (red) {
             moveArm(95, 0.1);
@@ -163,12 +220,28 @@ public class A_Red_Auto_1 extends LinearOpMode {
          * cant be identified in an independent method)
          */
     }
-    public void Turn(double Angle, double RightPower, double LeftPower){
+    public void Turn(double Angle, double Power){
         //code to turn untill an angle ex 0, 90, -90
-        float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        if (zAngle != Angle){
-            robot.leftDrive.setPower(LeftPower);
-            robot.rightDrive.setPower(RightPower);
+        float zAngle;
+        zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        if (Angle < 0){
+            while (zAngle != Angle){
+                robot.leftDrive.setPower(Power);
+                robot.rightDrive.setPower(-Power);
+                telemetry.addData("Angle:", zAngle);
+                telemetry.update();
+                zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+
+            }
+        } else if (Angle > 0){
+            while (zAngle != Angle){
+                robot.leftDrive.setPower(-Power);
+                robot.rightDrive.setPower(Power);
+                telemetry.addData("Angle:", zAngle);
+                telemetry.update();
+                zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+
+            }
         }
     }
     public void Drive(double DesiredDistance, double RightPower, double LeftPower){
@@ -268,6 +341,4 @@ public class A_Red_Auto_1 extends LinearOpMode {
         robot.moveFlick.setPosition(0.5);
         sleep(1000);
     }
-
 }
-
