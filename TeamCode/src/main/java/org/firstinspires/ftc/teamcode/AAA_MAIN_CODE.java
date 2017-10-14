@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -15,18 +17,20 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 /**
  * Created by Eric D'Urso on 10/14/2017.
  */
-
+@Autonomous (name = "ALL CODE", group = "AAAAAAAAAAA")
+@TeleOp (name = "ALL CODE", group = "AAAAAAAAAAA")
 public class AAA_MAIN_CODE extends LinearOpMode {
     H_RobotHardware robot = new H_RobotHardware();
     public static final String TAG = "Vuforia VuMark Sample";
     OpenGLMatrix lastLocation = null;
     VuforiaLocalizer vuforia;
-    int MAIN;
+    int Auto = 0;
     boolean knowsWhatCode = false;
     private float scaleController(float in){
         //return ( java.lang.Math.signum(in)*in*in);
         return (in*in*in);
     }
+    boolean ranAuto = false;
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap); //True means this is an autonomous
@@ -52,128 +56,87 @@ public class AAA_MAIN_CODE extends LinearOpMode {
         VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
         relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
-        telemetry.addData(">", "Press Play to start");
+        telemetry.addData(">", "SELECT CODE USING CONTROLLER");
         telemetry.update();
-        waitForStart();
-
-
-
-
-
-
-
-
-
-
 
         while (!knowsWhatCode){
             if(gamepad2.x){
                 //BLUE AUTO 2 GORS HERE
+                Auto = 1;
+                knowsWhatCode = true;
             } else if (gamepad2.y){
                 // RED AUTO 2 GOES HERE
+                Auto = 2;
+                knowsWhatCode = true;
             } else if (gamepad2.a){
                 // BLUE AUTO 1 GOES HERE
+                Auto = 3;
+                knowsWhatCode = true;
             } else if (gamepad2.b){
                 //RED AUTO 1 GOES HERE
+                Auto = 4;
+                knowsWhatCode = true;
             } else if (gamepad2.right_bumper){
-                while (opModeIsActive()){
-                    if ((gamepad1.left_trigger < 0.05) || (gamepad1.right_trigger < 0.05)){
-                        robot.rightDrive.setPower(scaleController(-gamepad1.right_stick_y));
-                        robot.leftDrive.setPower(scaleController(-gamepad1.left_stick_y));
-                    }
-                    if ((gamepad1.left_trigger > 0.05) || (gamepad1.right_trigger > 0.05)){
-                        robot.rightDrive.setPower(scaleController((gamepad1.right_trigger)/2));
-                        robot.leftDrive.setPower(scaleController((gamepad1.left_trigger)/2));
-                    }
-                    if(gamepad1.dpad_up){
-                        robot.Lift.setPower(0.3);
-                    }
-                    if(gamepad1.dpad_down){
-                        robot.Lift.setPower(-0.3);
-                    }
-                    if (((!gamepad1.dpad_up) &&(!gamepad1.dpad_down)) ){
-                        robot.Lift.setPower(0);
-                    }
-                    if (gamepad1.left_bumper){
-                        CloseClaw();
-                    } else{
-                        OpenClaw();
-                    }
-                    if (gamepad1.a){
-                        Turn(0, 0.1);
-                    }
-                    if (gamepad1.b){
-                        Turn(-90, 0.1);
-                    }
-                    if (gamepad1.x){
-                        Turn(90, 0.1);
-                    }
-                    if (gamepad1.y){
-                        Turn(180, 0.1);
-                    }
-                }
+                //TELEOP GOES HERE
+                Auto = 0;//means we aint doing auto
+                knowsWhatCode = true;
             } else {
-                //Do NOthing
+                //DO NOTHING
             }
         }
 
+        waitForStart();
+
+        while (!ranAuto) {
+            if (Auto == 0) {
+                telemetry.addData("AUTO =", Auto);
+                telemetry.update();
+                ranAuto = true;
+
+                //means skip auto, we dooin telly
+
+            } else if (Auto == 1) {
+                telemetry.addData("AUTO =", Auto);
+                telemetry.update();
 
 
+                ranAuto = true;
+//auto code goes in these
+            } else if (Auto == 2) {
+                telemetry.addData("AUTO =", Auto);
+                telemetry.update();
 
 
+                ranAuto = true;
+            } else if (Auto == 3) {
+                telemetry.addData("AUTO =", Auto);
+                telemetry.update();
 
 
+                ranAuto = true;
+            } else if (Auto == 4) {
+                telemetry.addData("AUTO =", Auto);
+                telemetry.update();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                ranAuto = true;
+            } else {
+                //should NEVER HAPPEN
+            }
+        }
+        telemetry.addData("Ran Auto = ", ranAuto);
+        telemetry.addLine("RUNNING TELEOP NOWWWWWWWW!!!!!!!!!!!!!!! . . . ");
+        telemetry.update();
+        if (ranAuto){
+            while (opModeIsActive()){
+                //TELEOP GOES HERE
+            }
+        }
     }
     String format(OpenGLMatrix transformationMatrix) {
         return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //METHODS BELOW
-
-
-
-
-
     public void KnockOffJewl(boolean red) {
         if (red) {
             moveArm(95, 0.1);
