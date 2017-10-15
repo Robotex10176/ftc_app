@@ -21,7 +21,7 @@ public class A_TeleOp extends OpMode {
     boolean A = true;
     @Override
     public void init() {
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, false );
     }
     @Override
     public void loop() {

@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 /**
  * Created by Eric D'Urso on 10/6/2017.
  */
-@Autonomous (name = "Drive Straight")
+@Autonomous (name = "Wheel Test")
 public class T_Drive_Straight extends LinearOpMode {
     H_RobotHardware robot = new H_RobotHardware();
     boolean A = true;
@@ -191,9 +191,9 @@ public class T_Drive_Straight extends LinearOpMode {
         float zAngle;
         zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
             while (zAngle != Angle){
-                robot.leftDrive.setPower(-Power);
-                robot.rightDrive.setPower(Power);
-                telemetry.addData("R Angle:", zAngle);
+                robot.leftDrive.setPower(Power);
+                robot.rightDrive.setPower(-Power);
+                telemetry.addData("R ds Angle:", zAngle);
                 telemetry.update();
                 zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
 
@@ -203,16 +203,14 @@ public class T_Drive_Straight extends LinearOpMode {
     public void SmartTurnLeft (double Angle, double Power){
         float zAngle;
         zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-
-            while (zAngle != Angle){
-                robot.leftDrive.setPower(Power);
-                robot.rightDrive.setPower(-Power);
-                telemetry.addData("L Angle:", zAngle);
+        while (zAngle != Angle){
+                robot.leftDrive.setPower(-Power);
+                robot.rightDrive.setPower(Power);
+                telemetry.addData("L ds Angle:", zAngle);
                 telemetry.update();
                 zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
 
-            }
-
+        }
     }
     public void dumbDrive (double DesiredDistance, double RightPower, double LeftPower){
         int newLeftTarget;

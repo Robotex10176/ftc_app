@@ -27,7 +27,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 /**
  * Created by Eric D'Urso on 9/16/2017.
  */
-@Autonomous (name = "A_Red_Auto_1", group = "Red Autonomous")
+@Autonomous (name = "Red_Auto_1", group = "Red Autonomous")
 public class A_Red_Auto_1 extends LinearOpMode {
 
     //ROBOT CONFIGURE
@@ -41,7 +41,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        robot.init(hardwareMap); //True means this is an autonomous
+        robot.init(hardwareMap, true); //True means this is an autonomous
         OpenClaw();
         telemetry.addLine("Playing Warning Sound");
         telemetry.update();
@@ -69,14 +69,12 @@ public class A_Red_Auto_1 extends LinearOpMode {
         //.
 
         waitForStart();
-        robot.moveFlick.setPosition(0);
-        sleep(1000);
-        robot.moveFlick.setPosition(0.5);
-        sleep(1000);
+
+        //move block off ground
         robot.Lift.setPower(0.3);
         sleep(1000);
-
         robot.Lift.setPower(0);
+
         //VUFORIA SCAN
         relicTrackables.activate();
         //all of this code is in COnceptVuMarkIdentification.java
@@ -99,25 +97,24 @@ public class A_Red_Auto_1 extends LinearOpMode {
         KnockOffJewl(true);//would be false if we were blue
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
-            dumbDrive (28.25, 0.1, 0.1);//Drive Forward 28.25 in
-            SmartTurn(-90, 0.2);
-            dumbDrive (25.5, 0.1, 0.1);
+            dumbDrive (28.25, 0.15, 0.15);//Drive Forward 28.25 in
+            SmartTurnRight(90, 0.1);
+            dumbDrive (3, 0.15, 0.15);
             PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
-            dumbDrive (43.25, 0.1, 0.1);//Drive Forward 39.5 in
-            SmartTurn(-90, 0.1);
-            dumbDrive (25.5, 0.1, 0.1);
+            dumbDrive (35.75, 0.15, 0.15);//Drive Forward 39.5 in
+            SmartTurnRight(90, 0.1);
+            dumbDrive (3, 0.15, 0.15);
             PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.LEFT){//use else if construct to "dasiychain" ifs together
-            dumbDrive (35.75, 0.1, 0.1);//Drive Forward 48 in
-            SmartTurn(-90, 0.1);
-            dumbDrive (25.5, 0.1, 0.1);
+            dumbDrive (43.25, 0.15, 0.15);//Drive Forward 48 in
+            SmartTurnRight(90, 0.1);
+            dumbDrive (3, 0.15, 0.15);
             PlaceGlyph();
-        }
-        else{
-            dumbDrive (39.5, 0.1, 0.1);//Drive Forward to one of the columns
-            SmartTurn(-90, 0.2);
-            dumbDrive (25.5, 0.1, 0.1);
+        } else{
+            dumbDrive (35.75, 0.15, 0.15);//Drive Forward to one of the columns
+            SmartTurnRight(90, 0.1);
+            dumbDrive (3, 0.15, 0.15);
             PlaceGlyph();
         }
 
@@ -126,39 +123,38 @@ public class A_Red_Auto_1 extends LinearOpMode {
         return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
     }
     public void KnockOffJewl(boolean red) {
-        if (red) {
-            moveArm(95, 0.1);
-            sleep(1000);
-            if ((robot.ColorSensor.red() > robot.ColorSensor.blue())) {
-                SeeOurColor();
-            } else if ((robot.ColorSensor.red() < robot.ColorSensor.blue())) {
-                DontSeeOurColor();
-            } else if ((robot.ColorSensor.red() > robot.ColorSensor.blue())) {
-                DontSeeOurColor();
-            } else if ((robot.ColorSensor.red() < robot.ColorSensor.blue())) {
-                SeeOurColor();
-            } else {
-
-            }
-            moveArm(-120, -0.1);
-        } else if (!red) {
-            moveArm(95, 0.1);
-            sleep(1000);
-            if ((robot.ColorSensor.red() < robot.ColorSensor.blue())) {
-                SeeOurColor();
-            } else if ((robot.ColorSensor.red() > robot.ColorSensor.blue())) {
-                DontSeeOurColor();
-            } else if ((robot.ColorSensor.red() < robot.ColorSensor.blue())) {
-                DontSeeOurColor();
-            } else if ((robot.ColorSensor.red() > robot.ColorSensor.blue())) {
-                SeeOurColor();
-            } else {
-
-            }
-            moveArm(-120, -0.1);
+        String color = "UNKNOWN";
+        moveArm(120, 0.1);
+        sleep(1000);
+        if ((robot.ColorSensor.red() > robot.ColorSensor.blue())){
+            color = "RED";
+        } else if ((robot.ColorSensor.red() < robot.ColorSensor.blue())){
+            color = "BLUE";
         } else {
-
+            color = "UNKNOWN";
         }
+        telemetry.addData("Sensed Color Is ", color);
+        telemetry.update();
+        //sleep(2000);
+        if (red) {
+            if (color.compareTo("RED") == 0){
+                SeeOurColor();
+            } else if (color.compareTo("BLUE") == 0){
+                DontSeeOurColor();
+            } else {
+               //UNKNOWN
+            }
+        } else {//means its blue
+            if (color.compareTo("RED") == 0){
+                DontSeeOurColor();
+            } else if (color.compareTo("BLUE") == 0){
+                SeeOurColor();
+            } else {
+                //UNKNOWN
+            }
+        }
+        moveArm(-120, -0.1);
+        sleep(1000);
     }
     public void PlaceGlyph(){
         OpenClaw();
@@ -171,37 +167,49 @@ public class A_Red_Auto_1 extends LinearOpMode {
          * cant be identified in an independent method)
          */
     }
-    public void Turn(double Angle, double RightPower, double LeftPower){
-        //code to turn untill an angle ex 0, 90, -90
-        float zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        while (zAngle != Angle){
-            zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-            robot.leftDrive.setPower(LeftPower);
-            robot.rightDrive.setPower(RightPower);
+    public float AngularSeparation (float a, float b){
+        float rv;
+        rv = Math.abs(a-b);
+        if (rv >= 180){
+            rv = 360 - rv;
         }
+        return rv;
     }
-    public void SmartTurn(double Angle, double Power){
+    public void SmartTurnRight(float Angle, double Power){//turn right is clockwise
         //code to turn untill an angle ex 0, 90, -90
         float zAngle;
+        float targetAngle;
         zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        if (Angle < 0){
-            while (zAngle != Angle){
-                robot.leftDrive.setPower(Power);
-                robot.rightDrive.setPower(-Power);
-                telemetry.addData("Angle:", zAngle);
-                telemetry.update();
-                zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        //Set target direction in range -180 - 180;
+        targetAngle = (zAngle - Angle + 180);
+        while (targetAngle > 360){ targetAngle = targetAngle - 360; }
+        while (targetAngle < 0){ targetAngle = targetAngle + 360; }
+        targetAngle = targetAngle - 180;
 
-            }//get dis 2 work
-        } else if (Angle > 0){
-            while (zAngle != Angle){
-                robot.leftDrive.setPower(-Power);
-                robot.rightDrive.setPower(Power);
-                telemetry.addData("Angle:", zAngle);
-                telemetry.update();
-                zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        while (AngularSeparation(zAngle, targetAngle)> 2.0){
+            robot.leftDrive.setPower(Power);
+            robot.rightDrive.setPower(-Power);
+            telemetry.addData("R Angle:", zAngle);
+            telemetry.addData("P ", robot.leftDrive.getPower());
+            telemetry.addData("Given Power ", Power);
+            telemetry.update();
+            zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+            idle();
+        }
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
 
-            }
+    }
+    public void SmartTurnLeft (double Angle, double Power){
+        float zAngle;
+        zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        while (zAngle != Angle){
+            robot.leftDrive.setPower(-Power);
+            robot.rightDrive.setPower(Power);
+            telemetry.addData("L Angle:", zAngle);
+            telemetry.update();
+            zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+            idle();
         }
     }
     public void Drive(double DesiredDistance, double RightPower, double LeftPower){
@@ -321,6 +329,12 @@ public class A_Red_Auto_1 extends LinearOpMode {
 // DO NOTHING BECUZ THIS IS DUMB
 
             }
+            robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightDrive.setPower(0);
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 }
