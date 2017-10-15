@@ -200,17 +200,29 @@ public class A_Red_Auto_1 extends LinearOpMode {
         robot.rightDrive.setPower(0);
 
     }
-    public void SmartTurnLeft (double Angle, double Power){
+    public void SmartTurnLeft (float Angle, double Power){
         float zAngle;
+        float targetAngle;
         zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        while (zAngle != Angle){
+        //Set target direction in range -180 - 180;
+        targetAngle = (zAngle - Angle + 180);
+        while (targetAngle > 360){ targetAngle = targetAngle - 360; }
+        while (targetAngle < 0){ targetAngle = targetAngle + 360; }
+        targetAngle = targetAngle - 180;
+
+        while (AngularSeparation(zAngle, targetAngle)> 2.0){
             robot.leftDrive.setPower(-Power);
             robot.rightDrive.setPower(Power);
             telemetry.addData("L Angle:", zAngle);
+            telemetry.addData("P ", robot.leftDrive.getPower());
+            telemetry.addData("Given Power ", Power);
             telemetry.update();
             zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
             idle();
         }
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
+
     }
     public void Drive(double DesiredDistance, double RightPower, double LeftPower){
         double dg10incrs = 0.01;
