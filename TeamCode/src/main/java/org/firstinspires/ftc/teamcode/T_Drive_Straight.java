@@ -189,19 +189,19 @@ public class T_Drive_Straight extends LinearOpMode {
         //code to turn untill an angle ex 0, 90, -90
         float zAngle;
         zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        if (Angle < 0){
+        if (Angle > 0){
             while (zAngle != Angle){
-                robot.leftDrive.setPower(Power);
-                robot.rightDrive.setPower(-Power);
+                robot.leftDrive.setPower(-Power);
+                robot.rightDrive.setPower(Power);
                 telemetry.addData("Angle:", zAngle);
                 telemetry.update();
                 zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
 
             }//get dis 2 work
-        } else if (Angle > 0){
+        } else if (Angle < 0){
             while (zAngle != Angle){
-                robot.leftDrive.setPower(-Power);
-                robot.rightDrive.setPower(Power);
+                robot.leftDrive.setPower(Power);
+                robot.rightDrive.setPower(-Power);
                 telemetry.addData("Angle:", zAngle);
                 telemetry.update();
                 zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
