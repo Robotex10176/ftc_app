@@ -10,25 +10,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-
 /**
- * Created by Eric D'Urso on 9/16/2017.
+ * Created by Eric D'Urso on 10/16/2017.
  */
-@Autonomous (name = "Red Auto 1", group = "Red Autonomous")
-public class A_Red_Auto_1 extends LinearOpMode {
-
-    //ROBOT CONFIGURE
+@Autonomous(name = "Blue Auto 2", group = "Blue Autonomous")
+public class A_Blue_Auto_2 extends LinearOpMode {
     Robot_Hardware_and_Methods main = new Robot_Hardware_and_Methods();
     Game_Methods gameParts = new Game_Methods();
     public static final String TAG = "Vuforia VuMark Sample";
     OpenGLMatrix lastLocation = null;
     VuforiaLocalizer vuforia;
-
-    //.
-
     @Override
     public void runOpMode() throws InterruptedException {
-
         main.init(hardwareMap, true); //True means this is an autonomous
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();//leave parameters blank to not display on phone, fill with cameraMonitorViewId to view on phone
@@ -40,10 +33,7 @@ public class A_Red_Auto_1 extends LinearOpMode {
         relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
         telemetry.addLine("Press Play to start");
         telemetry.update();
-        //.
-
         waitForStart();
-
         //move block off ground
         main.Lift.setPower(0.3);
         sleep(1000);
@@ -68,168 +58,16 @@ public class A_Red_Auto_1 extends LinearOpMode {
         }
         telemetry.update();
 
-        gameParts.KnockOffJewl(true);//would be false if we were blue
+        gameParts.KnockOffJewl(false);//would be true if we were red
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
-            main.DriveNoCorrection (28.25, 0.15, 0.15);//Drive Forward 28.25 in
-            main.SmartTurnRight(90, 0.1);
-            main.DriveNoCorrection (3, 0.15, 0.15);
             gameParts.PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
-            main.DriveNoCorrection (35.75, 0.15, 0.15);//Drive Forward 39.5 in
-            main.SmartTurnRight(90, 0.1);
-            main.DriveNoCorrection (3, 0.15, 0.15);
             gameParts.PlaceGlyph();
-        } else if (vuMark == RelicRecoveryVuMark.LEFT){//use else if construct to "dasiychain" ifs together
-            main.DriveNoCorrection (43.25, 0.15, 0.15);//Drive Forward 48 in
-            main.SmartTurnRight(90, 0.1);
-            main.DriveNoCorrection (3, 0.15, 0.15);
+        } else if (vuMark == RelicRecoveryVuMark.LEFT){
             gameParts.PlaceGlyph();
         } else{
-            main.DriveNoCorrection (35.75, 0.15, 0.15);//Drive Forward to one of the columns
-            main.SmartTurnRight(90, 0.1);
-            main.DriveNoCorrection (3, 0.15, 0.15);
             gameParts.PlaceGlyph();
         }
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void KnockOffJewl(boolean red) {
-        String color = "UNKNOWN";
-        main.moveArm(120, 0.1);
-        sleep(1000);
-        if ((main.ColorSensor.red() > main.ColorSensor.blue())){
-            color = "RED";
-        } else if ((main.ColorSensor.red() < main.ColorSensor.blue())){
-            color = "BLUE";
-        } else {
-            color = "UNKNOWN";
-        }
-        telemetry.addData("Sensed Color Is ", color);
-        telemetry.update();
-        //sleep(2000);
-        if (red) {
-            if (color.compareTo("RED") == 0){
-                main.SeeOurColor();
-            } else if (color.compareTo("BLUE") == 0){
-                main.DontSeeOurColor();
-            } else {
-               //UNKNOWN
-            }
-        } else {//means its blue
-            if (color.compareTo("RED") == 0){
-                main.DontSeeOurColor();
-            } else if (color.compareTo("BLUE") == 0){
-                main.SeeOurColor();
-            } else {
-                //UNKNOWN
-            }
-        }
-        main.moveArm(-120, -0.1);
-        sleep(1000);
-    }
-    public void PlaceGlyph(){
-        main.OpenClaw();
-        main.DriveNoCorrection(-5, 0.1, 0.1);
-        main.FlatClaw();
-        main.DriveNoCorrection(2, 0.1, 0.1);
-    }
-
 }
-

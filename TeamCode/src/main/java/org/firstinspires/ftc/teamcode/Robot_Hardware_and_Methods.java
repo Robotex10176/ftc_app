@@ -37,9 +37,10 @@ public class Robot_Hardware_and_Methods
     public static final boolean A = true;
     HardwareMap hwMap           = null;
     private ElapsedTime period  = new ElapsedTime();
-    public Robot_Hardware_and_Methods(){
 
-    }
+    //Constructor
+    public Robot_Hardware_and_Methods(){}
+
     public void init(HardwareMap ahwMap, boolean auto) {
         hwMap = ahwMap;
         ColorSensor = hwMap.colorSensor.get("ColorSensor");
@@ -86,7 +87,7 @@ public class Robot_Hardware_and_Methods
 
             }
         }
-
+        CloseClaw();
     }
     //ODD NOT ROBOT MOVIN METHODS BELOW
 
@@ -99,12 +100,14 @@ public class Robot_Hardware_and_Methods
         return rv;
     }
 
-    private float scaleController(float in){
+    public float scaleController(float in){
         //return ( java.lang.Math.signum(in)*in*in);
         return (in*in*in);
     }
 
     //TEAM METHODS BELOW
+
+    //Turn Methods
 
     public void SmartTurnRight(float Angle, double Power){//turn right is clockwise
         //code to turn untill an angle ex 0, 90, -90
@@ -147,6 +150,9 @@ public class Robot_Hardware_and_Methods
         rightDrive.setPower(0);
 
     }
+
+    //Claw Methods
+
     public void CloseClaw (){
         RightClaw.setPosition(0.75);
         LeftClaw.setPosition(0.50);
@@ -159,6 +165,9 @@ public class Robot_Hardware_and_Methods
         RightClaw.setPosition(0.3);
         LeftClaw.setPosition(0);
     }
+
+    //Jewel Arm Methods
+
     public void moveArm (double Degrees, double Power){
         int newLeftTarget;
         final double COUNTS_PER_MOTOR_REV = 1120;    // TETRIX MOTORS = 1440, andymark = 1120
@@ -182,6 +191,9 @@ public class Robot_Hardware_and_Methods
     public void JewelServoReturn (double KNOW_THAT_YOU_HAVE_TO_SLEEP_BEFORE_THIS){
         moveFlick.setPosition(0.5);
     }
+
+    //Drive Methods
+
     public void DriveNoCorrection (double DesiredDistance, double RightPower, double LeftPower){
         int newLeftTarget;
         int newRightTarget;
