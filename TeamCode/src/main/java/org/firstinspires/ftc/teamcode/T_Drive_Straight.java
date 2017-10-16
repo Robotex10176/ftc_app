@@ -13,12 +13,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
  */
 @Autonomous (name = "Wheel Test")
 public class T_Drive_Straight extends LinearOpMode {
-    H_RobotHardware robot = new H_RobotHardware();
+    Robot_Hardware_and_Methods robot = new Robot_Hardware_and_Methods();
     boolean A = true;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, true);
         waitForStart();
         //TEST ALL OF THE FOLLOWING METHODS FOR DRIVING STRAIGHT
         //driveKeepCheckingEncoders(40.0, 0.1, 0.1);//1

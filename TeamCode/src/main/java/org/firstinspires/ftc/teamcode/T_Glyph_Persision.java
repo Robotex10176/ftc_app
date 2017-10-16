@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -13,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
  */
 
 public class T_Glyph_Persision extends LinearOpMode {
-    H_RobotHardware robot = new H_RobotHardware();
+    Robot_Hardware_and_Methods robot = new Robot_Hardware_and_Methods();
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, true);

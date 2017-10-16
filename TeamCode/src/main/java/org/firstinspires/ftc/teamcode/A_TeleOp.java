@@ -2,18 +2,13 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
 /**
  * Created by Eric D'Urso on 10/5/2017.
  */
 @TeleOp(name = "Main TeleOp")
 public class A_TeleOp extends OpMode {
-    H_RobotHardware robot = new H_RobotHardware();
+    Robot_Hardware_and_Methods robot = new Robot_Hardware_and_Methods();
     @Override
     public void init() {
         robot.init(hardwareMap, false);
