@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 /**
  * Created by Eric D'Urso on 9/16/2017.
  */
-@Autonomous (name = "Blue Auto 1", group = "Blue Autonomous")
+@Autonomous (name = "Blue Auto 1", group = "Blue Autonomous")//disable all other files soon
 public class A_Blue_Auto_1 extends LinearOpMode {
 
     //ROBOT CONFIGURE
