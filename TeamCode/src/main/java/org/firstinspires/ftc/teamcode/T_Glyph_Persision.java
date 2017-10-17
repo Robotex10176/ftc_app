@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -10,21 +11,30 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 /**
  * Created by Eric D'Urso on 10/15/2017.
  */
-
+@Autonomous (name = "BOB")
 public class T_Glyph_Persision extends LinearOpMode {
     Robot_Hardware_and_Methods robot = new Robot_Hardware_and_Methods();
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, true);
         waitForStart();
+        double Direction = 0.05;
+        double Ub = 0.95;
+        double Lb = 0.05;
+        double SetPos;
+        double Pos;
         while (robot.GlyphSensor.red()<30){
-            double currentPos = robot.MoveSensor.getPosition();
-            double quantity = 0.1;
-            if ((currentPos + quantity)<=1) {
-                robot.MoveSensor.setPosition(currentPos + quantity);
-            } else if ((currentPos + quantity)>1){
-                robot.MoveSensor.setPosition(currentPos - quantity);
-            }// WORK OUT THIS LOGIC
+            Pos = robot.MoveSensor.getPosition();
+            SetPos = Pos + Direction;
+            if (SetPos > Ub){
+                Direction = -Direction;
+            } else if (SetPos < Lb){
+                Direction = -Direction;
+            } else {
+                Direction = Direction;
+            }
+            SetPos = Pos + Direction;
+            robot.MoveSensor.setPosition(SetPos);
             sleep(10);
         }
         double CurrentPos = robot.MoveSensor.getPosition();
