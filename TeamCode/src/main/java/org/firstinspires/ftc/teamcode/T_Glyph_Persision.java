@@ -11,45 +11,49 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 /**
  * Created by Eric D'Urso on 10/15/2017.
  */
-@Autonomous (name = "BOB")
+@Autonomous (name = "Glyph test")
 public class T_Glyph_Persision extends LinearOpMode {
     Robot_Hardware_and_Methods robot = new Robot_Hardware_and_Methods();
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, true);
+        robot.MMS.setPosition(0.6);
         waitForStart();
+        robot.MMS.setPosition(0);
         double Direction = 0.05;
         double Ub = 0.95;
         double Lb = 0.05;
         double SetPos;
         double Pos;
         while (robot.GlyphSensor.red()<30){
+            telemetry.addData("Sensing:", robot.GlyphSensor.red());
+            telemetry.update();
             Pos = robot.MoveSensor.getPosition();
             SetPos = Pos + Direction;
             if (SetPos > Ub){
                 Direction = -Direction;
+                robot.DriveNoCorrection(0.5, 0.1, 0.1);
             } else if (SetPos < Lb){
                 Direction = -Direction;
-            } else {
-                Direction = Direction;
+                robot.DriveNoCorrection(0.5, 0.1, 0.1);
             }
             SetPos = Pos + Direction;
             robot.MoveSensor.setPosition(SetPos);
-            sleep(10);
+            sleep(100);
         }
         double CurrentPos = robot.MoveSensor.getPosition();
         double Displacement = CurrentPos - 0.5;
-        if (Displacement > 0){
-            dumbDrive(-2, -0.1, -0.1);
-            SmartTurnRight(Displacement, 0.1);
-            dumbDrive(3, 0.1, 0.2);
-        } else if (Displacement < 0){
-            dumbDrive(-2, -0.1, -0.1);
-            SmartTurnLeft(Displacement, 0.1);
-            dumbDrive(3, 0.2, 0.1);
-        } else {
+        //if (Displacement > 0){
+        //    robot.DriveNoCorrection(-2, -0.1, -0.1);
+        //    robot.SmartTurnRight(Displacement, 0.1);
+        //    robot.DriveNoCorrection(3, 0.1, 0.2);
+        //} else if (Displacement < 0){
+        //    robot.DriveNoCorrection(-2, -0.1, -0.1);
+        //    robot.SmartTurnLeft(Displacement, 0.1);
+        //    robot.DriveNoCorrection(3, 0.2, 0.1);
+        //} else {
 
-        }
+        //}
     }
     public void dumbDrive (double DesiredDistance, double RightPower, double LeftPower){
         int newLeftTarget;

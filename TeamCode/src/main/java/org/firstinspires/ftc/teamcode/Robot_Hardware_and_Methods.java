@@ -72,7 +72,7 @@ public class Robot_Hardware_and_Methods
         RightClaw.setPosition(1);
         LeftClaw.setPosition(0.25);
         MMS = hwMap.servo.get("MMS");
-        MMS.setPosition(0.75);//up, 0 is down
+        MMS.setPosition(0.6);//up, 0 is down
         MoveSensor = hwMap.servo.get("MoveSensor");
         MoveSensor.setPosition(0.5);
         final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // TETRIX MOTORS = 1440, andymark = 1120
