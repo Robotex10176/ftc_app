@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by Eric D'Urso on 9/25/2017.
  */
 @TeleOp(name = "Glyph Arm Test Teleop")
+@Disabled
 public class T_PART_Glyph_Arm_Test extends LinearOpMode {
     private DcMotor Lift;
     private Servo RightClaw;

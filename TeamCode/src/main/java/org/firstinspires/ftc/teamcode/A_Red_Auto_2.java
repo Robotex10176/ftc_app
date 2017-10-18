@@ -61,12 +61,28 @@ public class A_Red_Auto_2 extends LinearOpMode {
         gameParts.KnockOffJewl(true);//would be false if we were blue
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
+            main.DriveNoCorrection(  , 0.1, 0.1);
+            main.SmartTurnLeft(90, 0.1);
+            main.DriveNoCorrection(   , 0.1, 0.1);
+            main.SmartTurnRight(0, 0.1);
             gameParts.PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
+            main.DriveNoCorrection(  , 0.1, 0.1);
+            main.SmartTurnLeft(90, 0.1);
+            main.DriveNoCorrection(   , 0.1, 0.1);
+            main.SmartTurnRight(0, 0.1);
             gameParts.PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.LEFT){
+            main.DriveNoCorrection(  , 0.1, 0.1);
+            main.SmartTurnLeft(90, 0.1);
+            main.DriveNoCorrection(   , 0.1, 0.1);
+            main.SmartTurnRight(0, 0.1);
             gameParts.PlaceGlyph();
         } else{
+            main.DriveNoCorrection(  , 0.1, 0.1);
+            main.SmartTurnLeft(90, 0.1);
+            main.DriveNoCorrection(   , 0.1, 0.1);
+            main.SmartTurnRight(0, 0.1);
             gameParts.PlaceGlyph();
         }
     }

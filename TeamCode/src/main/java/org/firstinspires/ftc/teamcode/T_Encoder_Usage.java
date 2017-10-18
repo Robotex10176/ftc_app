@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -9,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
  * Created by Eric D'Urso on 9/20/2017.
  */
 @Autonomous (name = "Encoder Usage Test", group = "Tests")
+@Disabled
 public class T_Encoder_Usage extends LinearOpMode {
     private DcMotor motorLeft;
     private DcMotor motorRight;

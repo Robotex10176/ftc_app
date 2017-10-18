@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 /**
  * Created by Eric D'Urso on 10/15/2017.
  */
-@Autonomous (name = "Glyph test")
+@Autonomous (name = "Glyph Test", group = "TEST")
 public class T_Glyph_Persision extends LinearOpMode {
     Robot_Hardware_and_Methods robot = new Robot_Hardware_and_Methods();
     @Override
