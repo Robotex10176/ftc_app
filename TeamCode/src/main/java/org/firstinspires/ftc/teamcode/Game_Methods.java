@@ -52,4 +52,91 @@ public class Game_Methods {
         robot.FlatClaw();
         robot.DriveNoCorrection(2, 0.1, 0.1);
     }
+    public void RightSeen(boolean Red, boolean Bottom){
+        if (Red){
+            if (Bottom){
+                robot.DriveNoCorrection (28.25, 0.15, 0.15);//Drive Forward 28.25 in
+                robot.SmartTurnRight(90, 0.1);
+                robot.DriveNoCorrection (3, 0.15, 0.15);
+                PlaceGlyph();
+            } else {
+                robot.DriveNoCorrection( 5 , 0.1, 0.1);
+                robot.SmartTurnLeft(90, 0.1);
+                robot.DriveNoCorrection( 5  , 0.1, 0.1);
+                robot.SmartTurnRight(0, 0.1);
+                PlaceGlyph();
+            }
+        } else {
+            if (Bottom){
+                robot.DriveNoCorrection (28.25, 0.15, 0.15);//Drive Forward 28.25 in
+                robot.SmartTurnLeft(90, 0.1);
+                robot.DriveNoCorrection (3, 0.15, 0.15);
+                PlaceGlyph();
+            } else {
+                robot.DriveNoCorrection( 5 , 0.1, 0.1);
+                robot.SmartTurnRight(0, 0.1);
+                robot.DriveNoCorrection( 5  , 0.1, 0.1);
+                robot.SmartTurnLeft(90, 0.1);
+                PlaceGlyph();
+            }
+        }
+    }
+    public void CenterSeen(boolean Red, boolean Bottom){
+        if (Red){
+            if (Bottom){
+                robot.DriveNoCorrection (35.75, 0.15, 0.15);//Drive Forward 39.5 in
+                robot.SmartTurnRight(90, 0.1);
+                robot.DriveNoCorrection (3, 0.15, 0.15);
+                PlaceGlyph();
+            } else {
+                robot.DriveNoCorrection(5  , 0.1, 0.1);
+                robot.SmartTurnLeft(90, 0.1);
+                robot.DriveNoCorrection( 5  , 0.1, 0.1);
+                robot.SmartTurnRight(0, 0.1);
+                PlaceGlyph();
+            }
+        } else {
+            if (Bottom){
+                robot.DriveNoCorrection (35.75, 0.15, 0.15);//Drive Forward 39.5 in
+                robot.SmartTurnLeft(90, 0.1);
+                robot.DriveNoCorrection (3, 0.15, 0.15);
+                PlaceGlyph();
+            } else {
+                robot.DriveNoCorrection(5  , 0.1, 0.1);
+                robot.SmartTurnRight(0, 0.1);
+                robot.DriveNoCorrection( 5  , 0.1, 0.1);
+                robot.SmartTurnLeft(90, 0.1);
+                PlaceGlyph();
+            }
+        }
+    }
+    public void LeftSeen(boolean Red, boolean Bottom){
+        if (Red){
+            if (Bottom){
+                robot.DriveNoCorrection (43.25, 0.15, 0.15);//Drive Forward 48 in
+                robot.SmartTurnRight(90, 0.1);
+                robot.DriveNoCorrection (3, 0.15, 0.15);
+                PlaceGlyph();
+            } else {
+                robot.DriveNoCorrection(5 , 0.1, 0.1);
+                robot.SmartTurnLeft(90, 0.1);
+                robot.DriveNoCorrection(5   , 0.1, 0.1);
+                robot.SmartTurnRight(0, 0.1);
+                PlaceGlyph();
+            }
+        } else {
+            if (Bottom){
+                robot.DriveNoCorrection (43.25, 0.15, 0.15);//Drive Forward 48 in
+                robot.SmartTurnLeft(90, 0.1);
+                robot.DriveNoCorrection (3, 0.15, 0.15);
+                PlaceGlyph();
+            } else {
+                robot.DriveNoCorrection(5  , 0.1, 0.1);
+                robot.SmartTurnRight(0, 0.1);
+                robot.DriveNoCorrection(5   , 0.1, 0.1);
+                robot.SmartTurnLeft(90, 0.1);
+                PlaceGlyph();
+            }
+        }
+    }
 }
