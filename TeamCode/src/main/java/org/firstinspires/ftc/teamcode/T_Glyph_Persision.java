@@ -21,8 +21,8 @@ public class T_Glyph_Persision extends LinearOpMode {
         waitForStart();
         robot.MMS.setPosition(0);
         double Direction = 0.01;
-        double Ub = 0.75;
-        double Lb = 0.25;
+        double Ub = 0.80;
+        double Lb = 0.20;
         double SetPos;
         double Pos;
         while (robot.GlyphSensor.red()<10){

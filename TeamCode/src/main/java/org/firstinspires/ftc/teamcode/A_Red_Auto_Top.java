@@ -58,16 +58,16 @@ public class A_Red_Auto_Top extends LinearOpMode {
         }
         telemetry.update();
 
-        gameParts.KnockOffJewl(true);//would be false if we were blue
+        gameParts.KnockOffJewl(true, main);//would be false if we were blue
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
-            gameParts.RightSeen(true, false);
+            gameParts.RightSeen(true, false, main);
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
-            gameParts.CenterSeen(true, false);
+            gameParts.CenterSeen(true, false, main);
         } else if (vuMark == RelicRecoveryVuMark.LEFT){
-            gameParts.LeftSeen(true, false);
+            gameParts.LeftSeen(true, false, main);
         } else{
-            gameParts.CenterSeen(true, false);
+            gameParts.CenterSeen(true, false, main);
         }
     }
 }

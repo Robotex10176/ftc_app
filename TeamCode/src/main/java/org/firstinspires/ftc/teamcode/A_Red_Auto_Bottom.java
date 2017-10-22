@@ -54,33 +54,189 @@ public class A_Red_Auto_Bottom extends LinearOpMode {
         //all of this code is in COnceptVuMarkIdentification.java
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
         main.timer.reset();
-        while ( main.timer.seconds() < 10 && vuMark == RelicRecoveryVuMark.UNKNOWN ) {//While it cant see vuMark or time is less that 10
+        while (main.timer.seconds() < 10 && vuMark == RelicRecoveryVuMark.UNKNOWN) {//While it cant see vuMark or time is less that 10
             vuMark = RelicRecoveryVuMark.from(relicTemplate);
             telemetry.addData("VuMark", "not visible");
             telemetry.update();
             idle();
         }
-        if (vuMark != RelicRecoveryVuMark.UNKNOWN){
+        if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
             telemetry.addData("VuMark", "%s visible", vuMark);
-        }
-        else {
+        } else {
             telemetry.addData("VuMark", "not visible");
         }
         telemetry.update();
 
-        gameParts.KnockOffJewl(true);//would be false if we were blue
+        //would be false if we were blue
+        String jewelColor = KnockOffJewl(true, main);
+        telemetry.addData("Color Is", jewelColor);
+        telemetry.update();
 
-        if (vuMark == RelicRecoveryVuMark.RIGHT){
-            gameParts.RightSeen(true, true);
-        } else if (vuMark == RelicRecoveryVuMark.CENTER){
-            gameParts.CenterSeen(true, true);
-        } else if (vuMark == RelicRecoveryVuMark.LEFT){
-            gameParts.LeftSeen(true, true);
-        } else{
-            gameParts.CenterSeen(true, true);
+        if (vuMark == RelicRecoveryVuMark.RIGHT) {
+            RightSeen(true, true, main);
+        } else if (vuMark == RelicRecoveryVuMark.CENTER) {
+            CenterSeen(true, true, main);
+        } else if (vuMark == RelicRecoveryVuMark.LEFT) {
+            LeftSeen(true, true, main);
+        } else {
+            CenterSeen(true, true, main);
+        }
+    }
+
+
+
+
+
+
+        public String KnockOffJewl(boolean red, Robot_Hardware_and_Methods robot) {
+            String color;
+            main.moveArm(120, 0.1);
+            sleep(1000);
+            if ((main.ColorSensor.red() > main.ColorSensor.blue())){
+                color = "RED";
+            } else if ((main.ColorSensor.red() < main.ColorSensor.blue())){
+                color = "BLUE";
+            } else {
+                color = "UNKNOWN";
+            }
+            //sleep(2000);
+            if (red) {
+                if (color.compareTo("RED") == 0){
+                    main.SeeOurColor();
+                } else if (color.compareTo("BLUE") == 0){
+                    main.DontSeeOurColor();
+                } else {
+                    //UNKNOWN
+                }
+            } else {//means its blue
+                if (color.compareTo("RED") == 0){
+                    main.DontSeeOurColor();
+                } else if (color.compareTo("BLUE") == 0){
+                    main.SeeOurColor();
+                } else {
+                    //UNKNOWN
+                }
+            }
+            main.moveArm(-120, -0.1);
+            //sleep(1000);
+            return color;
         }
 
-    }
+        public void PlaceGlyph (Robot_Hardware_and_Methods robot){
+            //drive and scan
+            main.MMS.setPosition(1);
+            double Direction = 0.01;
+            double Ub = 0.80;
+            double Lb = 0.20;
+            double SetPos;
+            double Pos;
+            main.MoveSensor.setPosition(0.5 * (Ub + Lb));
+            sleep(100);
+            while (main.GlyphSensor.red()<10){
+                Pos = main.MoveSensor.getPosition();
+                SetPos = Pos + Direction;
+                if (SetPos > Ub){
+                    Direction = -Direction;
+                    main.DriveNoCorrection(0.4, 0.1, 0.1);
+                } else if (SetPos < Lb){
+                    Direction = -Direction;
+                    main.DriveNoCorrection(0.4, 0.1, 0.1);
+                }
+                SetPos = Pos + Direction;
+                main.MoveSensor.setPosition(SetPos);
+                sleep(50);
+            }
+            main.MMS.setPosition(0.6);
+            double CurrentPos = main.MoveSensor.getPosition();
+            double Displacement = CurrentPos - 0.5;
+            //Open, reverse, and park in zone
+            main.OpenClaw();
+            main.DriveNoCorrection(-5, 0.1, 0.1);
+            main.FlatClaw();
+            main.DriveNoCorrection(2, 0.1, 0.1);
+        }
+        public void RightSeen(boolean Red, boolean Bottom, Robot_Hardware_and_Methods robot){
+            if (Red){
+                if (Bottom){
+                    main.DriveNoCorrection ((28.25 + 9), 0.15, 0.15);//Drive Forward 28.25 in
+                    main.SmartTurnRightON(90, 0.1);
+                    PlaceGlyph(robot);
+                } else {
+                    main.DriveNoCorrection( 5 , 0.1, 0.1);
+                    main.SmartTurnLeftON(90, 0.1);
+                    main.DriveNoCorrection( 5  , 0.1, 0.1);
+                    main.SmartTurnRight(0, 0.1);
+                    PlaceGlyph(robot);
+                }
+            } else {
+                if (Bottom){
+                    main.DriveNoCorrection ((28.25 + 9), 0.15, 0.15);//Drive Forward 28.25 in
+                    main.SmartTurnLeftON(90, 0.1);
+                    PlaceGlyph(robot);
+                } else {
+                    main.DriveNoCorrection( 5 , 0.1, 0.1);
+                    main.SmartTurnRight(0, 0.1);
+                    main.DriveNoCorrection( 5  , 0.1, 0.1);
+                    main.SmartTurnLeftON(90, 0.1);
+                    PlaceGlyph(robot);
+                }
+            }
+        }
+        public void CenterSeen(boolean Red, boolean Bottom, Robot_Hardware_and_Methods robot){
+            if (Red){
+                if (Bottom){
+                    main.DriveNoCorrection ((35.75 + 9), 0.15, 0.15);//Drive Forward 39.5 in
+                    main.SmartTurnRight(90, 0.1);
+                    PlaceGlyph(robot);
+                } else {
+                    main.DriveNoCorrection(5  , 0.1, 0.1);
+                    main.SmartTurnLeftON(90, 0.1);
+                    main.DriveNoCorrection( 5  , 0.1, 0.1);
+                    main.SmartTurnRightON(0, 0.1);
+                    PlaceGlyph(robot);
+                }
+            } else {
+                if (Bottom){
+                    main.DriveNoCorrection ((35.75 + 9), 0.15, 0.15);//Drive Forward 39.5 in
+                    main.SmartTurnLeftON(90, 0.1);
+                    PlaceGlyph(robot);
+                } else {
+                    main.DriveNoCorrection(5  , 0.1, 0.1);
+                    main.SmartTurnRightON(0, 0.1);
+                    main.DriveNoCorrection( 5  , 0.1, 0.1);
+                    main.SmartTurnLeftON(90, 0.1);
+                    PlaceGlyph(robot);
+                }
+            }
+        }
+        public void LeftSeen(boolean Red, boolean Bottom, Robot_Hardware_and_Methods robot){
+            if (Red){
+                if (Bottom){
+                    main.DriveNoCorrection ((43.25+9), 0.15, 0.15);//Drive Forward 48 in
+                    main.SmartTurnRightON(90, 0.1);
+                    PlaceGlyph(robot);
+                } else {
+                    main.DriveNoCorrection(5 , 0.1, 0.1);
+                    main.SmartTurnLeftON(90, 0.1);
+                    main.DriveNoCorrection(5   , 0.1, 0.1);
+                    main.SmartTurnRightON(0, 0.1);
+                    PlaceGlyph(robot);
+                }
+            } else {
+                if (Bottom){
+                    main.DriveNoCorrection ((43.25 + 9), 0.15, 0.15);//Drive Forward 48 in
+                    main.SmartTurnLeftON(90, 0.1);
+                    PlaceGlyph(robot);
+                } else {
+                    main.DriveNoCorrection(5  , 0.1, 0.1);
+                    main.SmartTurnRightON(0, 0.1);
+                    main.DriveNoCorrection(5   , 0.1, 0.1);
+                    main.SmartTurnLeftON(90, 0.1);
+                    PlaceGlyph(robot);
+                }
+            }
+        }
+
 
 
 

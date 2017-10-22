@@ -25,7 +25,8 @@ public class T_Drive_Straight extends LinearOpMode {
         //driveWithEncoderCheckAfterXAmountOfTime(10.0, 0.1, 0.1, 250);//250 = 1/4 of a second, 2
         //gyroDrive(33.0, 0.1, 0.1);//3
         //dumbDrive(39.0, 0.1, 0.1);//do last if at all
-        SmartTurnRight(90, 0.1);
+        //SmartTurnRight(90, 0.1);
+        robot.DriveNoCorrection(10, 0.2, 0.2);
     }
 
     public void driveKeepCheckingEncoders(double DesiredDistance, double RightPower, double LeftPower) {

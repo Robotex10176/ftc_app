@@ -74,9 +74,9 @@ public class Robot_Hardware_and_Methods
         MMS = hwMap.servo.get("MMS");
         MMS.setPosition(0.6);//up, 0 is down
         MoveSensor = hwMap.servo.get("MoveSensor");
-        MoveSensor.setPosition(0.5);
+        MoveSensor.setPosition(1);
         final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // TETRIX MOTORS = 1440, andymark = 1120
-        final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
+        final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
         final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
         final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                 (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -151,6 +151,48 @@ public class Robot_Hardware_and_Methods
 
     }
 
+    public void SmartTurnRightON (float Angle, double Power){//turn right is clockwise
+        //code to turn untill an angle ex 0, 90, -90
+        float zAngle;
+        float targetAngle;
+        zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        //Set target direction in range -180 - 180;
+        targetAngle = (zAngle - Angle + 180);
+        while (targetAngle > 360){ targetAngle = targetAngle - 360; }
+        while (targetAngle < 0){ targetAngle = targetAngle + 360; }
+        targetAngle = targetAngle - 180;
+
+        while (AngularSeparation(zAngle, targetAngle)> 2.0){
+            //leftDrive.setPower(Power);
+            rightDrive.setPower(-Power);
+            zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        }
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+
+    }
+
+    public void SmartTurnLeftON (float Angle, double Power){
+        float zAngle;
+        float targetAngle;
+        zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        //Set target direction in range -180 - 180;
+        targetAngle = (zAngle - Angle + 180);
+        while (targetAngle > 360){ targetAngle = targetAngle - 360; }
+        while (targetAngle < 0){ targetAngle = targetAngle + 360; }
+        targetAngle = targetAngle - 180;
+
+        while (AngularSeparation(zAngle, targetAngle)> 2.0){
+            leftDrive.setPower(-Power);
+            //rightDrive.setPower(Power);
+            zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+
+        }
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+
+    }
+
     //Claw Methods
 
     public void CloseClaw (){
@@ -198,7 +240,7 @@ public class Robot_Hardware_and_Methods
         int newLeftTarget;
         int newRightTarget;
         final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
-        final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+        final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
         final double WHEEL_DIAMETER_INCHES = 3.8125;     // For figuring circumference
         final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
         if (A) {
@@ -231,7 +273,7 @@ public class Robot_Hardware_and_Methods
         int newRightTarget;
         float displacement;
         final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
-        final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+        final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
         final double WHEEL_DIAMETER_INCHES = 3.8125;     // For figuring circumference
         final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
         if (A) {
