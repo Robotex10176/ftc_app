@@ -20,41 +20,62 @@ public class T_Glyph_Persision extends LinearOpMode {
         robot.MMS.setPosition(0.6);
         waitForStart();
         robot.MMS.setPosition(0);
-        double Direction = 0.05;
-        double Ub = 0.95;
-        double Lb = 0.05;
+        double Direction = 0.01;
+        double Ub = 0.75;
+        double Lb = 0.25;
         double SetPos;
         double Pos;
-        while (robot.GlyphSensor.red()<30){
+        while (robot.GlyphSensor.red()<10){
             telemetry.addData("Sensing:", robot.GlyphSensor.red());
             telemetry.update();
             Pos = robot.MoveSensor.getPosition();
             SetPos = Pos + Direction;
             if (SetPos > Ub){
                 Direction = -Direction;
-                robot.DriveNoCorrection(0.5, 0.1, 0.1);
+                robot.DriveNoCorrection(0.4, 0.1, 0.1);
             } else if (SetPos < Lb){
                 Direction = -Direction;
-                robot.DriveNoCorrection(0.5, 0.1, 0.1);
+                robot.DriveNoCorrection(0.4, 0.1, 0.1);
             }
             SetPos = Pos + Direction;
             robot.MoveSensor.setPosition(SetPos);
-            sleep(100);
+            telemetry.addData("Servo = ", robot.MoveSensor.getPosition());
+            telemetry.addData("Red Value = ", robot.GlyphSensor.red());
+            telemetry.addData("Blue Value = ", robot.GlyphSensor.blue());
+            telemetry.addData("Green Value = ", robot.GlyphSensor.green());
+            telemetry.update();
+            sleep(50);//100 is standard
         }
         double CurrentPos = robot.MoveSensor.getPosition();
         double Displacement = CurrentPos - 0.5;
-        //if (Displacement > 0){
-        //    robot.DriveNoCorrection(-2, -0.1, -0.1);
-        //    robot.SmartTurnRight(Displacement, 0.1);
-        //    robot.DriveNoCorrection(3, 0.1, 0.2);
-        //} else if (Displacement < 0){
-        //    robot.DriveNoCorrection(-2, -0.1, -0.1);
-        //    robot.SmartTurnLeft(Displacement, 0.1);
-        //    robot.DriveNoCorrection(3, 0.2, 0.1);
-        //} else {
+        telemetry.addData("Servo = ", robot.MoveSensor.getPosition());
+        telemetry.addData("Red Value = ", robot.GlyphSensor.red());
+        telemetry.addData("Blue Value = ", robot.GlyphSensor.blue());
+        telemetry.addData("Green Value = ", robot.GlyphSensor.green());
+        telemetry.update();
+        sleep(1000000000);
 
-        //}
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void dumbDrive (double DesiredDistance, double RightPower, double LeftPower){
         int newLeftTarget;
         int newRightTarget;
