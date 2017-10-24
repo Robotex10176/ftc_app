@@ -57,6 +57,8 @@ public class A_Auto extends LinearOpMode {
         telemetry.update();
         waitForStart();// CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW
         if (PROGRAM == 1){ //RED AUTO BOTTOM
+            telemetry.addLine("RED BOTTOM");
+            telemetry.update();
 
 
 
@@ -66,6 +68,8 @@ public class A_Auto extends LinearOpMode {
 
 
         } else if (PROGRAM == 2){//RED AUTO TOP
+            telemetry.addLine("RED TOP");
+            telemetry.update();
 
 
 
@@ -76,6 +80,8 @@ public class A_Auto extends LinearOpMode {
 
 
         } else if (PROGRAM == 3){//BLUE AUTO BOTTOM
+            telemetry.addLine("BLUE BOTTOM");
+            telemetry.update();
 
 
 
@@ -86,6 +92,8 @@ public class A_Auto extends LinearOpMode {
 
 
         } else if (PROGRAM == 4){//BLUE AUTO TOP
+            telemetry.addLine("BLUE TOP");
+            telemetry.update();
 
 
 
@@ -98,6 +106,11 @@ public class A_Auto extends LinearOpMode {
         } else {
 
         }
+        //TAKE BELOW OUT SOON
+        telemetry.addLine("RAN AUTO");
+        telemetry.update();
+        sleep(100000);
+
     }// METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS
 
 }

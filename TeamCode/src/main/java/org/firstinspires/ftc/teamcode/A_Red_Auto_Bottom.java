@@ -75,20 +75,24 @@ public class A_Red_Auto_Bottom extends LinearOpMode {
         telemetry.update();
 
         if (vuMark == RelicRecoveryVuMark.RIGHT) {
-            main.DriveNoCorrection ((28.25 + 9), 0.15, 0.15);//Drive Forward 28.25 in
+            main.DriveNoCorrection ((28.25 - 11.5), 0.15, 0.15);//Drive Forward 28.25 in
             main.SmartTurnRight(90, 0.1);
+            main.DriveNoCorrection(3, 0.2, 0.2);
             PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.CENTER) {
-            main.DriveNoCorrection ((35.75 + 9), 0.15, 0.15);//Drive Forward 39.5 in
+            main.DriveNoCorrection ((35.75 - 11.5), 0.15, 0.15);//Drive Forward 39.5 in
             main.SmartTurnRight(90, 0.1);
+            main.DriveNoCorrection(3, 0.2, 0.2);
             PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.LEFT) {
-            main.DriveNoCorrection ((43.25+9), 0.15, 0.15);//Drive Forward 48 in
+            main.DriveNoCorrection ((43.25 - 11.5), 0.15, 0.15);//Drive Forward 48 in
             main.SmartTurnRight(90, 0.1);
+            main.DriveNoCorrection(3, 0.2, 0.2);
             PlaceGlyph();
         } else {
-            main.DriveNoCorrection ((35.75 + 9), 0.15, 0.15);//Drive Forward 39.5 in
+            main.DriveNoCorrection ((35.75 - 11.5), 0.15, 0.15);//Drive Forward 39.5 in
             main.SmartTurnRight(90, 0.1);
+            main.DriveNoCorrection(3, 0.2, 0.2);
             PlaceGlyph();
         }
     }
@@ -109,7 +113,6 @@ public class A_Red_Auto_Bottom extends LinearOpMode {
             } else {
                 color = "UNKNOWN";
             }
-            //sleep(2000);
             if (red) {
                 if (color.compareTo("RED") == 0){
                     main.SeeOurColor();
@@ -140,7 +143,6 @@ public class A_Red_Auto_Bottom extends LinearOpMode {
                 }
             }
             main.moveArm(-120, -0.1);
-            //sleep(1000);
             return color;
         }
 

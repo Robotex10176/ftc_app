@@ -28,11 +28,14 @@ public class MAIN
     public DcMotor rightDrive;
     public DcMotor Lift;
     public DcMotor arm;
+    public DcMotor ExtendRelic;
+    public DcMotor RotateRelic;
     public Servo RightClaw;
     public Servo LeftClaw;
     public Servo moveFlick;
     public Servo MoveSensor;
     public Servo MMS;
+    public Servo RelicClaw;
     public static final ElapsedTime timer = new ElapsedTime();
     public static final boolean A = true;
     HardwareMap hwMap           = null;
@@ -65,6 +68,14 @@ public class MAIN
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
         arm.setPower(0);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ExtendRelic = hwMap.dcMotor.get("ER");
+        ExtendRelic.setDirection(DcMotorSimple.Direction.FORWARD);
+        ExtendRelic.setPower(0);
+        RotateRelic = hwMap.dcMotor.get("RR");
+        RotateRelic.setDirection(DcMotorSimple.Direction.FORWARD);
+        RotateRelic.setPower(0);
+        RelicClaw = hwMap.servo.get("RC");
+        RelicClaw.setPosition(0.5);
         moveFlick = hwMap.servo.get("Jewel");
         moveFlick.setPosition(0.5);
         RightClaw = hwMap.servo.get("RightClaw");
@@ -110,6 +121,12 @@ public class MAIN
     public void FlatClaw(){
         RightClaw.setPosition(0.3);
         LeftClaw.setPosition(0);
+    }
+    public void CloseRelic() {
+    RelicClaw.setPosition(1);
+    }
+    public void OpenRelic() {
+        RelicClaw.setPosition(0.5);
     }
 
     //Jewel Arm Methods

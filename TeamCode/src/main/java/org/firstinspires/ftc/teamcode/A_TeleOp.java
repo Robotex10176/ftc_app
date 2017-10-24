@@ -37,5 +37,24 @@ public class A_TeleOp extends OpMode {
         } else {
             main.OpenClaw();
         }
+        if (gamepad2.left_bumper){
+            main.CloseRelic();
+        } else {
+            main.OpenRelic();
+        }
+        if (gamepad2.dpad_left){
+            main.ExtendRelic.setPower(0.3);
+        } else if (gamepad2.dpad_right){
+            main.ExtendRelic.setPower(-0.3);
+        } else {
+            main.ExtendRelic.setPower(0.0);
+        }
+        if (gamepad2.dpad_up){
+            main.RotateRelic.setPower(0.3);
+        } else if (gamepad2.dpad_down){
+            main.RotateRelic.setPower(-0.3);
+        } else {
+            main.RotateRelic.setPower(0.0);
+        }
     }
 }
