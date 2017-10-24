@@ -9,6 +9,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import java.lang.Math;
+
+import static java.lang.Math.atan2;
 
 
 /**
@@ -18,8 +21,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 public class A_Red_Auto_Bottom extends LinearOpMode {
 
     //ROBOT CONFIGURE
-    Robot_Hardware_and_Methods main = new Robot_Hardware_and_Methods();
-    Game_Methods gameParts = new Game_Methods();
+    MAIN main = new MAIN();
     public static final String TAG = "Vuforia VuMark Sample";
     OpenGLMatrix lastLocation = null;
     VuforiaLocalizer vuforia;
@@ -68,18 +70,26 @@ public class A_Red_Auto_Bottom extends LinearOpMode {
         telemetry.update();
 
         //would be false if we were blue
-        String jewelColor = KnockOffJewl(true, main);
+        String jewelColor = KnockOffJewl(true);//false if blue
         telemetry.addData("Color Is", jewelColor);
         telemetry.update();
 
         if (vuMark == RelicRecoveryVuMark.RIGHT) {
-            RightSeen(true, true, main);
+            main.DriveNoCorrection ((28.25 + 9), 0.15, 0.15);//Drive Forward 28.25 in
+            main.SmartTurnRight(90, 0.1);
+            PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.CENTER) {
-            CenterSeen(true, true, main);
+            main.DriveNoCorrection ((35.75 + 9), 0.15, 0.15);//Drive Forward 39.5 in
+            main.SmartTurnRight(90, 0.1);
+            PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.LEFT) {
-            LeftSeen(true, true, main);
+            main.DriveNoCorrection ((43.25+9), 0.15, 0.15);//Drive Forward 48 in
+            main.SmartTurnRight(90, 0.1);
+            PlaceGlyph();
         } else {
-            CenterSeen(true, true, main);
+            main.DriveNoCorrection ((35.75 + 9), 0.15, 0.15);//Drive Forward 39.5 in
+            main.SmartTurnRight(90, 0.1);
+            PlaceGlyph();
         }
     }
 
@@ -88,7 +98,7 @@ public class A_Red_Auto_Bottom extends LinearOpMode {
 
 
 
-        public String KnockOffJewl(boolean red, Robot_Hardware_and_Methods robot) {
+        public String KnockOffJewl(boolean red) {
             String color;
             main.moveArm(120, 0.1);
             sleep(1000);
@@ -103,16 +113,28 @@ public class A_Red_Auto_Bottom extends LinearOpMode {
             if (red) {
                 if (color.compareTo("RED") == 0){
                     main.SeeOurColor();
+                    sleep(100);
+                    main.JewelServoReturn(1);
+                    sleep(100);
                 } else if (color.compareTo("BLUE") == 0){
                     main.DontSeeOurColor();
+                    sleep(100);
+                    main.JewelServoReturn(1);
+                    sleep(100);
                 } else {
                     //UNKNOWN
                 }
             } else {//means its blue
                 if (color.compareTo("RED") == 0){
                     main.DontSeeOurColor();
+                    sleep(100);
+                    main.JewelServoReturn(1);
+                    sleep(100);
                 } else if (color.compareTo("BLUE") == 0){
                     main.SeeOurColor();
+                    sleep(100);
+                    main.JewelServoReturn(1);
+                    sleep(100);
                 } else {
                     //UNKNOWN
                 }
@@ -122,7 +144,7 @@ public class A_Red_Auto_Bottom extends LinearOpMode {
             return color;
         }
 
-        public void PlaceGlyph (Robot_Hardware_and_Methods robot){
+        public void PlaceGlyph (){
             //drive and scan
             main.MMS.setPosition(1);
             double Direction = 0.01;
@@ -146,234 +168,36 @@ public class A_Red_Auto_Bottom extends LinearOpMode {
                 main.MoveSensor.setPosition(SetPos);
                 sleep(50);
             }
-            main.MMS.setPosition(0.6);
             double CurrentPos = main.MoveSensor.getPosition();
-            double Displacement = CurrentPos - 0.5;
+            if (GlyphTurnAmount(CurrentPos) > 0.5){
+                main.SmartTurnRightD(GlyphTurnAmount(CurrentPos), 0.1);
+            } else if (GlyphTurnAmount(CurrentPos) < -0.5){
+                main.SmartTurnLeftD(GlyphTurnAmount(CurrentPos), 0.1);
+            } else {
+
+            }
             //Open, reverse, and park in zone
+            main.MMS.setPosition(0.6);//retract arm and place
             main.OpenClaw();
             main.DriveNoCorrection(-5, 0.1, 0.1);
             main.FlatClaw();
             main.DriveNoCorrection(2, 0.1, 0.1);
         }
-        public void RightSeen(boolean Red, boolean Bottom, Robot_Hardware_and_Methods robot){
-            if (Red){
-                if (Bottom){
-                    main.DriveNoCorrection ((28.25 + 9), 0.15, 0.15);//Drive Forward 28.25 in
-                    main.SmartTurnRightON(90, 0.1);
-                    PlaceGlyph(robot);
-                } else {
-                    main.DriveNoCorrection( 5 , 0.1, 0.1);
-                    main.SmartTurnLeftON(90, 0.1);
-                    main.DriveNoCorrection( 5  , 0.1, 0.1);
-                    main.SmartTurnRight(0, 0.1);
-                    PlaceGlyph(robot);
-                }
+        public double GlyphTurnAmount (double servoValue){// hope to return degrees
+            double robotLength = 24;//in inches
+            servoValue =  0.5 - servoValue ;
+            if (servoValue == 0){
+                //mapped to nothing turn
             } else {
-                if (Bottom){
-                    main.DriveNoCorrection ((28.25 + 9), 0.15, 0.15);//Drive Forward 28.25 in
-                    main.SmartTurnLeftON(90, 0.1);
-                    PlaceGlyph(robot);
-                } else {
-                    main.DriveNoCorrection( 5 , 0.1, 0.1);
-                    main.SmartTurnRight(0, 0.1);
-                    main.DriveNoCorrection( 5  , 0.1, 0.1);
-                    main.SmartTurnLeftON(90, 0.1);
-                    PlaceGlyph(robot);
-                }
+                servoValue = ((-((6)+(2/3)))*servoValue);
             }
-        }
-        public void CenterSeen(boolean Red, boolean Bottom, Robot_Hardware_and_Methods robot){
-            if (Red){
-                if (Bottom){
-                    main.DriveNoCorrection ((35.75 + 9), 0.15, 0.15);//Drive Forward 39.5 in
-                    main.SmartTurnRight(90, 0.1);
-                    PlaceGlyph(robot);
-                } else {
-                    main.DriveNoCorrection(5  , 0.1, 0.1);
-                    main.SmartTurnLeftON(90, 0.1);
-                    main.DriveNoCorrection( 5  , 0.1, 0.1);
-                    main.SmartTurnRightON(0, 0.1);
-                    PlaceGlyph(robot);
-                }
-            } else {
-                if (Bottom){
-                    main.DriveNoCorrection ((35.75 + 9), 0.15, 0.15);//Drive Forward 39.5 in
-                    main.SmartTurnLeftON(90, 0.1);
-                    PlaceGlyph(robot);
-                } else {
-                    main.DriveNoCorrection(5  , 0.1, 0.1);
-                    main.SmartTurnRightON(0, 0.1);
-                    main.DriveNoCorrection( 5  , 0.1, 0.1);
-                    main.SmartTurnLeftON(90, 0.1);
-                    PlaceGlyph(robot);
-                }
+            double inchesAway = servoValue;
+            double turnAmount;
+            turnAmount = Math.toDegrees(atan2(robotLength, inchesAway));
+            if (turnAmount < 0.0) {
+                turnAmount += 360.0;
             }
+            return turnAmount;
         }
-        public void LeftSeen(boolean Red, boolean Bottom, Robot_Hardware_and_Methods robot){
-            if (Red){
-                if (Bottom){
-                    main.DriveNoCorrection ((43.25+9), 0.15, 0.15);//Drive Forward 48 in
-                    main.SmartTurnRightON(90, 0.1);
-                    PlaceGlyph(robot);
-                } else {
-                    main.DriveNoCorrection(5 , 0.1, 0.1);
-                    main.SmartTurnLeftON(90, 0.1);
-                    main.DriveNoCorrection(5   , 0.1, 0.1);
-                    main.SmartTurnRightON(0, 0.1);
-                    PlaceGlyph(robot);
-                }
-            } else {
-                if (Bottom){
-                    main.DriveNoCorrection ((43.25 + 9), 0.15, 0.15);//Drive Forward 48 in
-                    main.SmartTurnLeftON(90, 0.1);
-                    PlaceGlyph(robot);
-                } else {
-                    main.DriveNoCorrection(5  , 0.1, 0.1);
-                    main.SmartTurnRightON(0, 0.1);
-                    main.DriveNoCorrection(5   , 0.1, 0.1);
-                    main.SmartTurnLeftON(90, 0.1);
-                    PlaceGlyph(robot);
-                }
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void KnockOffJewl(boolean red) {
-        String color = "UNKNOWN";
-        main.moveArm(120, 0.1);
-        sleep(1000);
-        if ((main.ColorSensor.red() > main.ColorSensor.blue())){
-            color = "RED";
-        } else if ((main.ColorSensor.red() < main.ColorSensor.blue())){
-            color = "BLUE";
-        } else {
-            color = "UNKNOWN";
-        }
-        telemetry.addData("Sensed Color Is ", color);
-        telemetry.update();
-        //sleep(2000);
-        if (red) {
-            if (color.compareTo("RED") == 0){
-                main.SeeOurColor();
-            } else if (color.compareTo("BLUE") == 0){
-                main.DontSeeOurColor();
-            } else {
-               //UNKNOWN
-            }
-        } else {//means its blue
-            if (color.compareTo("RED") == 0){
-                main.DontSeeOurColor();
-            } else if (color.compareTo("BLUE") == 0){
-                main.SeeOurColor();
-            } else {
-                //UNKNOWN
-            }
-        }
-        main.moveArm(-120, -0.1);
-        sleep(1000);
-    }
-    public void PlaceGlyph(){
-        main.OpenClaw();
-        main.DriveNoCorrection(-5, 0.1, 0.1);
-        main.FlatClaw();
-        main.DriveNoCorrection(2, 0.1, 0.1);
-    }
-
 }
 

@@ -15,8 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  */
 @Autonomous(name = "Blue Auto Top", group = "Blue Autonomous")
 public class A_Blue_Auto_Top extends LinearOpMode {
-    Robot_Hardware_and_Methods main = new Robot_Hardware_and_Methods();
-    Game_Methods gameParts = new Game_Methods();
+    MAIN main = new MAIN();
     public static final String TAG = "Vuforia VuMark Sample";
     OpenGLMatrix lastLocation = null;
     VuforiaLocalizer vuforia;
@@ -58,16 +57,32 @@ public class A_Blue_Auto_Top extends LinearOpMode {
         }
         telemetry.update();
 
-        gameParts.KnockOffJewl(false, main);//would be true if we were red
+        //jewel
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
-            gameParts.RightSeen(false, false, main);
+            main.DriveNoCorrection( 5 , 0.1, 0.1);
+            main.SmartTurnRight(0, 0.1);
+            main.DriveNoCorrection( 5  , 0.1, 0.1);
+            main.SmartTurnLeft(90, 0.1);
+            //PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
-            gameParts.CenterSeen(false, false, main);
+            main.DriveNoCorrection(5  , 0.1, 0.1);
+            main.SmartTurnRight(0, 0.1);
+            main.DriveNoCorrection( 5  , 0.1, 0.1);
+            main.SmartTurnLeft(90, 0.1);
+            //PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.LEFT){
-            gameParts.LeftSeen(false, false, main);
+            main.DriveNoCorrection(5  , 0.1, 0.1);
+            main.SmartTurnRight(0, 0.1);
+            main.DriveNoCorrection(5   , 0.1, 0.1);
+            main.SmartTurnLeft(90, 0.1);
+            //PlaceGlyph();
         } else{
-            gameParts.CenterSeen(false, false, main);
+            main.DriveNoCorrection(5  , 0.1, 0.1);
+            main.SmartTurnRight(0, 0.1);
+            main.DriveNoCorrection( 5  , 0.1, 0.1);
+            main.SmartTurnLeft(90, 0.1);
+            //PlaceGlyph();
         }
     }
 }

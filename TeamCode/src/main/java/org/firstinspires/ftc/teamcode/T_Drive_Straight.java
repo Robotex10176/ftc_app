@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -12,8 +13,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
  * Created by Eric D'Urso on 10/6/2017.
  */
 @Autonomous (name = "Wheel Test", group = "TEST")
+@Disabled
 public class T_Drive_Straight extends LinearOpMode {
-    Robot_Hardware_and_Methods robot = new Robot_Hardware_and_Methods();
+    MAIN robot = new MAIN();
     boolean A = true;
 
     @Override

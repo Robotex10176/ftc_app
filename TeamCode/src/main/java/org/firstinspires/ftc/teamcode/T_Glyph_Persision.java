@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -12,8 +13,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
  * Created by Eric D'Urso on 10/15/2017.
  */
 @Autonomous (name = "Glyph Test", group = "TEST")
+@Disabled
 public class T_Glyph_Persision extends LinearOpMode {
-    Robot_Hardware_and_Methods robot = new Robot_Hardware_and_Methods();
+    MAIN robot = new MAIN();
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, true);

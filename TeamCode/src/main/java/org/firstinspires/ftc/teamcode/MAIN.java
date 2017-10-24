@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-public class Robot_Hardware_and_Methods
+public class MAIN
 {
     public com.qualcomm.robotcore.hardware.ColorSensor ColorSensor;
     public com.qualcomm.robotcore.hardware.ColorSensor GlyphSensor;
@@ -39,7 +39,7 @@ public class Robot_Hardware_and_Methods
     private ElapsedTime period  = new ElapsedTime();
 
     //Constructor
-    public Robot_Hardware_and_Methods(){}
+    public MAIN(){}
 
     public void init(HardwareMap ahwMap, boolean auto) {
         hwMap = ahwMap;
@@ -89,16 +89,6 @@ public class Robot_Hardware_and_Methods
         }
         CloseClaw();
     }
-    //ODD NOT ROBOT MOVIN METHODS BELOW
-
-    public float AngularSeparation (float a, float b){
-        float rv;
-        rv = Math.abs(a-b);
-        if (rv >= 180){
-            rv = 360 - rv;
-        }
-        return rv;
-    }
 
     public float scaleController(float in){
         //return ( java.lang.Math.signum(in)*in*in);
@@ -106,92 +96,6 @@ public class Robot_Hardware_and_Methods
     }
 
     //TEAM METHODS BELOW
-
-    //Turn Methods
-
-    public void SmartTurnRight(float Angle, double Power){//turn right is clockwise
-        //code to turn untill an angle ex 0, 90, -90
-        float zAngle;
-        float targetAngle;
-        zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        //Set target direction in range -180 - 180;
-        targetAngle = (zAngle - Angle + 180);
-        while (targetAngle > 360){ targetAngle = targetAngle - 360; }
-        while (targetAngle < 0){ targetAngle = targetAngle + 360; }
-        targetAngle = targetAngle - 180;
-
-        while (AngularSeparation(zAngle, targetAngle)> 2.0){
-            leftDrive.setPower(Power);
-            rightDrive.setPower(-Power);
-            zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        }
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-
-    }
-
-    public void SmartTurnLeft (float Angle, double Power){
-        float zAngle;
-        float targetAngle;
-        zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        //Set target direction in range -180 - 180;
-        targetAngle = (zAngle - Angle + 180);
-        while (targetAngle > 360){ targetAngle = targetAngle - 360; }
-        while (targetAngle < 0){ targetAngle = targetAngle + 360; }
-        targetAngle = targetAngle - 180;
-
-        while (AngularSeparation(zAngle, targetAngle)> 2.0){
-            leftDrive.setPower(-Power);
-            rightDrive.setPower(Power);
-            zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-
-        }
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-
-    }
-
-    public void SmartTurnRightON (float Angle, double Power){//turn right is clockwise
-        //code to turn untill an angle ex 0, 90, -90
-        float zAngle;
-        float targetAngle;
-        zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        //Set target direction in range -180 - 180;
-        targetAngle = (zAngle - Angle + 180);
-        while (targetAngle > 360){ targetAngle = targetAngle - 360; }
-        while (targetAngle < 0){ targetAngle = targetAngle + 360; }
-        targetAngle = targetAngle - 180;
-
-        while (AngularSeparation(zAngle, targetAngle)> 2.0){
-            //leftDrive.setPower(Power);
-            rightDrive.setPower(-Power);
-            zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        }
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-
-    }
-
-    public void SmartTurnLeftON (float Angle, double Power){
-        float zAngle;
-        float targetAngle;
-        zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        //Set target direction in range -180 - 180;
-        targetAngle = (zAngle - Angle + 180);
-        while (targetAngle > 360){ targetAngle = targetAngle - 360; }
-        while (targetAngle < 0){ targetAngle = targetAngle + 360; }
-        targetAngle = targetAngle - 180;
-
-        while (AngularSeparation(zAngle, targetAngle)> 2.0){
-            leftDrive.setPower(-Power);
-            //rightDrive.setPower(Power);
-            zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-
-        }
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-
-    }
 
     //Claw Methods
 
@@ -303,6 +207,108 @@ public class Robot_Hardware_and_Methods
                 leftDrive.setPower(0.05);
             }
         }
+    }
+    //TURN METHODS
+//Floats
+    public float AngularSeparation (float a, float b){
+        float rv;
+        rv = Math.abs(a-b);
+        if (rv >= 180){
+            rv = 360 - rv;
+        }
+        return rv;
+    }
+    public void SmartTurnRight(float Angle, double Power){//turn right is clockwise
+        //code to turn untill an angle ex 0, 90, -90
+        float zAngle;
+        float targetAngle;
+        zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        //Set target direction in range -180 - 180;
+        targetAngle = (zAngle - Angle + 180);
+        while (targetAngle > 360){ targetAngle = targetAngle - 360; }
+        while (targetAngle < 0){ targetAngle = targetAngle + 360; }
+        targetAngle = targetAngle - 180;
+
+        while (AngularSeparation(zAngle, targetAngle)> 2.0){
+            leftDrive.setPower(Power);
+            rightDrive.setPower(-Power);
+            zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        }
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+
+    }
+
+    public void SmartTurnLeft (float Angle, double Power){
+        float zAngle;
+        float targetAngle;
+        zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        //Set target direction in range -180 - 180;
+        targetAngle = (zAngle - Angle + 180);
+        while (targetAngle > 360){ targetAngle = targetAngle - 360; }
+        while (targetAngle < 0){ targetAngle = targetAngle + 360; }
+        targetAngle = targetAngle - 180;
+
+        while (AngularSeparation(zAngle, targetAngle)> 2.0){
+            leftDrive.setPower(-Power);
+            rightDrive.setPower(Power);
+            zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+
+        }
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+
+    }
+
+//doubles
+    public double AngularSeparationD (double a, double b){
+        double rv;
+        rv = Math.abs(a-b);
+        if (rv >= 180){
+            rv = 360 - rv;
+        }
+        return rv;
+    }
+    public void SmartTurnRightD(double Angle, double Power){//turn right is clockwise
+        //code to turn untill an angle ex 0, 90, -90
+        double zAngle;
+        double targetAngle;
+        zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        //Set target direction in range -180 - 180;
+        targetAngle = (zAngle - Angle + 180);
+        while (targetAngle > 360){ targetAngle = targetAngle - 360; }
+        while (targetAngle < 0){ targetAngle = targetAngle + 360; }
+        targetAngle = targetAngle - 180;
+
+        while (AngularSeparationD(zAngle, targetAngle)> 2.0){
+            leftDrive.setPower(Power);
+            rightDrive.setPower(-Power);
+            zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        }
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+
+    }
+
+    public void SmartTurnLeftD (double Angle, double Power){
+        double zAngle;
+        double targetAngle;
+        zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        //Set target direction in range -180 - 180;
+        targetAngle = (zAngle - Angle + 180);
+        while (targetAngle > 360){ targetAngle = targetAngle - 360; }
+        while (targetAngle < 0){ targetAngle = targetAngle + 360; }
+        targetAngle = targetAngle - 180;
+
+        while (AngularSeparationD(zAngle, targetAngle)> 2.0){
+            leftDrive.setPower(-Power);
+            rightDrive.setPower(Power);
+            zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+
+        }
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+
     }
  }
 

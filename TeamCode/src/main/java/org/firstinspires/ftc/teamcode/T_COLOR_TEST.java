@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 /**
@@ -11,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 @Autonomous (name = "GLYPH COLOR TEST")
 @Disabled
 public class T_COLOR_TEST extends OpMode {
-    Robot_Hardware_and_Methods robot = new Robot_Hardware_and_Methods();
+    MAIN robot = new MAIN();
     @Override
     public void init() {
         robot.init(hardwareMap, true);
