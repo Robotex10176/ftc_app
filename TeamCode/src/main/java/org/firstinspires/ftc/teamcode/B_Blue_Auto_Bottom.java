@@ -10,17 +10,24 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
+
 /**
- * Created by Eric D'Urso on 10/16/2017.
+ * Created by Eric D'Urso on 9/16/2017.
  */
-@Autonomous(name = "Blue Auto Top", group = "Blue Autonomous")
-public class A_Blue_Auto_Top extends LinearOpMode {
-    MAIN main = new MAIN();
+@Autonomous (name = "Blue Auto Bottom", group = "Blue Autonomous")//disable all other files soon
+public class B_Blue_Auto_Bottom extends LinearOpMode {
+
+    //ROBOT CONFIGURE
+    A_MAIN main = new A_MAIN();
     public static final String TAG = "Vuforia VuMark Sample";
     OpenGLMatrix lastLocation = null;
     VuforiaLocalizer vuforia;
+
+    //.
+
     @Override
     public void runOpMode() throws InterruptedException {
+
         main.init(hardwareMap, true); //True means this is an autonomous
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();//leave parameters blank to not display on phone, fill with cameraMonitorViewId to view on phone
@@ -32,7 +39,10 @@ public class A_Blue_Auto_Top extends LinearOpMode {
         relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
         telemetry.addLine("Press Play to start");
         telemetry.update();
+        //.
+
         waitForStart();
+
         //move block off ground
         main.Lift.setPower(0.3);
         sleep(1000);
@@ -60,29 +70,23 @@ public class A_Blue_Auto_Top extends LinearOpMode {
         //jewel
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
-            main.DriveNoCorrection( 5 , 0.1, 0.1);
-            main.SmartTurnRight(0, 0.1);
-            main.DriveNoCorrection( 5  , 0.1, 0.1);
+            main.DriveNoCorrection ((28.25 + 9), 0.15, 0.15);//Drive Forward 28.25 in
             main.SmartTurnLeft(90, 0.1);
             //PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
-            main.DriveNoCorrection(5  , 0.1, 0.1);
-            main.SmartTurnRight(0, 0.1);
-            main.DriveNoCorrection( 5  , 0.1, 0.1);
+            main.DriveNoCorrection ((35.75 + 9), 0.15, 0.15);//Drive Forward 39.5 in
             main.SmartTurnLeft(90, 0.1);
             //PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.LEFT){
-            main.DriveNoCorrection(5  , 0.1, 0.1);
-            main.SmartTurnRight(0, 0.1);
-            main.DriveNoCorrection(5   , 0.1, 0.1);
+            main.DriveNoCorrection ((43.25 + 9), 0.15, 0.15);//Drive Forward 48 in
             main.SmartTurnLeft(90, 0.1);
             //PlaceGlyph();
         } else{
-            main.DriveNoCorrection(5  , 0.1, 0.1);
-            main.SmartTurnRight(0, 0.1);
-            main.DriveNoCorrection( 5  , 0.1, 0.1);
+            main.DriveNoCorrection ((35.75 + 9), 0.15, 0.15);//Drive Forward 39.5 in
             main.SmartTurnLeft(90, 0.1);
             //PlaceGlyph();
         }
+
     }
 }
+

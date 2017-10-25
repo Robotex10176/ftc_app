@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-public class MAIN
+public class A_MAIN
 {
     public com.qualcomm.robotcore.hardware.ColorSensor ColorSensor;
     public com.qualcomm.robotcore.hardware.ColorSensor GlyphSensor;
@@ -42,7 +42,7 @@ public class MAIN
     private ElapsedTime period  = new ElapsedTime();
 
     //Constructor
-    public MAIN(){}
+    public A_MAIN(){}
 
     public void init(HardwareMap ahwMap, boolean auto) {
         hwMap = ahwMap;

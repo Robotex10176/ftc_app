@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 @Autonomous (name = "GLYPH COLOR TEST")
 @Disabled
 public class T_COLOR_TEST extends OpMode {
-    MAIN robot = new MAIN();
+    A_MAIN robot = new A_MAIN();
     @Override
     public void init() {
         robot.init(hardwareMap, true);

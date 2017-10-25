@@ -13,9 +13,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 /**
  * Created by Eric D'Urso on 10/16/2017.
  */
-@Autonomous(name = "Red Auto Top", group = "Red Autonomous")
-public class A_Red_Auto_Top extends LinearOpMode {
-    MAIN main = new MAIN();
+@Autonomous(name = "Blue Auto Top", group = "Blue Autonomous")
+public class B_Blue_Auto_Top extends LinearOpMode {
+    A_MAIN main = new A_MAIN();
     public static final String TAG = "Vuforia VuMark Sample";
     OpenGLMatrix lastLocation = null;
     VuforiaLocalizer vuforia;
@@ -61,27 +61,27 @@ public class A_Red_Auto_Top extends LinearOpMode {
 
         if (vuMark == RelicRecoveryVuMark.RIGHT){
             main.DriveNoCorrection( 5 , 0.1, 0.1);
-            main.SmartTurnLeft(90, 0.1);
-            main.DriveNoCorrection( 5  , 0.1, 0.1);
             main.SmartTurnRight(0, 0.1);
+            main.DriveNoCorrection( 5  , 0.1, 0.1);
+            main.SmartTurnLeft(90, 0.1);
             //PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.CENTER){
             main.DriveNoCorrection(5  , 0.1, 0.1);
-            main.SmartTurnLeft(90, 0.1);
-            main.DriveNoCorrection( 5  , 0.1, 0.1);
             main.SmartTurnRight(0, 0.1);
+            main.DriveNoCorrection( 5  , 0.1, 0.1);
+            main.SmartTurnLeft(90, 0.1);
             //PlaceGlyph();
         } else if (vuMark == RelicRecoveryVuMark.LEFT){
-            main.DriveNoCorrection(5 , 0.1, 0.1);
-            main.SmartTurnLeft(90, 0.1);
-            main.DriveNoCorrection(5   , 0.1, 0.1);
+            main.DriveNoCorrection(5  , 0.1, 0.1);
             main.SmartTurnRight(0, 0.1);
+            main.DriveNoCorrection(5   , 0.1, 0.1);
+            main.SmartTurnLeft(90, 0.1);
             //PlaceGlyph();
         } else{
             main.DriveNoCorrection(5  , 0.1, 0.1);
-            main.SmartTurnLeft(90, 0.1);
-            main.DriveNoCorrection( 5  , 0.1, 0.1);
             main.SmartTurnRight(0, 0.1);
+            main.DriveNoCorrection( 5  , 0.1, 0.1);
+            main.SmartTurnLeft(90, 0.1);
             //PlaceGlyph();
         }
     }

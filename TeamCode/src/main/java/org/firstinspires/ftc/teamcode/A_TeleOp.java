@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  */
 @TeleOp(name = "Main TeleOp")
 public class A_TeleOp extends OpMode {
-    MAIN main = new MAIN();
+    A_MAIN main = new A_MAIN();
     @Override
     public void init() {
         main.init(hardwareMap, false);
