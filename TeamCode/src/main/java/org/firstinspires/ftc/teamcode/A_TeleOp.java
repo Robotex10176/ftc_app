@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 /**
  * Created by Eric D'Urso on 10/5/2017.
  */
-@TeleOp(name = "Main TeleOp")
+@TeleOp(name = "TeleOp")
 public class A_TeleOp extends OpMode {
     A_MAIN main = new A_MAIN();
     @Override
@@ -55,6 +55,9 @@ public class A_TeleOp extends OpMode {
             main.RotateRelic.setPower(-0.3);
         } else {
             main.RotateRelic.setPower(0.0);
+        }
+        if (!gamepad2.start){
+            main.MMS.setPosition(0.3);//up
         }
     }
 }

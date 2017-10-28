@@ -39,7 +39,6 @@ public class A_MAIN
     public static final ElapsedTime timer = new ElapsedTime();
     public static final boolean A = true;
     HardwareMap hwMap           = null;
-    private ElapsedTime period  = new ElapsedTime();
 
     //Constructor
     public A_MAIN(){}
@@ -83,7 +82,7 @@ public class A_MAIN
         RightClaw.setPosition(1);
         LeftClaw.setPosition(0.25);
         MMS = hwMap.servo.get("MMS");
-        MMS.setPosition(0.6);//up, 0 is down
+        MMS.setPosition(0.3 );//up, 0 is down
         MoveSensor = hwMap.servo.get("MoveSensor");
         MoveSensor.setPosition(1);
         final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // TETRIX MOTORS = 1440, andymark = 1120
@@ -111,12 +110,12 @@ public class A_MAIN
     //Claw Methods
 
     public void CloseClaw (){
-        RightClaw.setPosition(0.75);
+        RightClaw.setPosition(0.50);
         LeftClaw.setPosition(0.50);
     }
     public void OpenClaw (){
         RightClaw.setPosition(1);
-        LeftClaw.setPosition(0.25);
+        LeftClaw.setPosition(0);
     }
     public void FlatClaw(){
         RightClaw.setPosition(0.3);
@@ -161,8 +160,8 @@ public class A_MAIN
         int newLeftTarget;
         int newRightTarget;
         final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
-        final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
-        final double WHEEL_DIAMETER_INCHES = 3.8125;     // For figuring circumference
+        final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared DOWN
+        final double WHEEL_DIAMETER_INCHES = 3.8125;     // used to be 3.8125
         final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
         if (A) {
             newLeftTarget = leftDrive.getCurrentPosition() + (int) (DesiredDistance * COUNTS_PER_INCH);
@@ -261,7 +260,7 @@ public class A_MAIN
         float targetAngle;
         zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         //Set target direction in range -180 - 180;
-        targetAngle = (zAngle - Angle + 180);
+        targetAngle = (zAngle + Angle + 180);
         while (targetAngle > 360){ targetAngle = targetAngle - 360; }
         while (targetAngle < 0){ targetAngle = targetAngle + 360; }
         targetAngle = targetAngle - 180;

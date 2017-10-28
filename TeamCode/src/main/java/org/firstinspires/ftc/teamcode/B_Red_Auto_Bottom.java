@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * Created by Eric D'Urso on 9/16/2017.
  */
 @Autonomous (name = "Red Auto Bottom", group = "Red Autonomous")
+@Disabled
 public class B_Red_Auto_Bottom extends LinearOpMode {
 
     //ROBOT CONFIGURE

@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
  * Created by Eric D'Urso on 10/6/2017.
  */
 @Autonomous (name = "Wheel Test", group = "TEST")
-@Disabled
+//@Disabled
 public class T_Drive_Straight extends LinearOpMode {
     A_MAIN robot = new A_MAIN();
     boolean A = true;
@@ -28,7 +28,12 @@ public class T_Drive_Straight extends LinearOpMode {
         //gyroDrive(33.0, 0.1, 0.1);//3
         //dumbDrive(39.0, 0.1, 0.1);//do last if at all
         //SmartTurnRight(90, 0.1);
-        robot.DriveNoCorrection(10, 0.2, 0.2);
+        robot.DriveNoCorrection(32, 0.2, 0.2);
+        sleep(20000);
+        robot.DriveNoCorrection(39.5, 0.2, 0.2);
+        sleep(20000);
+        robot.DriveNoCorrection(47, 0.2, 0.2);
+        sleep(20000);
     }
 
     public void driveKeepCheckingEncoders(double DesiredDistance, double RightPower, double LeftPower) {

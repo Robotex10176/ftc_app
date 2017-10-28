@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * Created by Eric D'Urso on 10/16/2017.
  */
 @Autonomous(name = "Red Auto Top", group = "Red Autonomous")
+@Disabled
 public class B_Red_Auto_Top extends LinearOpMode {
     A_MAIN main = new A_MAIN();
     public static final String TAG = "Vuforia VuMark Sample";
