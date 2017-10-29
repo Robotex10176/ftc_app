@@ -161,7 +161,7 @@ public class A_MAIN
         int newRightTarget;
         final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
         final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared DOWN
-        final double WHEEL_DIAMETER_INCHES = 3.8125;     // used to be 3.8125
+        final double WHEEL_DIAMETER_INCHES = 3.95;     // used to be 3.8125
         final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
         if (A) {
             newLeftTarget = leftDrive.getCurrentPosition() + (int) (DesiredDistance * COUNTS_PER_INCH);

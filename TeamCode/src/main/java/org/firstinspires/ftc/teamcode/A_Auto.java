@@ -164,22 +164,22 @@ public class A_Auto extends LinearOpMode {
             telemetry.addData("Color Is", jewelColor);
             telemetry.update();
             if (vuMark == RelicRecoveryVuMark.LEFT) {
-                main.DriveNoCorrection ((-32 ), MAINPWR, MAINPWR);//Drive Forward 28.25 in
+                main.DriveNoCorrection ((-30 ), MAINPWR, MAINPWR);//Drive Forward 32 in
                 main.SmartTurnRight(90, MAINPWR);
                 main.DriveNoCorrection(3, 0.2, 0.2);
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.CENTER) {
-                main.DriveNoCorrection ((-39.5 ), MAINPWR, MAINPWR);//Drive Forward 39.5 in
+                main.DriveNoCorrection ((-37.5 ), MAINPWR, MAINPWR);//Drive Forward 39.5 in
                 main.SmartTurnRight(90, MAINPWR);
                 main.DriveNoCorrection(3, 0.2, 0.2);
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                main.DriveNoCorrection ((-47 ), MAINPWR, MAINPWR);//Drive Forward 48 in
+                main.DriveNoCorrection ((-45 ), MAINPWR, MAINPWR);//Drive Forward 47 in
                 main.SmartTurnRight(90, MAINPWR);
                 main.DriveNoCorrection(3, 0.2, 0.2);
                 PlaceGlyph(false);
             } else {
-                main.DriveNoCorrection ((-35.75), MAINPWR, MAINPWR);//Drive Forward 39.5 in
+                main.DriveNoCorrection ((-30), MAINPWR, MAINPWR);//Drive Forward 30 in
                 main.SmartTurnRight(90, MAINPWR);
                 main.DriveNoCorrection(3, 0.2, 0.2);
                 PlaceGlyph(false);
@@ -232,6 +232,7 @@ public class A_Auto extends LinearOpMode {
         } else {
 
         }
+        sleep(10000);
 
     }// METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS
     public String KnockOffJewl(boolean red) {
