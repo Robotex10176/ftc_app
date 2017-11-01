@@ -28,12 +28,38 @@ public class T_Drive_Straight extends LinearOpMode {
         //gyroDrive(33.0, 0.1, 0.1);//3
         //dumbDrive(39.0, 0.1, 0.1);//do last if at all
         //SmartTurnRight(90, 0.1);
-        robot.DriveNoCorrection(32, 0.2, 0.2);
-        sleep(20000);
-        robot.DriveNoCorrection(39.5, 0.2, 0.2);
-        sleep(20000);
-        robot.DriveNoCorrection(47, 0.2, 0.2);
-        sleep(20000);
+        double zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC,
+                AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        telemetry.addData("angle es ", zAngle);
+        telemetry.update();
+        robot.SmartTurnRight(90, 0.5);
+
+        zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC,
+                AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        telemetry.addData("angle es ", zAngle);
+        telemetry.update();
+        sleep(10000);
+        robot.SmartTurnRight(90, 0.5);
+
+        zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC,
+                AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        telemetry.addData("angle es ", zAngle);
+        telemetry.update();
+        sleep(10000);
+        robot.SmartTurnRight(90, 0.5);
+
+        zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC,
+                AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        telemetry.addData("angle es ", zAngle);
+        telemetry.update();
+        sleep(10000);
+        robot.SmartTurnRight(90, 0.5);
+
+        zAngle = robot.gyro.getAngularOrientation(AxesReference.INTRINSIC,
+                AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        telemetry.addData("angle es ", zAngle);
+        telemetry.update();
+        sleep (10000000);
     }
 
     public void driveKeepCheckingEncoders(double DesiredDistance, double RightPower, double LeftPower) {

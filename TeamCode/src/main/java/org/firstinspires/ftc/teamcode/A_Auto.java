@@ -5,6 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
@@ -63,6 +66,10 @@ public class A_Auto extends LinearOpMode {
         telemetry.update();
         waitForStart();// CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW
 
+        double zAngle = main.gyro.getAngularOrientation(AxesReference.INTRINSIC,
+                AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        telemetry.addData("0 deg heading", zAngle);
+        telemetry.update();
         //Raise Block and  Do VuMArk
         main.Lift.setPower(0.3);
         sleep(1000);
@@ -87,23 +94,23 @@ public class A_Auto extends LinearOpMode {
             telemetry.addData("Color Is", jewelColor);
             telemetry.update();
             if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                main.DriveNoCorrection ((28.25 - 11.5), MAINPWR, MAINPWR);//Drive Forward 28.25 in
-                main.SmartTurnRight(90, MAINPWR);
+                main.DriveNoCorrection (21.5, MAINPWR, MAINPWR);//Drive Forward 21.5 in
+                main.SmartTurnRight(87, MAINPWR);
                 main.DriveNoCorrection(3, MAINPWR, MAINPWR);
                 PlaceGlyph(true);
             } else if (vuMark == RelicRecoveryVuMark.CENTER) {
-                main.DriveNoCorrection ((36.75 - 11.5), MAINPWR, MAINPWR);//Drive Forward 39.5 in
-                main.SmartTurnRight(90, MAINPWR);
+                main.DriveNoCorrection (29, MAINPWR, MAINPWR);//Drive Forward 29 in
+                main.SmartTurnRight(87, MAINPWR);
                 main.DriveNoCorrection(3, MAINPWR, MAINPWR);
                 PlaceGlyph(true);
             } else if (vuMark == RelicRecoveryVuMark.LEFT) {
-                main.DriveNoCorrection ((44.25 - 11.5), MAINPWR, MAINPWR);//Drive Forward 48 in
-                main.SmartTurnRight(90, MAINPWR);
+                main.DriveNoCorrection (36.5, MAINPWR, MAINPWR);//Drive Forward 36.5 in
+                main.SmartTurnRight(87, MAINPWR);
                 main.DriveNoCorrection(3, MAINPWR, MAINPWR);
                 PlaceGlyph(true);
             } else {
-                main.DriveNoCorrection ((35.75 - 11.5), MAINPWR, MAINPWR);//Drive Forward 39.5 in
-                main.SmartTurnRight(90, MAINPWR);
+                main.DriveNoCorrection (29, MAINPWR, MAINPWR);//Drive Forward 29 in to center
+                main.SmartTurnRight(87, MAINPWR);
                 main.DriveNoCorrection(3, MAINPWR, MAINPWR);
                 PlaceGlyph(true);
             }
@@ -122,31 +129,31 @@ public class A_Auto extends LinearOpMode {
             telemetry.update();
             if (vuMark == RelicRecoveryVuMark.RIGHT){
                 main.DriveNoCorrection( 17.25 , MAINPWR, MAINPWR);
-                main.SmartTurnLeft(90, MAINPWR);
-                main.DriveNoCorrection( 5  , MAINPWR, MAINPWR);
-                main.SmartTurnRight(90, MAINPWR);
+                main.SmartTurnLeft(87, MAINPWR);
+                main.DriveNoCorrection( 7  , MAINPWR, MAINPWR);//drive 7 inches
+                main.SmartTurnRight(87, MAINPWR);
                 main.DriveNoCorrection(3, MAINPWR, MAINPWR);
                 PlaceGlyph(true);
             } else if (vuMark == RelicRecoveryVuMark.CENTER){
                 main.DriveNoCorrection(17.25  , MAINPWR, MAINPWR);
-                main.SmartTurnLeft(90, MAINPWR);
-                main.DriveNoCorrection( 12.5  , MAINPWR, MAINPWR);
-                main.SmartTurnRight(90, MAINPWR);
-                main.DriveNoCorrection(4, MAINPWR, MAINPWR);
+                main.SmartTurnLeft(87, MAINPWR);
+                main.DriveNoCorrection( 14.5  , MAINPWR, MAINPWR);//drive 14.5 in
+                main.SmartTurnRight(87, MAINPWR);
+                main.DriveNoCorrection(3, MAINPWR, MAINPWR);
                 PlaceGlyph(true);
             } else if (vuMark == RelicRecoveryVuMark.LEFT){
                 main.DriveNoCorrection(17.25 , MAINPWR, MAINPWR);
-                main.SmartTurnLeft(90, MAINPWR);
-                main.DriveNoCorrection(20   , MAINPWR, MAINPWR);
-                main.SmartTurnRight(90, MAINPWR);
-                main.DriveNoCorrection(5, MAINPWR, MAINPWR);
+                main.SmartTurnLeft(87, MAINPWR);
+                main.DriveNoCorrection(22,  MAINPWR, MAINPWR);//drive 22 in
+                main.SmartTurnRight(87, MAINPWR);
+                main.DriveNoCorrection(3, MAINPWR, MAINPWR);
                 PlaceGlyph(true);
             } else{
                 main.DriveNoCorrection(17.25  , MAINPWR, MAINPWR);
-                main.SmartTurnLeft(90, MAINPWR);
-                main.DriveNoCorrection( 5  , MAINPWR, MAINPWR);
-                main.SmartTurnRight(90, MAINPWR);
-                main.DriveNoCorrection(2, MAINPWR, MAINPWR);
+                main.SmartTurnLeft(87, MAINPWR);
+                main.DriveNoCorrection( 5  , MAINPWR, MAINPWR);//drive to center
+                main.SmartTurnRight(87, MAINPWR);
+                main.DriveNoCorrection(3, MAINPWR, MAINPWR);
                 PlaceGlyph(true);
             }
 
@@ -164,23 +171,23 @@ public class A_Auto extends LinearOpMode {
             telemetry.addData("Color Is", jewelColor);
             telemetry.update();
             if (vuMark == RelicRecoveryVuMark.LEFT) {
-                main.DriveNoCorrection ((-30 ), MAINPWR, MAINPWR);//Drive Forward 32 in
-                main.SmartTurnRight(90, MAINPWR);
+                main.DriveNoCorrection (-34.25, MAINPWR, MAINPWR);//Drive Forward 34.75 in
+                main.SmartTurnRight(87, MAINPWR);
                 main.DriveNoCorrection(3, 0.2, 0.2);
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.CENTER) {
-                main.DriveNoCorrection ((-37.5 ), MAINPWR, MAINPWR);//Drive Forward 39.5 in
-                main.SmartTurnRight(90, MAINPWR);
+                main.DriveNoCorrection (-41.75, MAINPWR, MAINPWR);//Drive Forward 42.75 in
+                main.SmartTurnRight(87, MAINPWR);
                 main.DriveNoCorrection(3, 0.2, 0.2);
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                main.DriveNoCorrection ((-45 ), MAINPWR, MAINPWR);//Drive Forward 47 in
-                main.SmartTurnRight(90, MAINPWR);
+                main.DriveNoCorrection (-49.25, MAINPWR, MAINPWR);//Drive Forward  in
+                main.SmartTurnRight(87, MAINPWR);
                 main.DriveNoCorrection(3, 0.2, 0.2);
                 PlaceGlyph(false);
             } else {
-                main.DriveNoCorrection ((-30), MAINPWR, MAINPWR);//Drive Forward 30 in
-                main.SmartTurnRight(90, MAINPWR);
+                main.DriveNoCorrection (42.75, MAINPWR, MAINPWR);//Drive Forward to center pos
+                main.SmartTurnRight(87, MAINPWR);
                 main.DriveNoCorrection(3, 0.2, 0.2);
                 PlaceGlyph(false);
             }
@@ -198,32 +205,32 @@ public class A_Auto extends LinearOpMode {
             telemetry.addData("Color Is", jewelColor);
             telemetry.update();
             if (vuMark == RelicRecoveryVuMark.LEFT){
-                main.DriveNoCorrection( -17.25 , MAINPWR, MAINPWR);
-                main.SmartTurnLeft(90, MAINPWR);
-                main.DriveNoCorrection( (5 + 11.5) , MAINPWR, MAINPWR);
-                main.SmartTurnRight(90, MAINPWR);
+                main.DriveNoCorrection( -30 , MAINPWR, MAINPWR);
+                main.SmartTurnLeft(87, MAINPWR);
+                main.DriveNoCorrection(6.5  , MAINPWR, MAINPWR);//drive 6.5 in
+                main.SmartTurnLeft(87, MAINPWR);
                 main.DriveNoCorrection(3, MAINPWR, MAINPWR);
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.CENTER){
-                main.DriveNoCorrection(-17.25  , MAINPWR, MAINPWR);
-                main.SmartTurnLeft(90, MAINPWR);
-                main.DriveNoCorrection( (12.5+ 11.5)  , MAINPWR, MAINPWR);
-                main.SmartTurnRight(90, MAINPWR);
-                main.DriveNoCorrection(4, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(-30 , MAINPWR, MAINPWR);
+                main.SmartTurnLeft(87, MAINPWR);
+                main.DriveNoCorrection(14   , MAINPWR, MAINPWR);//drive 14 in
+                main.SmartTurnLeft(87, MAINPWR);
+                main.DriveNoCorrection(3, MAINPWR, MAINPWR);
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.RIGHT){
-                main.DriveNoCorrection(-17.25 , MAINPWR, MAINPWR);
-                main.SmartTurnLeft(90, MAINPWR);
-                main.DriveNoCorrection((20+ 11.5)   , MAINPWR, MAINPWR);
-                main.SmartTurnRight(90, MAINPWR);
-                main.DriveNoCorrection(5, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(-30 , MAINPWR, MAINPWR);
+                main.SmartTurnLeft(87, MAINPWR);
+                main.DriveNoCorrection(21.5  , MAINPWR, MAINPWR); //drive 21 inches
+                main.SmartTurnLeft(87, MAINPWR);
+                main.DriveNoCorrection(3, MAINPWR, MAINPWR);
                 PlaceGlyph(false);
             } else{
-                main.DriveNoCorrection(-17.25  , MAINPWR, MAINPWR);
-                main.SmartTurnLeft(90, MAINPWR);
-                main.DriveNoCorrection(( 5+ 11.5)  , MAINPWR, MAINPWR);
-                main.SmartTurnRight(90, MAINPWR);
-                main.DriveNoCorrection(2, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(-30  , MAINPWR, MAINPWR);
+               main.SmartTurnLeft(87, MAINPWR);
+                main.DriveNoCorrection(14  , MAINPWR, MAINPWR);//drive to center
+                main.SmartTurnLeft(87, MAINPWR);
+                main.DriveNoCorrection(3, MAINPWR, MAINPWR);
                 PlaceGlyph(false);
             }
 
@@ -495,6 +502,49 @@ public class A_Auto extends LinearOpMode {
             turnAmount += 360.0;
         }
         return turnAmount;
+    }
+
+
+    public float AngularSeparation (float a, float b){
+        float rv;
+        rv = Math.abs(a-b);
+        if (rv >= 180){
+            rv = 360 - rv;
+        }
+        return rv;
+    }
+    public void SmartTurnRightTELE(float Angle, double Power){//turn right is clockwise
+        //code to turn untill an angle ex 0, 90, -90
+        float zAngle;
+        float targetAngle;
+        zAngle = main.gyro.getAngularOrientation(AxesReference.INTRINSIC,
+                AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        //Set target direction in range -180 - 180;
+        targetAngle = (zAngle - Angle + 180);
+        while (targetAngle > 360){ targetAngle = targetAngle - 360; }
+        while (targetAngle < 0){ targetAngle = targetAngle + 360; }
+        targetAngle = targetAngle - 180;
+        float as;
+        as = AngularSeparation(zAngle, targetAngle);
+        while (as > 1.0){
+            as = AngularSeparation(zAngle, targetAngle);
+            if(as < 10) {
+                main.leftDrive.setPower(0.5 * Power);
+                main.rightDrive.setPower(-0.5 * Power);
+            } else {
+                main.leftDrive.setPower(Power);
+                main.rightDrive.setPower(-Power);
+            }
+            zAngle = main.gyro.getAngularOrientation(AxesReference.INTRINSIC,
+                    AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+            telemetry.addData("Gyro angle is ", zAngle);
+            telemetry.update();
+        }
+        main.leftDrive.setPower(0);
+        main.rightDrive.setPower(0);
+        telemetry.addData("Gyro angle is ", zAngle);
+        telemetry.update();
+
     }
 }
 
