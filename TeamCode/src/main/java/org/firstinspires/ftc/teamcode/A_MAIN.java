@@ -79,12 +79,13 @@ public class A_MAIN
         moveFlick.setPosition(0.5);
         RightClaw = hwMap.servo.get("RightClaw");
         LeftClaw = hwMap.servo.get("LeftClaw");
-        RightClaw.setPosition(1);
-        LeftClaw.setPosition(0.25);
+        //RightClaw.setPosition(1);
+        //LeftClaw.setPosition(0.25);
         MMS = hwMap.servo.get("MMS");
         MMS.setPosition(0.3 );//up, 0 is down
         MoveSensor = hwMap.servo.get("MoveSensor");
         MoveSensor.setPosition(1);
+        CloseClaw();
         final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // TETRIX MOTORS = 1440, andymark = 1120
         final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
         final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
@@ -97,7 +98,7 @@ public class A_MAIN
 
             }
         }
-        CloseClaw();
+
     }
 
     public float scaleController(float in){
@@ -122,7 +123,7 @@ public class A_MAIN
         LeftClaw.setPosition(0);
     }
     public void CloseRelic() {
-    RelicClaw.setPosition(1);
+    RelicClaw.setPosition(0);
     }
     public void OpenRelic() {
         RelicClaw.setPosition(0.5);
