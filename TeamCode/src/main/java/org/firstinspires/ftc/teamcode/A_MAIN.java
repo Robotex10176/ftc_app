@@ -114,8 +114,8 @@ public class A_MAIN
         LeftClaw.setPosition(0.50);
     }
     public void OpenClaw (){
-        RightClaw.setPosition(1);
-        LeftClaw.setPosition(0);
+        RightClaw.setPosition(0.9);
+        LeftClaw.setPosition(0.20);
     }
     public void FlatClaw(){
         RightClaw.setPosition(0.3);

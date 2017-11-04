@@ -19,8 +19,8 @@ import static java.lang.Math.atan2;
  * Created by Eric D'Urso on 10/24/2017.
  * This is the only autonomous program
  */
-@Autonomous (name = "Auto")
-public class A_Auto extends LinearOpMode {
+@Autonomous (name = "Auto Competition")
+public class A_Auto_Comp_Adjustments extends LinearOpMode {
     A_MAIN main = new A_MAIN();
     VuforiaLocalizer vuforia;
     boolean PROGRAMSELECTED = false;
@@ -72,7 +72,7 @@ public class A_Auto extends LinearOpMode {
         telemetry.update();
         //Raise Block and  Do VuMArk
         main.Lift.setPower(0.3);
-        sleep(500);
+        sleep(1000);
         main.Lift.setPower(0);
         relicTrackables.activate();
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
@@ -173,22 +173,22 @@ public class A_Auto extends LinearOpMode {
             if (vuMark == RelicRecoveryVuMark.LEFT) {
                 main.DriveNoCorrection (-34.25, MAINPWR, MAINPWR);//Drive Forward 34.75 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5, 0.2, 0.2);
+                main.DriveNoCorrection(3, 0.2, 0.2);
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.CENTER) {
                 main.DriveNoCorrection (-41.75, MAINPWR, MAINPWR);//Drive Forward 42.75 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5, 0.2, 0.2);
+                main.DriveNoCorrection(3, 0.2, 0.2);
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
                 main.DriveNoCorrection (-49.25, MAINPWR, MAINPWR);//Drive Forward  in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5, 0.2, 0.2);
+                main.DriveNoCorrection(3, 0.2, 0.2);
                 PlaceGlyph(false);
             } else {
                 main.DriveNoCorrection (42.75, MAINPWR, MAINPWR);//Drive Forward to center pos
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5, 0.2, 0.2);
+                main.DriveNoCorrection(3, 0.2, 0.2);
                 PlaceGlyph(false);
             }
 
@@ -227,7 +227,7 @@ public class A_Auto extends LinearOpMode {
                 PlaceGlyph(false);
             } else{
                 main.DriveNoCorrection(-30  , MAINPWR, MAINPWR);
-                main.SmartTurnLeft(87, MAINPWR);
+               main.SmartTurnLeft(87, MAINPWR);
                 main.DriveNoCorrection(14  , MAINPWR, MAINPWR);//drive to center
                 main.SmartTurnLeft(87, MAINPWR);
                 main.DriveNoCorrection(3, MAINPWR, MAINPWR);
@@ -256,12 +256,12 @@ public class A_Auto extends LinearOpMode {
         if (red) {
             if (color.compareTo("RED") == 0){
                 main.SeeOurColor();
-                sleep(500);
+                sleep(1000);
                 main.JewelServoReturn(1);
                 sleep(100);
             } else if (color.compareTo("BLUE") == 0){
                 main.DontSeeOurColor();
-                sleep(500);
+                sleep(1000);
                 main.JewelServoReturn(1);
                 sleep(100);
             } else {
@@ -270,19 +270,19 @@ public class A_Auto extends LinearOpMode {
         } else {//means its blue
             if (color.compareTo("RED") == 0){
                 main.DontSeeOurColor();
-                sleep(500);
+                sleep(1000);
                 main.JewelServoReturn(1);
                 sleep(100);
             } else if (color.compareTo("BLUE") == 0){
                 main.SeeOurColor();
-                sleep(500);
+                sleep(1000);
                 main.JewelServoReturn(1);
                 sleep(100);
             } else {
                 //UNKNOWN
             }
         }
-        main.moveArm(-140, -0.1);//used to be 120
+        main.moveArm(-120, -0.1);
         return color;
     }
 
@@ -361,11 +361,11 @@ public class A_Auto extends LinearOpMode {
             TurnAmount = Math.toDegrees(atan2(InchesAway, WheelsToEndOfArmDis));
             //Used below to turn
             main.DriveNoCorrection(3, 0.2, 0.2);
-            if (TurnAmount > 0.0){
-                main.SmartTurnRightD(TurnAmount, 0.15);
-            } else {
-                main.SmartTurnLeftD(TurnAmount, 0.15);
-            }
+                if (TurnAmount > 0.0){
+                    main.SmartTurnRightD(TurnAmount, 0.15);
+                } else {
+                    main.SmartTurnLeftD(TurnAmount, 0.15);
+                }
         }
         // drive forward, Open, reverse, and park in zone
         main.DriveNoCorrection(7, 0.15, 0.15);
