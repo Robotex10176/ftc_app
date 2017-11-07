@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-public class A_MAIN
+public class A_Main
 {
     public com.qualcomm.robotcore.hardware.ColorSensor ColorSensor;
     public com.qualcomm.robotcore.hardware.ColorSensor GlyphSensor;
@@ -41,7 +41,7 @@ public class A_MAIN
     HardwareMap hwMap           = null;
 
     //Constructor
-    public A_MAIN(){}
+    public A_Main(){}
 
     public void init(HardwareMap ahwMap, boolean auto) {
         hwMap = ahwMap;
@@ -108,7 +108,7 @@ public class A_MAIN
 
     //TEAM METHODS BELOW
 
-    //Claw Methods
+    //Claw A_Main
 
     public void CloseClaw (){
         RightClaw.setPosition(0.50);
@@ -129,7 +129,7 @@ public class A_MAIN
         RelicClaw.setPosition(0.5);
     }
 
-    //Jewel Arm Methods
+    //Jewel Arm A_Main
 
     public void moveArm (double Degrees, double Power){
         int newLeftTarget;
@@ -155,7 +155,7 @@ public class A_MAIN
         moveFlick.setPosition(0.5);
     }
 
-    //Drive Methods
+    //Drive A_Main
 
     public void DriveNoCorrection (double DesiredDistance, double RightPower, double LeftPower){
         int newLeftTarget;

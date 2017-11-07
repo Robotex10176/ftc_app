@@ -21,7 +21,7 @@ import static java.lang.Math.atan2;
  */
 @Autonomous (name = "Auto")
 public class A_Auto extends LinearOpMode {
-    A_MAIN main = new A_MAIN();
+    A_Main main = new A_Main();
     VuforiaLocalizer vuforia;
     boolean PROGRAMSELECTED = false;
     int PROGRAM = 0;

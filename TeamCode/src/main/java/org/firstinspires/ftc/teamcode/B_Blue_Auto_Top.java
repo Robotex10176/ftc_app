@@ -17,7 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 @Autonomous(name = "Blue Auto Top", group = "Blue Autonomous")
 @Disabled
 public class B_Blue_Auto_Top extends LinearOpMode {
-    A_MAIN main = new A_MAIN();
+    A_Main main = new A_Main();
     public static final String TAG = "Vuforia VuMark Sample";
     OpenGLMatrix lastLocation = null;
     VuforiaLocalizer vuforia;

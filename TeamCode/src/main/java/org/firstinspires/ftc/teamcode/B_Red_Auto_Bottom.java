@@ -20,7 +20,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 public class B_Red_Auto_Bottom extends LinearOpMode {
 
     //ROBOT CONFIGURE
-    A_MAIN main = new A_MAIN();
+    A_Main main = new A_Main();
     public static final String TAG = "Vuforia VuMark Sample";
     OpenGLMatrix lastLocation = null;
     VuforiaLocalizer vuforia;

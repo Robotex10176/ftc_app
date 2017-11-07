@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 @Autonomous (name = "Glyph Test", group = "TEST")
 @Disabled
 public class T_Glyph_Persision extends LinearOpMode {
-    A_MAIN robot = new A_MAIN();
+    A_Main robot = new A_Main();
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, true);
