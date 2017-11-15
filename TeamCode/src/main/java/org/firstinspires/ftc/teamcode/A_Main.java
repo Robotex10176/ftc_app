@@ -101,7 +101,7 @@ public class A_Main
 
     }
 
-    public float scaleController(float in){
+    public double scaleController(double in){
         //return ( java.lang.Math.signum(in)*in*in);
         return (in*in*in);
     }

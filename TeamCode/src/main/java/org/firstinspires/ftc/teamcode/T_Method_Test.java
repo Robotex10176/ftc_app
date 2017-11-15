@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
  */
 @Autonomous (name = "Wheel Test", group = "TEST")
 @Disabled
-public class T_Drive_Straight extends LinearOpMode {
+public class T_Method_Test extends LinearOpMode {
     A_Main robot = new A_Main();
     boolean A = true;
 
