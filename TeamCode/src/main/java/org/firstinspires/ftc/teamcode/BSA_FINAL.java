@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -24,6 +25,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
 
 @Autonomous(name = "BSA")
+@Disabled
 public class BSA_FINAL extends LinearOpMode {
     public com.qualcomm.robotcore.hardware.ColorSensor ColorSensor;
     IntegratingGyroscope gyro;
