@@ -546,11 +546,6 @@ public class A_Auto extends LinearOpMode {
         telemetry.update();
 
     }
-
-
-
-
-
 }
 
 
