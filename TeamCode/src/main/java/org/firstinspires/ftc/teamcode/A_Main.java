@@ -105,6 +105,9 @@ public class A_Main
         //return ( java.lang.Math.signum(in)*in*in);
         return (in*in*in);
     }
+    public double halfPwr (double in){
+        return (in/2);
+    }
 
     //TEAM METHODS BELOW
 
@@ -116,7 +119,7 @@ public class A_Main
     }
     public void OpenClaw (){
         RightClaw.setPosition(0.9);
-        LeftClaw.setPosition(0.20);
+        LeftClaw.setPosition(0.0);
     }
     public void FlatClaw(){
         RightClaw.setPosition(0.3);
@@ -161,7 +164,7 @@ public class A_Main
         int newLeftTarget;
         int newRightTarget;
         final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
-        final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared DOWN
+        final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared DOWN
         final double WHEEL_DIAMETER_INCHES = 3.95;     // used to be 3.8125
         final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
         if (A) {
@@ -194,7 +197,7 @@ public class A_Main
         int newRightTarget;
         float displacement;
         final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
-        final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
+        final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
         final double WHEEL_DIAMETER_INCHES = 3.8125;     // For figuring circumference
         final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
         if (A) {
