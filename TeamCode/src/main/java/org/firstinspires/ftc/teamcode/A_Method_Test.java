@@ -18,10 +18,86 @@ public class A_Method_Test extends LinearOpMode {
         waitForStart();
         //Testing Methods Below
 
+        //TurnTestSeries();
+        //DriveSeriesNC();
+        //DriveSeriesGC();
 
-
+        telemetry.addLine("FINISHED");
+        telemetry.update();
+        sleep(1000000000);
         //.
+        //TODO - DriveGyroCorrection - get it to work
+        //TODO - TURNS - Specific amount
+        //TODO - Drive Distance to Work
+        //TODO - Update methods as we find these work
     }
+
+
+
+
+    //Methods to turn, drive distance, etc.
+    public void TurnTestSeries (){
+        //Turns 90 degrees 4 times
+        SmartTurnLeft(90, 1);
+        telemetry.addLine("TURNED 90 DEGREES");
+        telemetry.update();
+        sleep(2000);
+        SmartTurnLeft(90, 1);
+        telemetry.addLine("TURNED 180 DEGREES");
+        telemetry.update();
+        sleep(2000);
+        SmartTurnLeft(90, 1);
+        telemetry.addLine("TURNED 270 DEGREES");
+        telemetry.update();
+        sleep(2000);
+        SmartTurnLeft(90, 1);
+        telemetry.addLine("TURNED 360 DEGREES");
+        telemetry.update();
+        sleep(2000);
+    }
+    public void DriveSeriesNC(){
+        int numOfRuns = 4;
+        double initialDis = 20.25;//Change these as needed
+        double disIncrease = 10.25;//u can use actual auto distances.
+        for (int i = 0; i < numOfRuns; i++){
+            telemetry.addData("Driving ", initialDis);
+            telemetry.update();
+            DriveNoCorrection(initialDis, 1, 1);//that power
+            telemetry.addLine("Drove");
+            telemetry.addLine("Move Me Back To Start");
+            telemetry.update();
+            sleep(20000);//20 secs
+            initialDis += 1.0;
+        }
+    }
+    public void DriveSeriesGC(){
+        int numOfRuns = 4;
+        double initialDis = 20.25;//Change these as needed
+        double disIncrease = 10.25;//u can use actual auto distances.
+        for (int i = 0; i < numOfRuns; i++){
+            telemetry.addData("Driving ", initialDis);
+            telemetry.update();
+            DriveGyroCorrection(initialDis, 1, 1);//that power
+            telemetry.addLine("Drove");
+            telemetry.addLine("Move Me Back To Start");
+            telemetry.update();
+            sleep(20000);//20 secs
+            initialDis += 1.0;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
      public double scaleController(double in){
         //return ( java.lang.Math.signum(in)*in*in);
@@ -70,7 +146,7 @@ public class A_Method_Test extends LinearOpMode {
         int newLeftTarget;
         int newRightTarget;
         final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
-        final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared DOWN
+        final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared DOWN
         final double WHEEL_DIAMETER_INCHES = 3.95;     // used to be 3.8125
         final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
         if (opModeIsActive()) {
@@ -100,7 +176,7 @@ public class A_Method_Test extends LinearOpMode {
         int newRightTarget;
         float displacement;
         final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
-        final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
+        final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
         final double WHEEL_DIAMETER_INCHES = 3.8125;     // For figuring circumference
         final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
         if (opModeIsActive()) {
