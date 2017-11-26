@@ -19,7 +19,7 @@ import static java.lang.Math.atan2;
  * Created by Eric D'Urso on 10/24/2017.
  * This is the only autonomous program
  */
-@Autonomous (name = "Auto")
+@Autonomous (name = "Autonomous")
 public class A_Auto extends LinearOpMode {
     A_Main main = new A_Main();
     VuforiaLocalizer vuforia;
