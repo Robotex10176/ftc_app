@@ -26,7 +26,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
 @Autonomous(name = "BSA")
 @Disabled
-public class BSA_FINAL extends LinearOpMode {
+class BSA_FINAL extends LinearOpMode {
     public com.qualcomm.robotcore.hardware.ColorSensor ColorSensor;
     IntegratingGyroscope gyro;
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
