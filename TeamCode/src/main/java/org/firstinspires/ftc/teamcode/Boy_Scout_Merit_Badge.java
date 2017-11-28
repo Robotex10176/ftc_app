@@ -24,8 +24,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
 
 
-@Autonomous(name = "BSA")
-@Disabled
+@Autonomous(name = "IF YOU SEE ME, DELETE ME!")//name to BSA
+//@Disabled
 class BSA_FINAL extends LinearOpMode {
     public com.qualcomm.robotcore.hardware.ColorSensor ColorSensor;
     IntegratingGyroscope gyro;
