@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+//import com.qualcomm.robotcore.eventloop.opmode.OOPSIE;
 
 /**
  * Created by Eric D'Urso on 11/18/2017.
  */
-@TeleOp (name = "TeleOp")
-public class A_TeleOp extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TELEOPIE")
+public class OOPSIE extends LinearOpMode {
     A_Main main = new A_Main();
     boolean closedClaw = false;
     @Override
