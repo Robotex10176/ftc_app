@@ -24,4 +24,4 @@ public class T_driveNoGyro extends LinearOpMode {
         //public void DriveNoCorrection(double DesiredDistance, double RightPower, double LeftPower) {
         robot.DriveNoCorrection(1, 10, 10);
     }
-} 
+}
