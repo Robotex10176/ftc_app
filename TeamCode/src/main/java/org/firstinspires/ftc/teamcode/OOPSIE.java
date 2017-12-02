@@ -24,7 +24,7 @@ public class OOPSIE extends LinearOpMode {
                 //main.rightDrive.setPower(0);
                 //telemetry.addLine("ME DONT DO NOTHIN");
                 //telemetry.update();
-                if (gamepad1.left_trigger > 0.2 || gamepad1.right_trigger > 0.2){
+                if (gamepad1.left_trigger > 0.3 || gamepad1.right_trigger > 0.3){//0.2
                     main.rightDrive.setPower(gamepad1.right_trigger);
                     main.leftDrive.setPower(gamepad1.left_trigger);
                 } else {

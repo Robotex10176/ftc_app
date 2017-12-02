@@ -68,8 +68,8 @@ public class A_Auto extends LinearOpMode {
 
         double zAngle = main.gyro.getAngularOrientation(AxesReference.INTRINSIC,
                 AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        telemetry.addData("0 deg heading", zAngle);
-        telemetry.update();
+        //telemetry.addData("0 deg heading", zAngle);
+        //telemetry.update();
         //Raise Block and  Do VuMArk
         main.Lift.setPower(0.3);
         sleep(500);
@@ -84,76 +84,76 @@ public class A_Auto extends LinearOpMode {
 
 
         if (PROGRAM == 1){ //RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM
-            telemetry.addLine("RED BOTTOM");
-            telemetry.update();
+            //telemetry.addLine("RED BOTTOM");
+            //telemetry.update();
 
 
 
             //CODE BELOW
             String jewelColor = KnockOffJewl(true);//false if blue
-            telemetry.addData("Color Is", jewelColor);
-            telemetry.update();
+            //telemetry.addData("Color Is", jewelColor);
+            //telemetry.update();
             if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                main.DriveNoCorrection (21.5, MAINPWR, MAINPWR);//Drive Forward 21.5 in
+                main.DriveNoCorrection (21.5-(2.625), MAINPWR, MAINPWR);//Drive Forward 21.5 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(5+1.25, MAINPWR, MAINPWR); //5 in
                 PlaceGlyph(true);
             } else if (vuMark == RelicRecoveryVuMark.CENTER) {
-                main.DriveNoCorrection (29, MAINPWR, MAINPWR);//Drive Forward 29 in
+                main.DriveNoCorrection (29-(2.625), MAINPWR, MAINPWR);//Drive Forward 29 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(5+1.25, MAINPWR, MAINPWR); //5 in
                 PlaceGlyph(true);
             } else if (vuMark == RelicRecoveryVuMark.LEFT) {
-                main.DriveNoCorrection (36.5, MAINPWR, MAINPWR);//Drive Forward 36.5 in
+                main.DriveNoCorrection (36.5-(2.625), MAINPWR, MAINPWR);//Drive Forward 36.5 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(5+1.25, MAINPWR, MAINPWR); //5 in
                 PlaceGlyph(true);
             } else {
-                main.DriveNoCorrection (29, MAINPWR, MAINPWR);//Drive Forward 29 in to center
+                main.DriveNoCorrection (29-(2.625), MAINPWR, MAINPWR);//Drive Forward 29 in to center
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(5+1.25, MAINPWR, MAINPWR); //5 in
                 PlaceGlyph(true);
             }
 
 
 
         } else if (PROGRAM == 2){//RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP  RED AUTO TOP
-            telemetry.addLine("RED TOP");
-            telemetry.update();
+            //telemetry.addLine("RED TOP");
+            //telemetry.update();
 
 
 
             //CODE BELOW
             String jewelColor = KnockOffJewl(true);//false if blue
-            telemetry.addData("Color Is", jewelColor);
-            telemetry.update();
+           // telemetry.addData("Color Is", jewelColor);
+            //telemetry.update();
             if (vuMark == RelicRecoveryVuMark.RIGHT){
-                main.DriveNoCorrection( 19 , MAINPWR, MAINPWR);
+                main.DriveNoCorrection( 19-(2.625), MAINPWR, MAINPWR); //19 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection( 7  , MAINPWR, MAINPWR);//drive 7 inches
+                main.DriveNoCorrection( 7-1.25  , MAINPWR, MAINPWR);//drive 7 inches
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(4, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(4, MAINPWR, MAINPWR); //4 in
                 PlaceGlyph(true);
             } else if (vuMark == RelicRecoveryVuMark.CENTER){
-                main.DriveNoCorrection(19 , MAINPWR, MAINPWR);
+                main.DriveNoCorrection(19-(2.625), MAINPWR, MAINPWR); //19 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection( 14.5  , MAINPWR, MAINPWR);//drive 14.5 in
+                main.DriveNoCorrection( 14.5-1.25  , MAINPWR, MAINPWR);//drive 14.5 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(4, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(4, MAINPWR, MAINPWR); //4 in
                 PlaceGlyph(true);
             } else if (vuMark == RelicRecoveryVuMark.LEFT){
-                main.DriveNoCorrection(19 , MAINPWR, MAINPWR);
+                main.DriveNoCorrection(19-(2.625), MAINPWR, MAINPWR);//19 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(22,  MAINPWR, MAINPWR);//drive 22 in
+                main.DriveNoCorrection(22-1.25,  MAINPWR, MAINPWR);//drive 22 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(4, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(4, MAINPWR, MAINPWR); //4 in
                 PlaceGlyph(true);
             } else{
-                main.DriveNoCorrection(19  , MAINPWR, MAINPWR);
+                main.DriveNoCorrection(19-(2.625), MAINPWR, MAINPWR);//19 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection( 5  , MAINPWR, MAINPWR);//drive to center
+                main.DriveNoCorrection( 5-1.25  , MAINPWR, MAINPWR);//drive to center
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(4, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(4, MAINPWR, MAINPWR); //4 in
                 PlaceGlyph(true);
             }
 
@@ -161,76 +161,76 @@ public class A_Auto extends LinearOpMode {
 
 
         } else if (PROGRAM == 3){//BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM  BLUE AUTO BOTTOM
-            telemetry.addLine("BLUE BOTTOM");
-            telemetry.update();
+            //telemetry.addLine("BLUE BOTTOM");
+            //telemetry.update();
 
 
 
             //CODE BELOW
             String jewelColor = KnockOffJewl(false);//false if blue
-            telemetry.addData("Color Is", jewelColor);
-            telemetry.update();
+            //telemetry.addData("Color Is", jewelColor);
+            //telemetry.update();
             if (vuMark == RelicRecoveryVuMark.LEFT) {
-                main.DriveNoCorrection (-34.25, MAINPWR, MAINPWR);//Drive Forward 34.75 in
+                main.DriveNoCorrection (-34.25+(2.625), MAINPWR, MAINPWR);//Drive Forward 34.75 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5, 0.2, 0.2);
+                main.DriveNoCorrection(5+1.25, 0.2, 0.2); //5 in
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.CENTER) {
-                main.DriveNoCorrection (-41.75, MAINPWR, MAINPWR);//Drive Forward 42.75 in
+                main.DriveNoCorrection (-41.75+(2.625), MAINPWR, MAINPWR);//Drive Forward 42.75 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5, 0.2, 0.2);
+                main.DriveNoCorrection(5+1.25, 0.2, 0.2); //5 in
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                main.DriveNoCorrection (-49.25, MAINPWR, MAINPWR);//Drive Forward  in
+                main.DriveNoCorrection (-49.25+(2.625), MAINPWR, MAINPWR);//Drive Forward  in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5, 0.2, 0.2);
+                main.DriveNoCorrection(5+1.25, 0.2, 0.2); //5 in
                 PlaceGlyph(false);
             } else {
-                main.DriveNoCorrection (42.75, MAINPWR, MAINPWR);//Drive Forward to center pos
+                main.DriveNoCorrection (-41.75+(2.625), MAINPWR, MAINPWR);//Drive Forward to center pos
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5, 0.2, 0.2);
+                main.DriveNoCorrection(5+1.25, 0.2, 0.2); //5 in
                 PlaceGlyph(false);
             }
 
 
 
         } else if (PROGRAM == 4){//BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP  BLUE AUTO TOP
-            telemetry.addLine("BLUE TOP");
-            telemetry.update();
+            //telemetry.addLine("BLUE TOP");
+            //telemetry.update();
 
 
 
             //CODE BELOW
             String jewelColor = KnockOffJewl(false);//false if blue
-            telemetry.addData("Color Is", jewelColor);
-            telemetry.update();
+            //telemetry.addData("Color Is", jewelColor);
+            //telemetry.update();
             if (vuMark == RelicRecoveryVuMark.LEFT){
-                main.DriveNoCorrection( -31.75 , MAINPWR, MAINPWR);
+                main.DriveNoCorrection( -31.75+(2.625) , MAINPWR, MAINPWR); //-31.75 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(6.5  , MAINPWR, MAINPWR);//drive 6.5 in
+                main.DriveNoCorrection(6.5-1.25 , MAINPWR, MAINPWR);//drive 6.5 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(4, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(4, MAINPWR, MAINPWR); //4 in
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.CENTER){
-                main.DriveNoCorrection(-31.75 , MAINPWR, MAINPWR);
+                main.DriveNoCorrection(-31.75+(2.625) , MAINPWR, MAINPWR); //-31.75 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(14   , MAINPWR, MAINPWR);//drive 14 in
+                main.DriveNoCorrection(14-1.25   , MAINPWR, MAINPWR);//drive 14 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(4, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(4, MAINPWR, MAINPWR); //4 in
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.RIGHT){
-                main.DriveNoCorrection(-31.75 , MAINPWR, MAINPWR);
+                main.DriveNoCorrection(-31.75+(2.625) , MAINPWR, MAINPWR);//-31.75 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(21.5  , MAINPWR, MAINPWR); //drive 21 inches
+                main.DriveNoCorrection(21.5-1.25  , MAINPWR, MAINPWR); //drive 21 inches
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(3, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(3, MAINPWR, MAINPWR); //3 in
                 PlaceGlyph(false);
             } else{
-                main.DriveNoCorrection(-31.75  , MAINPWR, MAINPWR);
+                main.DriveNoCorrection(-31.75+(2.625)  , MAINPWR, MAINPWR);//-31.75 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(14  , MAINPWR, MAINPWR);//drive to center
+                main.DriveNoCorrection(14-1.25  , MAINPWR, MAINPWR);//drive to center
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(4, MAINPWR, MAINPWR);
+                main.DriveNoCorrection(4, MAINPWR, MAINPWR); //4 in
                 PlaceGlyph(false);
             }
 
@@ -241,11 +241,33 @@ public class A_Auto extends LinearOpMode {
         }
         sleep(10000);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }// METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS
     public String KnockOffJewl(boolean red) {
         String color;
-        main.moveArm(120, 0.1);
-        sleep(500);
+        main.moveArm(-120, 0.1);//120, 0.1
+        sleep(1000);
         if ((main.ColorSensor.red() > main.ColorSensor.blue())){
             color = "RED";
         } else if ((main.ColorSensor.red() < main.ColorSensor.blue())){
@@ -282,7 +304,7 @@ public class A_Auto extends LinearOpMode {
                 //UNKNOWN
             }
         }
-        main.moveArm(-130, -0.1);//used to be 120
+        main.moveArm(130, 0.1);//-130, 0.1
         return color;
     }
 
