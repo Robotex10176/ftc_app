@@ -76,7 +76,7 @@ public class A_Main
         RelicClaw = hwMap.servo.get("RC");
         RelicClaw.setPosition(0.5);
         moveFlick = hwMap.servo.get("Jewel");
-        moveFlick.setPosition(0.5);
+        moveFlick.setPosition(0.4);
         RightClaw = hwMap.servo.get("RightClaw");
         LeftClaw = hwMap.servo.get("LeftClaw");
         //RightClaw.setPosition(1);
@@ -148,19 +148,20 @@ public class A_Main
             }
         }
     }
-    public void SeeOurColor (){
+    public void DontSeeOurColor (){
         moveFlick.setPosition(0);
     }
-    public void DontSeeOurColor (){
-        moveFlick.setPosition(1);
-    }
+    public void SeeOurColor (){ moveFlick.setPosition(1); }//I just changed them when we changed the arm.
     public void JewelServoReturn (double KNOW_THAT_YOU_HAVE_TO_SLEEP_BEFORE_THIS){
-        moveFlick.setPosition(0.5);
+        moveFlick.setPosition(0.4);
     }
 
     //Drive A_Main
 
-    public void DriveNoCorrection (double DesiredDistance, double RightPower, double LeftPower){
+    public void DriveNoCorrection (double DesiredDistance, double Power){
+        if (DesiredDistance < 10){
+            Power = Math.min(Power, 0.4);
+        }
         int newLeftTarget;
         int newRightTarget;
         final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
@@ -174,12 +175,9 @@ public class A_Main
             rightDrive.setTargetPosition(newRightTarget);
             leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            leftDrive.setPower(Math.abs(LeftPower));
-            rightDrive.setPower(Math.abs(RightPower));
-            while (A && (leftDrive.isBusy() && rightDrive.isBusy())) {
-// DO NOTHING BECUZ THIS IS DUMB
-
-            }
+            leftDrive.setPower(Math.abs(Power));
+            rightDrive.setPower(Math.abs(Power));
+            while (A && (leftDrive.isBusy() && rightDrive.isBusy())) {}
             rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             rightDrive.setPower(0);

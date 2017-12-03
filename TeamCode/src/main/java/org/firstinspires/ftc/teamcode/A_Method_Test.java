@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -10,81 +11,52 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
 
 @Autonomous(name = "METHOD TEST")
+@Disabled
 public class A_Method_Test extends LinearOpMode {
     A_Main robot = new A_Main();
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, true);
         waitForStart();
+        double pwr = 0.2;
         //Testing Methods Below
+        DriveNoCorrection(3, pwr);
+        sleep(10000);
+        DriveNoCorrection(6, pwr);
+        sleep(10000);
+        DriveNoCorrection(9, pwr);
+        sleep(10000);
+        DriveNoCorrection(12, pwr);
+        sleep(10000);
+        DriveNoCorrection(15, pwr);
+        sleep(10000);
+        DriveNoCorrection(18, pwr);
+        sleep(10000);
+        DriveNoCorrection(21, pwr);
+        sleep(10000);
+        DriveNoCorrection(24, pwr);
+        sleep(10000);
+        DriveNoCorrection(27, pwr);
+        sleep(10000);
+        DriveNoCorrection(30, pwr);
+        sleep(10000);
+        DriveNoCorrection(50, pwr);
+        sleep(10000);
 
-        //TurnTestSeries();
-        //DriveSeriesNC();
-        //DriveSeriesGC();
+
+
 
         telemetry.addLine("FINISHED");
         telemetry.update();
         sleep(1000000000);
         //.
-        //TODO - DriveGyroCorrection - get it to work
-        //TODO - TURNS - Specific amount
-        //TODO - Drive Distance to Work
-        //TODO - Update methods as we find these work
+
     }
 
 
 
 
     //Methods to turn, drive distance, etc.
-    public void TurnTestSeries (){
-        //Turns 90 degrees 4 times
-        SmartTurnLeft(90, 1);
-        telemetry.addLine("TURNED 90 DEGREES");
-        telemetry.update();
-        sleep(2000);
-        SmartTurnLeft(90, 1);
-        telemetry.addLine("TURNED 180 DEGREES");
-        telemetry.update();
-        sleep(2000);
-        SmartTurnLeft(90, 1);
-        telemetry.addLine("TURNED 270 DEGREES");
-        telemetry.update();
-        sleep(2000);
-        SmartTurnLeft(90, 1);
-        telemetry.addLine("TURNED 360 DEGREES");
-        telemetry.update();
-        sleep(2000);
-    }
-    public void DriveSeriesNC(){
-        int numOfRuns = 4;
-        double initialDis = 20.25;//Change these as needed
-        double disIncrease = 10.25;//u can use actual auto distances.
-        for (int i = 0; i < numOfRuns; i++){
-            telemetry.addData("Driving ", initialDis);
-            telemetry.update();
-            DriveNoCorrection(initialDis, 1, 1);//that power
-            telemetry.addLine("Drove");
-            telemetry.addLine("Move Me Back To Start");
-            telemetry.update();
-            sleep(20000);//20 secs
-            initialDis += 1.0;
-        }
-    }
-    public void DriveSeriesGC(){
-        int numOfRuns = 4;
-        double initialDis = 20.25;//Change these as needed
-        double disIncrease = 10.25;//u can use actual auto distances.
-        for (int i = 0; i < numOfRuns; i++){
-            telemetry.addData("Driving ", initialDis);
-            telemetry.update();
-            DriveGyroCorrection(initialDis, 1, 1);//that power
-            telemetry.addLine("Drove");
-            telemetry.addLine("Move Me Back To Start");
-            telemetry.update();
-            sleep(20000);//20 secs
-            initialDis += 1.0;
-        }
-    }
 
 
 
@@ -142,7 +114,72 @@ public class A_Method_Test extends LinearOpMode {
     public void JewelServoReturn (double KNOW_THAT_YOU_HAVE_TO_SLEEP_BEFORE_THIS){
         robot.moveFlick.setPosition(0.5);
     }
-    public void DriveNoCorrection (double DesiredDistance, double RightPower, double LeftPower){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void DriveNoCorrection (double DesiredDistance, double Power){
+        if (DesiredDistance < 10){
+            Power = Math.min(Power, 0.4);
+        }
+        int newLeftTarget;
+        int newRightTarget;
+        final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
+        final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared DOWN
+        final double WHEEL_DIAMETER_INCHES = 3.95;     // used to be 3.8125
+        final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
+        if (opModeIsActive()) {
+            newLeftTarget = robot.leftDrive.getCurrentPosition() + (int) (DesiredDistance * COUNTS_PER_INCH);
+            newRightTarget = robot.rightDrive.getCurrentPosition() + (int) (DesiredDistance * COUNTS_PER_INCH);
+            robot.leftDrive.setTargetPosition(newLeftTarget);
+            robot.rightDrive.setTargetPosition(newRightTarget);
+            robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.leftDrive.setPower(Math.abs(Power));
+            robot.rightDrive.setPower(Math.abs(Power));
+            while (opModeIsActive() && (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {}
+            robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightDrive.setPower(0);
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void DriveNoCorrectionDetection (double DesiredDistance, double RightPower, double LeftPower){
         int newLeftTarget;
         int newRightTarget;
         final double COUNTS_PER_MOTOR_REV = 1440;    // TETRIX MOTORS = 1440, andymark = 1120
@@ -165,8 +202,16 @@ public class A_Method_Test extends LinearOpMode {
             robot.leftDrive.setPower(0);
             robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //telemetry.addData("")
         }
     }
+
+
+
+
+
+
+
     public void DriveGyroCorrection(double DesiredDistance, double RightPower, double LeftPower){
         double dg10incrs = 0.01;
         double dg22incrs = 0.05;

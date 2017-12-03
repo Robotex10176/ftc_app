@@ -34,10 +34,10 @@ public class T_Glyph_Persision extends LinearOpMode {
             SetPos = Pos + Direction;
             if (SetPos > Ub){
                 Direction = -Direction;
-                robot.DriveNoCorrection(0.4, 0.1, 0.1);
+                robot.DriveNoCorrection(0.4,0.1);
             } else if (SetPos < Lb){
                 Direction = -Direction;
-                robot.DriveNoCorrection(0.4, 0.1, 0.1);
+                robot.DriveNoCorrection(0.4,  0.1);
             }
             SetPos = Pos + Direction;
             robot.MoveSensor.setPosition(SetPos);

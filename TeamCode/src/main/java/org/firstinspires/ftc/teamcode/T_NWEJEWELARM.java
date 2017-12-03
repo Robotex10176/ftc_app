@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Created by Eric D'Urso on 12/1/2017.
  */
 @TeleOp(name = "jewel")
+@Disabled
 public class T_NWEJEWELARM extends OpMode {
     A_Main robot = new A_Main();
     boolean A = true;

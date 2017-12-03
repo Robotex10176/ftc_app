@@ -4,29 +4,40 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+
 /**
  * Created by Eric D'Urso on 8/15/2017.
  * Eric Says Hi
  */
-@TeleOp (name = "COLOR_SENSOR_VALUE_TEST", group = "SENSOR_VALUE_TESTS")
-@Disabled
+@TeleOp (name = "Sensor Values")
+ 
 public class T_SENSOR_VALUE_TEST_COLOR extends OpMode {
-    private com.qualcomm.robotcore.hardware.ColorSensor ColorSensor;
-
+    A_Main robot = new A_Main();
     @Override
     public void init() {
-        ColorSensor = hardwareMap.colorSensor.get("ColorSensor");
+        robot.init(hardwareMap, true);
     }
 
     @Override
     public void loop() {
 
-        ColorSensor.enableLed(true);
-        telemetry.addData("red", ColorSensor.red());
-        telemetry.addData("green", ColorSensor.green());
-        telemetry.addData("blue", ColorSensor.blue());
-        telemetry.addData("rgb", ColorSensor.argb());//hue?
-        telemetry.addData("ALPHA?", ColorSensor.alpha());//alpha = brightness
+        robot.ColorSensor.enableLed(true);
+        telemetry.addData("red", robot.ColorSensor.red());
+        telemetry.addData("green", robot.ColorSensor.green());
+        telemetry.addData("blue", robot.ColorSensor.blue());
+        telemetry.addData("rgb", robot.ColorSensor.argb());//hue?
+        telemetry.addData("ALPHA?", robot.ColorSensor.alpha());//alpha = brightness
+        robot.GlyphSensor.enableLed(true);
+        telemetry.addData("red", robot.GlyphSensor.red());
+        telemetry.addData("green", robot.GlyphSensor.green());
+        telemetry.addData("blue", robot.GlyphSensor.blue());
+        telemetry.addData("rgb", robot.GlyphSensor.argb());//hue?
+        telemetry.addData("ALPHA?", robot.GlyphSensor.alpha());//alpha = brightness
+        telemetry.addData("Gyro Heading", robot.gyro.getAngularOrientation(AxesReference.INTRINSIC,
+                AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
 
 
     }
