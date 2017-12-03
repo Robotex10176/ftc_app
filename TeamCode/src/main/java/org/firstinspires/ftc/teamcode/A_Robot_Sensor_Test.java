@@ -8,13 +8,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
-/**
- * Created by Eric D'Urso on 8/15/2017.
- * Eric Says Hi
- */
-@TeleOp (name = "Sensor Values")
- 
-public class T_SENSOR_VALUE_TEST_COLOR extends OpMode {
+@TeleOp (name = "Robot Sensor Value Tests")
+//@Disabled
+public class A_Robot_Sensor_Test extends OpMode {
     A_Main robot = new A_Main();
     @Override
     public void init() {

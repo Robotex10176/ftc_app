@@ -28,22 +28,12 @@ public class A_Auto extends LinearOpMode {
     double MAINPWR = 0.50;
     @Override
     public void runOpMode() throws InterruptedException {
-        main.init(hardwareMap, true); //True means this is an autonomous
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();//leave parameters blank to not display on phone, fill with cameraMonitorViewId to view on phone
-        parameters.vuforiaLicenseKey = "AV6yugj/////AAAAGTOHqL6RDUmVgo0jZreKdLgqXGK+wd8vPtaDUOeepBzJahj4mF1oh/urYHvdw40evwj26RACNoqaxJWb1nS9RCaPjg25pDCZJJgFNSmtPHBU+f5AN1Y7ZJbJjNOAg8XvkX99ixa/gD/9HO9Es11cXjv0GkJof4M3ynaDqrh8S18dT5XT8QReygM64YyWkrsqjWI5H7WqZkuBDCSfmq0MVQiQrF9LChxd3/dTjChBJvcD8Rud19FEvu5IXq/Xem4KpPtuWDQAH0gWKJve8AzlcQLomY2nKtjbpcrZLpVjwtoo+C8NCCL5ng14uRCI8eriEg3OFD6v4ZNSZmbZIcUqAuX4YtFQG3t1RL0MT+3fWsBf";
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;//change to back to switch camera used
-        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-        VuforiaTrackable relicTemplate = relicTrackables.get(0);
-        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
         telemetry.addLine("SELECT AUTONOMOUS PROGRAM");
         telemetry.addLine("B is Red Auto Bottom");
         telemetry.addLine("Y is Red Auto Top");
         telemetry.addLine("A is Blue Auto Bottom");
         telemetry.addLine("X is Blue Auto Top");
         telemetry.update();
-
         while (!PROGRAMSELECTED){
             if(gamepad2.b){// program 1
                 PROGRAM = 1;
@@ -61,7 +51,15 @@ public class A_Auto extends LinearOpMode {
 
             }
         }
-
+        main.init(hardwareMap, true); //True means this is an autonomous
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();//leave parameters blank to not display on phone, fill with cameraMonitorViewId to view on phone
+        parameters.vuforiaLicenseKey = "AV6yugj/////AAAAGTOHqL6RDUmVgo0jZreKdLgqXGK+wd8vPtaDUOeepBzJahj4mF1oh/urYHvdw40evwj26RACNoqaxJWb1nS9RCaPjg25pDCZJJgFNSmtPHBU+f5AN1Y7ZJbJjNOAg8XvkX99ixa/gD/9HO9Es11cXjv0GkJof4M3ynaDqrh8S18dT5XT8QReygM64YyWkrsqjWI5H7WqZkuBDCSfmq0MVQiQrF9LChxd3/dTjChBJvcD8Rud19FEvu5IXq/Xem4KpPtuWDQAH0gWKJve8AzlcQLomY2nKtjbpcrZLpVjwtoo+C8NCCL5ng14uRCI8eriEg3OFD6v4ZNSZmbZIcUqAuX4YtFQG3t1RL0MT+3fWsBf";
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;//change to back to switch camera used
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
         telemetry.addLine("Press Play to start");
         telemetry.update();
         waitForStart();// CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW
@@ -266,26 +264,30 @@ public class A_Auto extends LinearOpMode {
     }// METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS  METHODS AFTER THIS
     public String KnockOffJewl(boolean red) {
         String color;
-        main.moveArm(-120, 0.1);//120, 0.1
-        sleep(1000);
+        main.moveArm(-150, 0.1);
+        sleep(750);//used to be 1000 (1 s)
         if ((main.ColorSensor.red() > main.ColorSensor.blue())){
             color = "RED";
         } else if ((main.ColorSensor.red() < main.ColorSensor.blue())){
             color = "BLUE";
         } else {
             color = "UNKNOWN";
+            getClose2Ball();
+            if ((main.ColorSensor.red() > main.ColorSensor.blue())){
+                color = "RED";
+            } else if ((main.ColorSensor.red() < main.ColorSensor.blue())){
+                color = "BLUE";
+            } else {
+                color = "UNKNOWN";
+            }
         }
         if (red) {
             if (color.compareTo("RED") == 0){
                 main.SeeOurColor();
                 sleep(200);
-                main.JewelServoReturn(1);
-                sleep(100);
             } else if (color.compareTo("BLUE") == 0){
                 main.DontSeeOurColor();
                 sleep(200);
-                main.JewelServoReturn(1);
-                sleep(100);
             } else {
                 //UNKNOWN
             }
@@ -293,19 +295,30 @@ public class A_Auto extends LinearOpMode {
             if (color.compareTo("RED") == 0){
                 main.DontSeeOurColor();
                 sleep(200);
-                main.JewelServoReturn(1);
-                sleep(100);
             } else if (color.compareTo("BLUE") == 0){
                 main.SeeOurColor();
                 sleep(200);
-                main.JewelServoReturn(1);
-                sleep(100);
             } else {
                 //UNKNOWN
             }
         }
-        main.moveArm(100, 0.1);//-130, 0.1
+        main.JewelServoReturn(1);
+        sleep(100);
+        main.moveArm(140, 0.1);
         return color;
+
+    }
+    public void getClose2Ball (){
+        double pos = main.moveFlick.getPosition();
+        double inc = 0.005;
+        double setPos;
+        double rbAvg = ((main.ColorSensor.red()+main.ColorSensor.blue())/2.0);
+        while ((rbAvg < 7.0) && (pos < 0.6)){//rbAvg used to b 5
+            pos = main.moveFlick.getPosition();
+            setPos = pos + inc;
+            main.moveFlick.setPosition(setPos);
+            sleep(50);//might need to change
+        }
     }
 
     public void PlaceGlyph (boolean red){

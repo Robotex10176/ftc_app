@@ -76,7 +76,7 @@ public class A_Main
         RelicClaw = hwMap.servo.get("RC");
         RelicClaw.setPosition(0.5);
         moveFlick = hwMap.servo.get("Jewel");
-        moveFlick.setPosition(0.4);
+        moveFlick.setPosition(0.45);
         RightClaw = hwMap.servo.get("RightClaw");
         LeftClaw = hwMap.servo.get("LeftClaw");
         //RightClaw.setPosition(1);
@@ -146,15 +146,15 @@ public class A_Main
             while (A && (arm.isBusy())) {
 
             }
+            arm.setPower(0);
         }
     }
-    public void DontSeeOurColor (){
-        moveFlick.setPosition(0);
-    }
-    public void SeeOurColor (){ moveFlick.setPosition(1); }//I just changed them when we changed the arm.
+    public void SeeOurColor (){ moveFlick.setPosition(0); }
+    public void DontSeeOurColor (){ moveFlick.setPosition(1); }//I just changed them when we changed the arm.
     public void JewelServoReturn (double KNOW_THAT_YOU_HAVE_TO_SLEEP_BEFORE_THIS){
-        moveFlick.setPosition(0.4);
+        moveFlick.setPosition(0.45);
     }
+
 
     //Drive A_Main
 
