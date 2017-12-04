@@ -25,7 +25,7 @@ public class A_Auto extends LinearOpMode {
     VuforiaLocalizer vuforia;
     boolean PROGRAMSELECTED = false;
     int PROGRAM = 0;
-    double MAINPWR = 0.50;
+    double MAINPWR = 0.50;//0.50
     @Override
     public void runOpMode() throws InterruptedException {
         telemetry.addLine("SELECT AUTONOMOUS PROGRAM");
@@ -51,6 +51,8 @@ public class A_Auto extends LinearOpMode {
 
             }
         }
+        telemetry.addLine("Initializing . . . ");
+        telemetry.update();
         main.init(hardwareMap, true); //True means this is an autonomous
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();//leave parameters blank to not display on phone, fill with cameraMonitorViewId to view on phone
@@ -126,32 +128,36 @@ public class A_Auto extends LinearOpMode {
            // telemetry.addData("Color Is", jewelColor);
             //telemetry.update();
             if (vuMark == RelicRecoveryVuMark.RIGHT){
-                main.DriveNoCorrection( 19-(2.625),  MAINPWR); //19 in
-                main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection( 7-1.25  ,  MAINPWR);//drive 7 inches
-                main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(4,  MAINPWR); //4 in
+                main.DriveNoCorrection(6, 0.25);
+                main.DriveNoCorrection( 18,  MAINPWR); //19 in
+                main.SmartTurnLeft(85, MAINPWR);
+                main.DriveNoCorrection( 6  ,  MAINPWR);//drive 7 inches
+                main.SmartTurnRight(85, MAINPWR);
+                main.DriveNoCorrection(5,  MAINPWR); //4 in
                 PlaceGlyph(true);
             } else if (vuMark == RelicRecoveryVuMark.CENTER){
-                main.DriveNoCorrection(19-(2.625),  MAINPWR); //19 in
-                main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection( 14.5-1.25  ,  MAINPWR);//drive 14.5 in
-                main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(4, MAINPWR); //4 in
+                main.DriveNoCorrection(6, 0.25);
+                main.DriveNoCorrection(18,  MAINPWR); //19 in
+                main.SmartTurnLeft(85, MAINPWR);
+                main.DriveNoCorrection( 14  ,  MAINPWR);//drive 14.5 in
+                main.SmartTurnRight(85, MAINPWR);
+                main.DriveNoCorrection(5, MAINPWR); //4 in
                 PlaceGlyph(true);
             } else if (vuMark == RelicRecoveryVuMark.LEFT){
-                main.DriveNoCorrection(19-(2.625),  MAINPWR);//19 in
-                main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(22-1.25,   MAINPWR);//drive 22 in
-                main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(4,  MAINPWR); //4 in
+                main.DriveNoCorrection(6, 0.25);
+                main.DriveNoCorrection(18,  MAINPWR);//19 in
+                main.SmartTurnLeft(85, MAINPWR);
+                main.DriveNoCorrection(21,   MAINPWR);//drive 22 in
+                main.SmartTurnRight(85, MAINPWR);
+                main.DriveNoCorrection(5,  MAINPWR); //4 in
                 PlaceGlyph(true);
             } else{
-                main.DriveNoCorrection(19-(2.625),  MAINPWR);//19 in
-                main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection( 5-1.25  ,  MAINPWR);//drive to center
-                main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(4,  MAINPWR); //4 in
+                main.DriveNoCorrection(6, 0.25);
+                main.DriveNoCorrection(18,  MAINPWR);//19 in
+                main.SmartTurnLeft(85, MAINPWR);
+                main.DriveNoCorrection( 11  ,  MAINPWR);//drive to center
+                main.SmartTurnRight(85, MAINPWR);
+                main.DriveNoCorrection(5,  MAINPWR); //4 in
                 PlaceGlyph(true);
             }
 
@@ -382,8 +388,9 @@ public class A_Auto extends LinearOpMode {
 
 
         double CurrentPos = main.MoveSensor.getPosition();
+        main.MoveSensor.setPosition(1);
         main.MMS.setPosition(0.1);//retract arm and place
-        double WheelsToEndOfArmDis = 6;
+        double WheelsToEndOfArmDis = 6-1.25;
         double AngularDisplacement = 0.5 - CurrentPos;
         double InchesAway;
         double TurnAmount;//Degrees

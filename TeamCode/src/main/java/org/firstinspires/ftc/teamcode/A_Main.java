@@ -169,6 +169,8 @@ public class A_Main
         final double WHEEL_DIAMETER_INCHES = 3.95;     // used to be 3.8125
         final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
         if (A) {
+            //float CurrentOrientation = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+            //float OrigionalOrientation = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
             newLeftTarget = leftDrive.getCurrentPosition() + (int) (DesiredDistance * COUNTS_PER_INCH);
             newRightTarget = rightDrive.getCurrentPosition() + (int) (DesiredDistance * COUNTS_PER_INCH);
             leftDrive.setTargetPosition(newLeftTarget);
@@ -177,11 +179,20 @@ public class A_Main
             rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             leftDrive.setPower(Math.abs(Power));
             rightDrive.setPower(Math.abs(Power));
-            while (A && (leftDrive.isBusy() && rightDrive.isBusy())) {}
+            while ((leftDrive.isBusy() || rightDrive.isBusy())){
+            //while ((leftDrive.isBusy() || rightDrive.isBusy()) && (Math.abs(CurrentOrientation-OrigionalOrientation)<10.0) ) {
+                //CurrentOrientation = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+                //if (rightDrive.getCurrentPosition()> newRightTarget){
+                //    rightDrive.setPower(0);
+                //}
+                //if (leftDrive.getCurrentPosition() > newLeftTarget){
+                //    leftDrive.setPower(0);
+                //}
+            }//&&
+            leftDrive.setPower(0);
+            rightDrive.setPower(0);
             rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightDrive.setPower(0);
-            leftDrive.setPower(0);
             rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }

@@ -20,28 +20,16 @@ public class A_Method_Test extends LinearOpMode {
         waitForStart();
         double pwr = 0.2;
         //Testing Methods Below
-        DriveNoCorrection(3, pwr);
-        sleep(10000);
-        DriveNoCorrection(6, pwr);
-        sleep(10000);
-        DriveNoCorrection(9, pwr);
-        sleep(10000);
-        DriveNoCorrection(12, pwr);
-        sleep(10000);
-        DriveNoCorrection(15, pwr);
-        sleep(10000);
-        DriveNoCorrection(18, pwr);
-        sleep(10000);
-        DriveNoCorrection(21, pwr);
-        sleep(10000);
-        DriveNoCorrection(24, pwr);
-        sleep(10000);
-        DriveNoCorrection(27, pwr);
-        sleep(10000);
-        DriveNoCorrection(30, pwr);
-        sleep(10000);
-        DriveNoCorrection(50, pwr);
-        sleep(10000);
+
+        SmartTurnLeft(86, 0.5);
+        sleep(1000);
+        SmartTurnLeft(86, 0.5);
+        sleep(1000);
+        SmartTurnLeft(86, 0.5);
+        sleep(1000);
+        SmartTurnLeft(86, 0.5);
+        sleep(1000);
+
 
 
 
