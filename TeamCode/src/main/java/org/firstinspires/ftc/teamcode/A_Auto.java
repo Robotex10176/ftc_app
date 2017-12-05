@@ -131,25 +131,25 @@ public class A_Auto extends LinearOpMode {
                 main.DriveNoCorrection(6, 0.25);
                 main.DriveNoCorrection( 18,  MAINPWR); //19 in
                 main.SmartTurnLeft(85, MAINPWR);
-                main.DriveNoCorrection( 6  ,  MAINPWR);//drive 7 inches
+                main.DriveNoCorrection( 7  ,  MAINPWR);//drive 7 inches
                 main.SmartTurnRight(85, MAINPWR);
-                main.DriveNoCorrection(5,  MAINPWR); //4 in
+                main.DriveNoCorrection(3,  MAINPWR); //4 in
                 PlaceGlyph(true);
             } else if (vuMark == RelicRecoveryVuMark.CENTER){
                 main.DriveNoCorrection(6, 0.25);
                 main.DriveNoCorrection(18,  MAINPWR); //19 in
                 main.SmartTurnLeft(85, MAINPWR);
-                main.DriveNoCorrection( 14  ,  MAINPWR);//drive 14.5 in
+                main.DriveNoCorrection( 16.5  ,  MAINPWR);//drive 14.5 in
                 main.SmartTurnRight(85, MAINPWR);
-                main.DriveNoCorrection(5, MAINPWR); //4 in
+                main.DriveNoCorrection(3, MAINPWR); //4 in
                 PlaceGlyph(true);
             } else if (vuMark == RelicRecoveryVuMark.LEFT){
                 main.DriveNoCorrection(6, 0.25);
                 main.DriveNoCorrection(18,  MAINPWR);//19 in
                 main.SmartTurnLeft(85, MAINPWR);
-                main.DriveNoCorrection(21,   MAINPWR);//drive 22 in
+                main.DriveNoCorrection(24,   MAINPWR);//21 = newold//drive 22 new old
                 main.SmartTurnRight(85, MAINPWR);
-                main.DriveNoCorrection(5,  MAINPWR); //4 in
+                main.DriveNoCorrection(3,  MAINPWR); //4 in
                 PlaceGlyph(true);
             } else{
                 main.DriveNoCorrection(6, 0.25);
@@ -157,7 +157,7 @@ public class A_Auto extends LinearOpMode {
                 main.SmartTurnLeft(85, MAINPWR);
                 main.DriveNoCorrection( 11  ,  MAINPWR);//drive to center
                 main.SmartTurnRight(85, MAINPWR);
-                main.DriveNoCorrection(5,  MAINPWR); //4 in
+                main.DriveNoCorrection(3,  MAINPWR); //4 in
                 PlaceGlyph(true);
             }
 
@@ -319,11 +319,12 @@ public class A_Auto extends LinearOpMode {
         double inc = 0.005;
         double setPos;
         double rbAvg = ((main.ColorSensor.red()+main.ColorSensor.blue())/2.0);
-        while ((rbAvg < 7.0) && (pos < 0.6)){//rbAvg used to b 5
+        while ((rbAvg < 4.0) && (pos < 0.56)){//rbAvg used to b 5, 7, 4
             pos = main.moveFlick.getPosition();
             setPos = pos + inc;
             main.moveFlick.setPosition(setPos);
-            sleep(50);//might need to change
+            sleep(75);//might need to change
+            rbAvg = ((main.ColorSensor.red()+main.ColorSensor.blue())/2.0);
         }
     }
 
@@ -390,7 +391,7 @@ public class A_Auto extends LinearOpMode {
         double CurrentPos = main.MoveSensor.getPosition();
         main.MoveSensor.setPosition(1);
         main.MMS.setPosition(0.1);//retract arm and place
-        double WheelsToEndOfArmDis = 6-1.25;
+        double WheelsToEndOfArmDis = 6.00-1.125;//1.25
         double AngularDisplacement = 0.5 - CurrentPos;
         double InchesAway;
         double TurnAmount;//Degrees
@@ -404,9 +405,9 @@ public class A_Auto extends LinearOpMode {
             //Used below to turn
             main.DriveNoCorrection(1.75,  0.2);
             if (TurnAmount > 0.0){
-                main.SmartTurnRightD(TurnAmount, 0.15);
+                main.SmartTurnRightD(TurnAmount, 0.25);
             } else {
-                main.SmartTurnLeftD(TurnAmount, 0.15);
+                main.SmartTurnLeftD(TurnAmount, 0.25);//0.15 == old
             }
         }
         // drive forward, Open, reverse, and park in zone

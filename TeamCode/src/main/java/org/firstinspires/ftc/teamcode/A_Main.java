@@ -180,6 +180,9 @@ public class A_Main
             leftDrive.setPower(Math.abs(Power));
             rightDrive.setPower(Math.abs(Power));
             while ((leftDrive.isBusy() || rightDrive.isBusy())){
+
+                leftDrive.setPower(Math.abs(Power));
+                rightDrive.setPower(Math.abs(Power));
             //while ((leftDrive.isBusy() || rightDrive.isBusy()) && (Math.abs(CurrentOrientation-OrigionalOrientation)<10.0) ) {
                 //CurrentOrientation = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
                 //if (rightDrive.getCurrentPosition()> newRightTarget){
@@ -260,17 +263,18 @@ public class A_Main
         targetAngle = targetAngle - 180;
         float as;
         as = AngularSeparation(zAngle, targetAngle);
-        while (as > 1.0){
+        while (as > 1.0){//1.0
             as = AngularSeparation(zAngle, targetAngle);
-            if(as < 10) {
-                leftDrive.setPower(0.2 * Power);
-                rightDrive.setPower(-0.2 * Power);
-            } else if (as < 40){
-                leftDrive.setPower(0.5 * Power);
-                rightDrive.setPower(-0.5 * Power);
+            if(as < 15) {
+                leftDrive.setPower(Math.max(0.2 * Power, 0.1));
+                rightDrive.setPower(-Math.max(0.2 * Power, 0.1));
+
+            } else if (as < 45){
+                leftDrive.setPower(Math.max(0.5 * Power, 0.1));
+                rightDrive.setPower(-Math.max(0.5 * Power, 0.1));
             }else {
-                leftDrive.setPower(Power);
-                rightDrive.setPower(-Power);
+                leftDrive.setPower(Math.max(Power, 0.1));
+                rightDrive.setPower(-Math.max(Power, 0.1));
             }
             zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC,
                     AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
@@ -293,15 +297,15 @@ public class A_Main
         as = AngularSeparation(zAngle, targetAngle);
         while (as > 1.0){
             as = AngularSeparation(zAngle, targetAngle);
-            if(as < 10) {
-                leftDrive.setPower(-0.2 * Power);
-                rightDrive.setPower(0.2 * Power);
-            } else if (as < 40){
-                leftDrive.setPower(-0.5 * Power);
-                rightDrive.setPower(0.5 * Power);
+            if(as < 15) {
+                leftDrive.setPower(-Math.max(0.2 * Power, 0.1));
+                rightDrive.setPower(Math.max(0.2 * Power, 0.1));
+            } else if (as < 45){
+                leftDrive.setPower(-Math.max(0.5 * Power, 0.1));
+                rightDrive.setPower(Math.max(0.5 * Power, 0.1));
             }else {
-                leftDrive.setPower(-Power);
-                rightDrive.setPower(Power);
+                leftDrive.setPower(-Math.max(Power, 0.1));
+                rightDrive.setPower(Math.max(Power, 0.1));
             }
             zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC,
                     AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;

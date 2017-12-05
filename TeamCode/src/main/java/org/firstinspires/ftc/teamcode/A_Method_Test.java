@@ -21,13 +21,13 @@ public class A_Method_Test extends LinearOpMode {
         double pwr = 0.2;
         //Testing Methods Below
 
-        SmartTurnLeft(86, 0.5);
+        SmartTurnLeft(86, 0.15);
         sleep(1000);
-        SmartTurnLeft(86, 0.5);
+        SmartTurnLeft(86, 0.15);
         sleep(1000);
-        SmartTurnLeft(86, 0.5);
+        SmartTurnLeft(86, 0.15);
         sleep(1000);
-        SmartTurnLeft(86, 0.5);
+        SmartTurnLeft(86, 0.15);
         sleep(1000);
 
 
