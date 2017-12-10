@@ -264,7 +264,7 @@ public class A_Main
         float as;
         as = AngularSeparation(zAngle, targetAngle);
         while (as > 1.0){//1.0
-            as = AngularSeparation(zAngle, targetAngle);
+
             if(as < 15) {
                 leftDrive.setPower(Math.max(0.2 * Power, 0.1));
                 rightDrive.setPower(-Math.max(0.2 * Power, 0.1));
@@ -278,6 +278,7 @@ public class A_Main
             }
             zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC,
                     AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+            as = AngularSeparation(zAngle, targetAngle);
         }
         leftDrive.setPower(0);
         rightDrive.setPower(0);
@@ -296,7 +297,7 @@ public class A_Main
         float as;
         as = AngularSeparation(zAngle, targetAngle);
         while (as > 1.0){
-            as = AngularSeparation(zAngle, targetAngle);
+
             if(as < 15) {
                 leftDrive.setPower(-Math.max(0.2 * Power, 0.1));
                 rightDrive.setPower(Math.max(0.2 * Power, 0.1));
@@ -309,6 +310,7 @@ public class A_Main
             }
             zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC,
                     AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+            as = AngularSeparation(zAngle, targetAngle);
         }
         leftDrive.setPower(0);
         rightDrive.setPower(0);

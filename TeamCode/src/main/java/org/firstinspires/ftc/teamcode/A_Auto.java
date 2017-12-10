@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -12,13 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-
 import static java.lang.Math.atan2;
-
-/**
- * Created by Eric D'Urso on 10/24/2017.
- * This is the only autonomous program
- */
 @Autonomous (name = "Autonomous")
 public class A_Auto extends LinearOpMode {
     A_Main main = new A_Main();
@@ -47,9 +39,7 @@ public class A_Auto extends LinearOpMode {
             } else if (gamepad2.x){//program 4
                 PROGRAM = 4;
                 PROGRAMSELECTED = true;
-            } else {
-
-            }
+            } else {}
         }
         telemetry.addLine("Initializing . . . ");
         telemetry.update();
@@ -65,7 +55,6 @@ public class A_Auto extends LinearOpMode {
         telemetry.addLine("Press Play to start");
         telemetry.update();
         waitForStart();// CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW  CODE BELOW
-
         double zAngle = main.gyro.getAngularOrientation(AxesReference.INTRINSIC,
                 AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         //telemetry.addData("0 deg heading", zAngle);
@@ -79,10 +68,9 @@ public class A_Auto extends LinearOpMode {
         main.timer.reset();
         while (main.timer.seconds() < 3 && vuMark == RelicRecoveryVuMark.UNKNOWN) {vuMark = RelicRecoveryVuMark.from(relicTemplate);telemetry.addData("VuMark", "not visible");telemetry.update();idle();}
         if (vuMark != RelicRecoveryVuMark.UNKNOWN) {telemetry.addData("VuMark", "%s visible", vuMark);} else {telemetry.addData("VuMark", "not visible");}telemetry.update();
+
+
         //Done raising Block and VuMark
-
-
-
         if (PROGRAM == 1){ //RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM  RED AUTO BOTTOM
             //telemetry.addLine("RED BOTTOM");
             //telemetry.update();
@@ -94,24 +82,28 @@ public class A_Auto extends LinearOpMode {
             //telemetry.addData("Color Is", jewelColor);
             //telemetry.update();
             if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                main.DriveNoCorrection (21.5-(2.625), MAINPWR);//Drive Forward 21.5 in
+                main.DriveNoCorrection(6, 0.25);
+                main.DriveNoCorrection (14, MAINPWR);//Drive Forward 21.5 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5+1.25,  MAINPWR); //5 in
-                PlaceGlyph(true);
+                main.DriveNoCorrection(8,  MAINPWR); //5 in
+                PlaceGlyph(true);                                               //miiror offset is 15 in more
             } else if (vuMark == RelicRecoveryVuMark.CENTER) {
-                main.DriveNoCorrection (29-(2.625), MAINPWR);//Drive Forward 29 in
+                main.DriveNoCorrection(6, 0.25);
+                main.DriveNoCorrection (23, MAINPWR);//Drive Forward 29 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5+1.25, MAINPWR); //5 in
+                main.DriveNoCorrection(7 , MAINPWR); //5 in
                 PlaceGlyph(true);
             } else if (vuMark == RelicRecoveryVuMark.LEFT) {
-                main.DriveNoCorrection (36.5-(2.625),  MAINPWR);//Drive Forward 36.5 in
+                main.DriveNoCorrection(6, 0.25);
+                main.DriveNoCorrection (31,  MAINPWR);//Drive Forward 36.5 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5+1.25,  MAINPWR); //5 in
+                main.DriveNoCorrection(5,  MAINPWR); //5 in
                 PlaceGlyph(true);
             } else {
-                main.DriveNoCorrection (29-(2.625), MAINPWR);//Drive Forward 29 in to center
+                main.DriveNoCorrection(6, 0.25);
+                main.DriveNoCorrection (23, MAINPWR);//Drive Forward 29 in to center
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5+1.25,  MAINPWR); //5 in
+                main.DriveNoCorrection(7,  MAINPWR); //5 in
                 PlaceGlyph(true);
             }
 
@@ -155,7 +147,7 @@ public class A_Auto extends LinearOpMode {
                 main.DriveNoCorrection(6, 0.25);
                 main.DriveNoCorrection(18,  MAINPWR);//19 in
                 main.SmartTurnLeft(85, MAINPWR);
-                main.DriveNoCorrection( 11  ,  MAINPWR);//drive to center
+                main.DriveNoCorrection( 16.5  ,  MAINPWR);//drive to center
                 main.SmartTurnRight(85, MAINPWR);
                 main.DriveNoCorrection(3,  MAINPWR); //4 in
                 PlaceGlyph(true);
@@ -175,24 +167,28 @@ public class A_Auto extends LinearOpMode {
             //telemetry.addData("Color Is", jewelColor);
             //telemetry.update();
             if (vuMark == RelicRecoveryVuMark.LEFT) {
-                main.DriveNoCorrection (-34.25+(2.625),  MAINPWR);//Drive Forward 34.75 in
+                main.DriveNoCorrection(-20, 0.25);
+                main.DriveNoCorrection (-12.50,  0.8);//Drive Forward 34.75 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5+1.25,  0.2); //5 in
+                main.DriveNoCorrection(6,  0.2); //5 in
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.CENTER) {
-                main.DriveNoCorrection (-41.75+(2.625), MAINPWR);//Drive Forward 42.75 in
+                main.DriveNoCorrection(-20, 0.25);
+                main.DriveNoCorrection (-20, 0.8);//Drive Forward 42.75 in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5+1.25,  0.2); //5 in
+                main.DriveNoCorrection(5,  0.2); //5 in
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                main.DriveNoCorrection (-49.25+(2.625), MAINPWR);//Drive Forward  in
+                main.DriveNoCorrection(-20, 0.25);
+                main.DriveNoCorrection (-27.50, 0.8);    //Drive Forward  in
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5+1.25,  0.2); //5 in
+                main.DriveNoCorrection(5,  0.2); //5 in
                 PlaceGlyph(false);
             } else {
-                main.DriveNoCorrection (-41.75+(2.625),  MAINPWR);//Drive Forward to center pos
+                main.DriveNoCorrection(-20, 0.25);
+                main.DriveNoCorrection (-20,  0.8);//Drive Forward to center pos
                 main.SmartTurnRight(87, MAINPWR);
-                main.DriveNoCorrection(5+1.25,  0.2); //5 in
+                main.DriveNoCorrection(7,  0.2); //5 in
                 PlaceGlyph(false);
             }
 
@@ -209,32 +205,36 @@ public class A_Auto extends LinearOpMode {
             //telemetry.addData("Color Is", jewelColor);
             //telemetry.update();
             if (vuMark == RelicRecoveryVuMark.LEFT){
-                main.DriveNoCorrection( -31.75+(2.625) ,  MAINPWR); //-31.75 in
+                main.DriveNoCorrection(-20, 0.25);
+                main.DriveNoCorrection (-9,  MAINPWR);//Drive Forward 34.75 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(6.5-1.25 , MAINPWR);//drive 6.5 in
+                main.DriveNoCorrection(9, MAINPWR);//drive 6.5 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(4, MAINPWR); //4 in
+                main.DriveNoCorrection(5, MAINPWR); //4 in
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.CENTER){
-                main.DriveNoCorrection(-31.75+(2.625) , MAINPWR); //-31.75 in
+                main.DriveNoCorrection(-20, 0.25);
+                main.DriveNoCorrection (-9,  MAINPWR);//Drive Forward 34.75 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(14-1.25   ,  MAINPWR);//drive 14 in
+                main.DriveNoCorrection(17.5   ,  MAINPWR);//drive 14 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(4,  MAINPWR); //4 in
+                main.DriveNoCorrection(5,  MAINPWR); //4 in
                 PlaceGlyph(false);
             } else if (vuMark == RelicRecoveryVuMark.RIGHT){
-                main.DriveNoCorrection(-31.75+(2.625) ,  MAINPWR);//-31.75 in
+                main.DriveNoCorrection(-20, 0.25);
+                main.DriveNoCorrection (-9,  MAINPWR);//Drive Forward 34.75 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(21.5-1.25  , MAINPWR); //drive 21 inches
+                main.DriveNoCorrection(25  , MAINPWR); //drive 21 inches
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(3, MAINPWR); //3 in
+                main.DriveNoCorrection(4, MAINPWR); //3 in
                 PlaceGlyph(false);
             } else{
-                main.DriveNoCorrection(-31.75+(2.625)  ,  MAINPWR);//-31.75 in
+                main.DriveNoCorrection(-20, 0.25);
+                main.DriveNoCorrection (-9,  MAINPWR);//Drive Forward 34.75 in
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(14-1.25  , MAINPWR);//drive to center
+                main.DriveNoCorrection(17.5  , MAINPWR);//drive to center
                 main.SmartTurnLeft(87, MAINPWR);
-                main.DriveNoCorrection(4, MAINPWR); //4 in
+                main.DriveNoCorrection(5, MAINPWR); //4 in
                 PlaceGlyph(false);
             }
 
@@ -335,7 +335,7 @@ public class A_Auto extends LinearOpMode {
         double Lb = 0.20;
         double SetPos;
         double Pos;
-        main.MoveSensor.setPosition(0.5 * (Ub + Lb));
+        main.MoveSensor.setPosition(0.470 * (Ub + Lb));//0.5
         sleep(100);
         if (red) {
             while (main.GlyphSensor.red() < 10) {
@@ -389,25 +389,30 @@ public class A_Auto extends LinearOpMode {
 
 
         double CurrentPos = main.MoveSensor.getPosition();
+        telemetry.addData("Current Position is ", CurrentPos);
+        telemetry.update();
         main.MoveSensor.setPosition(1);
         main.MMS.setPosition(0.1);//retract arm and place
-        double WheelsToEndOfArmDis = 6.00-1.125;//1.25
+        double WheelsToEndOfArmDis = 4.60;//6.00-1.125;//10.0
         double AngularDisplacement = 0.5 - CurrentPos;
         double InchesAway;
-        double TurnAmount;//Degrees
+        float TurnAmount;//Degrees
         if (AngularDisplacement == 0){
             //Do nothing, skip to drive forward.
         } else {
             InchesAway = (-6.666*AngularDisplacement);
             telemetry.addData("Inches Away", InchesAway);
             telemetry.update();
-            TurnAmount = Math.toDegrees(atan2(InchesAway, WheelsToEndOfArmDis));
+            TurnAmount = (float) Math.toDegrees(atan2(InchesAway, WheelsToEndOfArmDis));
+            telemetry.addData("Turn Amount is ", TurnAmount);
+            telemetry.update();
             //Used below to turn
-            main.DriveNoCorrection(1.75,  0.2);
+            main.DriveNoCorrection(1.75,  0.2);/////////////////////////////////////////////////////////drive frwrd
             if (TurnAmount > 0.0){
-                main.SmartTurnRightD(TurnAmount, 0.25);
+                main.SmartTurnRight(  TurnAmount, 0.25);
             } else {
-                main.SmartTurnLeftD(TurnAmount, 0.25);//0.15 == old
+                TurnAmount = Math.abs(TurnAmount);
+                main.SmartTurnLeft( TurnAmount, 0.25);//0.15 == old
             }
         }
         // drive forward, Open, reverse, and park in zone

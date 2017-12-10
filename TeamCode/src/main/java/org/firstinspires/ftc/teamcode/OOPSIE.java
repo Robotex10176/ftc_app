@@ -112,10 +112,7 @@ public class OOPSIE extends LinearOpMode {
                         sleep(200);
                 }
 
-                telemetry.addData("Right Pos ", rightPos);
-                telemetry.addData("Left Pos ", leftPos);
-                telemetry.addData("Claw is Closed : ", closedClaw);
-                telemetry.update();
+
             }
             //actually move it below
             if (closedClaw){
@@ -123,6 +120,9 @@ public class OOPSIE extends LinearOpMode {
             } else {
                 main.OpenClaw();
             }
+            telemetry.addData("right power", main.rightDrive.getPower());
+            telemetry.addData("left power", main.leftDrive.getPower());
+            telemetry.update();
         }
     }
 }
